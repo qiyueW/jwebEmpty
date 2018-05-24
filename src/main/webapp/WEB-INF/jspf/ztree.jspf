@@ -1,0 +1,29 @@
+<%@page import="java.util.Date"%>
+<%@ page pageEncoding="UTF-8" %>
+<!--还需要jq-->
+<link rel="stylesheet" href="${path_home}/lib/ztree/css/zTreeStyle/zTreeStyle.css"  type="text/css" />  
+<script src="${path_home}/lib/ztree/js/jquery.ztree.all.min.js" type="text/javascript"></script>
+<script src="${path_home}/lib/ztree/my/myztree.js" type="text/javascript"></script>
+<script src="${path_home}/lib/ztree/my/treeCombox.js" type="text/javascript"></script>
+<!--调试用。可删除-->
+<!--<script src="${path_home}/lib/json2.js"></script>-->
+
+<script type="text/javascript">
+    function toCreateTree(divID, id, pid, name, url, checkenble, myonclick, expandall) {
+        var setting2 = {treeId: id,
+            check: {enable: checkenble},
+            async: {enable: true, type: "post", url: "${path_home}" + url},
+            data: {simpleData: {enable: true, idKey: id, pIdKey: pid, rootPId: "0"},
+                key: {name: name}},
+            callback: {
+                onClick: function (event, id, treeNode) {
+                    myonclick(event, id, treeNode);
+                },
+                onAsyncSuccess: function () {
+                    $.fn.zTree.getZTreeObj(divID).expandAll(expandall ? true : expandall);
+                }
+            }
+        }
+        $.fn.zTree.init($("#" + divID), setting2);
+    }
+</script>
