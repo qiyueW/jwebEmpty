@@ -4,10 +4,10 @@ import com.alibaba.fastjson.JSON;
 import configuration.Tool;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import plugins.easyui.EasyuiService;
 
 /**
  *
@@ -21,10 +21,11 @@ public class Tree<T> {
     final Class c;
     private Field fid = null, fpid = null, fname = null;
     Field[] fs;
+    private final List<T> mysaon = new ArrayList<>();
 
     public Tree(List<T> list, String id, String pid, String name) {
         this.allList = list;
-        if (null != list && list.size() > 0) {
+        if (list.size() > 0) {
             this.c = list.get(0).getClass();
             fs = c.getDeclaredFields();
             for (Field fobj : fs) {
@@ -39,7 +40,6 @@ public class Tree<T> {
             }
             this.topList = new ArrayList<>();
             iniTopFather();
-//            this.allList.removeAll(this.topList);
         } else {
             c = null;
             fs = null;
@@ -47,12 +47,13 @@ public class Tree<T> {
     }
 
     public String toTree() {
-        if (this.topList.size() == this.allList.size()) {
+        if (this.allList.isEmpty()) {
             return Tool.entityToJSON(topList);
         }
         StringBuilder sb = new StringBuilder();
         String json;
         boolean fist = true;
+
         for (T t : this.topList) {
             json = t.toString();
             if (fist) {
@@ -62,6 +63,8 @@ public class Tree<T> {
                 sb.append(",").append(json.substring(0, json.length() - 1));
             }
             findMyAllSon(t, sb);
+            this.allList.removeAll(mysaon);
+            this.mysaon.clear();
             sb.append("}");
         }
         return "[" + sb.toString() + "]";
@@ -72,6 +75,7 @@ public class Tree<T> {
         boolean fist = true;
         for (T t : this.allList) {
             if (getPID(t).equals(getID(tobj))) {
+                this.mysaon.add(t);
                 json = t.toString();
                 if (fist) {
                     sb.append(",\"children\":[").append(json.substring(0, json.length() - 1));
@@ -89,13 +93,25 @@ public class Tree<T> {
     }
 
     private void iniTopFather() {
-        String mpid;
+        String id;
+        next:
         for (T t : this.allList) {
-            mpid = getFieldValue(fpid, t);
-            if (null == mpid || mpid.isEmpty() || mpid.equals("0")) {
+            id = getFieldValue(fpid, t);
+            if (null == id || id.isEmpty() || id.equals("0")) {
                 this.topList.add(t);//表示顶层。
+            } else {
+                for (T t2 : this.allList) {
+                    id = getFieldValue(fid, t);//拿出自己的主键。
+                    if (id.equals(getFieldValue(fpid, t2))) {//如果自己的主键，是别人的父键。表示此节点不是顶节点。
+                        continue next;//结束查询。
+                    }
+                }
+                this.topList.add(t);
+
             }
         }
+
+        this.allList.removeAll(this.topList);
     }
 
     String getFieldValue(Field f, Object obj) {
