@@ -96,13 +96,12 @@ public class Tree<T> {
         String id;
         next:
         for (T t : this.allList) {
-            id = getFieldValue(fpid, t);
+            id = getFieldValue(fpid, t);//拿出自己的父键。
             if (null == id || id.isEmpty() || id.equals("0")) {
                 this.topList.add(t);//表示顶层。
             } else {
                 for (T t2 : this.allList) {
-                    id = getFieldValue(fid, t);//拿出自己的主键。
-                    if (id.equals(getFieldValue(fpid, t2))) {//如果自己的主键，是别人的父键。表示此节点不是顶节点。
+                    if (id.equals(getFieldValue(fid, t2))) {//如果自己的父键，是别人的主键。表示此节点不是顶节点。
                         continue next;//结束查询。
                     }
                 }
