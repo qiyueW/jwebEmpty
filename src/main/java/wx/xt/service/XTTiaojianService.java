@@ -223,8 +223,11 @@ final public class XTTiaojianService {
 //---------------------------------------交互区---------------------------------------
 
     public static String engineToSQLCondition(String json) {
+        if (null == json) {
+            return "";
+        }
         List<XTTiaojian1> list1 = JSON.parseArray(json.replace("（", "(").replace("）", ")").replace("'", ""), XTTiaojian1.class);
-        if (null == list1||list1.isEmpty()) {
+        if (null == list1 || list1.isEmpty()) {
             return "";
         }
         list1.get(0).setXt_tiaojian1_lianjiefu("");
