@@ -16,6 +16,16 @@ import java.util.logging.Logger;
 final public class Tool {
 
     /**
+     * 将字段串a,b,c 变成 字段串 'a','b','c'
+     *
+     * @param s 默认值为null或空，默认返回''
+     * @return String
+     */
+    public static final String replaceDToDDD(String s) {
+        return null == s || s.isEmpty() ? "''" : "'" + s.replace(",", "','") + "'";
+    }
+
+    /**
      * 将对象转成json格式的字符串
      *
      * @param <T>
@@ -47,6 +57,15 @@ final public class Tool {
         }
         SimpleDateFormat sf = new SimpleDateFormat(format);
         return sf.format(date);
+    }
+
+    public static boolean isNumeric(String str) {
+        for (int i = 0; i < str.length(); i++) {
+            if (!Character.isDigit(str.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public static <T> String doListDataToTreeData(List<T> list, String id, String pid, String name) {
@@ -85,6 +104,5 @@ final public class Tool {
         }
         return null;
     }
-
 
 }

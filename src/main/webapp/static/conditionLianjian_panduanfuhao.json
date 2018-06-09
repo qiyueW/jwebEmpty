@@ -1,0 +1,8 @@
+[{"tiaojian_panduan":"包含","tiaojian_panduanName":"包含"}
+    ,{"tiaojian_panduan":"左包含","tiaojian_panduanName":"左包含"}
+    ,{"tiaojian_panduan":"右包含","tiaojian_panduanName":"右包含"}
+    ,{"tiaojian_panduan":"等于","tiaojian_panduanName":"等于"}
+    ,{"tiaojian_panduan":"大于","tiaojian_panduanName":"大于"}
+    ,{"tiaojian_panduan":"小于","tiaojian_panduanName":"小于"}    
+    ,{"tiaojian_panduan":"IN","tiaojian_panduanName":"在什么之中"}
+]

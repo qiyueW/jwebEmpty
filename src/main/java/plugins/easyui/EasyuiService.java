@@ -4,8 +4,6 @@ import configuration.Tool;
 import java.util.List;
 import plugins.Tree;
 
-import plugins.easyui.vo.EasyuiPage;
-
 import system.web.JWeb;
 
 /**
@@ -44,16 +42,15 @@ final public class EasyuiService {
 
     }
 
-    /**
-     * 取得 easyui传来的分页数据
-     *
-     * @param jw
-     * @return EasyuiPage
-     */
-    final public static EasyuiPage getPage(JWeb jw) {
-        return new EasyuiPage(jw.getInt("page", 1), jw.getInt("rows", 10));
+    final public static EasyuiPage getPageAndOrderby(JWeb jw){
+        String sortname = jw.getString("sort","");
+        if (!sortname.isEmpty()) {
+            String sortorder = jw.request.getParameter("order");
+            sortname=" order by " + sortname + " " + (null == sortorder ? "ASC" : sortorder);
+        }
+        return new EasyuiPage(jw.getInt("page", 1), jw.getInt("rows", 10),sortname); 
     }
-
+    
     final public static String getOrderBy(JWeb jw) {
         String sortname = jw.request.getParameter("sort");
         if (null == sortname) {
