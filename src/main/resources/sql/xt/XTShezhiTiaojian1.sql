@@ -2,7 +2,7 @@ CREATE TABLE IF NOT EXISTS `XTShezhiTiaojian1`(
     `xt_shezhi_tiaojian1_zj` CHAR(24) NOT NULL  COMMENT '主键'
     ,`xt_shezhi_tiaojian_zj` CHAR(24) NOT NULL COMMENT '表头主键'
     ,`xt_shezhi_tiaojian1_mc` VARCHAR(20) NOT NULL COMMENT '条件名'
-    ,`xt_shezhi_tiaojian1_zhi` VARCHAR(20) NOT NULL COMMENT '条件值'
+    ,`xt_shezhi_tiaojian1_zhi` VARCHAR(200) NOT NULL COMMENT '条件值'
 
     ,PRIMARY KEY (`xt_shezhi_tiaojian1_zj`)
    ,KEY `xt_shezhi_tiaojian_zj` (`xt_shezhi_tiaojian_zj`)

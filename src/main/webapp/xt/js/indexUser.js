@@ -1,13 +1,13 @@
 function loadUserMainTree(divID) {
     //检出包结构  /*               
     var setting0 = {
-        treeId: "mypackage_id",
-        async: {enable: true, type: "post", url: path_home + "sys/user/manager/v/showMenu.jw"},
-        data: {simpleData: {enable: true, idKey: "power_id", pIdKey: "power_pid", rootPId: "0"}, key: {name: "power_name"}},
+        treeId: "xt_quanxian_zj",
+        async: {enable: true, type: "post", url: path_home + "xt/xtquanxian/select/json/menu1.jw"},
+        data: {simpleData: {enable: true, idKey: "xt_quanxian_zj", pIdKey: "xt_quanxian_fzj", rootPId: "0"}, key: {name: "xt_quanxian_mc"}},
         callback: {
-            onClick: function (event, id, treeNode) {//点击部门时，重新加载管理员树。参数为
-                if (treeNode.view_url) {
-                    addTab(treeNode.power_name, treeNode.view_url);
+            onClick: function (event, id, treeNode) {
+                if (treeNode.xt_quanxian_url) {
+                    addTab(treeNode.xt_quanxian_mc, treeNode.xt_quanxian_url);
                 }
             },
             onAsyncSuccess: function () {

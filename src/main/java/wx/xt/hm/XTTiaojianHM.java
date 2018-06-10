@@ -68,9 +68,6 @@ public class XTTiaojianHM {
             return;
         }
         XTTiaojian obj = XTTiaojianService.selectOne(id);
-//        if (!obj.getXt_tiaojian_zhidanren_zj().equals("会话中拿出人员信息")||!obj.getXt_tiaojian_gelibiaoshi().equals("会话中拿出人员信息中的隔离标识")) {
-//            return MsgVO.setError("无法删除别人的单据");
-//        }
         if (obj.getXt_tiaojian_zt() == BaseService.SHENHE) {
             jw.printOne(MsgVO.setError("无法删除公共单据"));
             return;

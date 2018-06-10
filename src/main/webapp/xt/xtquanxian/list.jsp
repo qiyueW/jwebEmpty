@@ -4,37 +4,43 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>维护部门管理</title>
-        <script type="text/javascript" src="${path_home}/static/js/bm/list.js"></script>
+        <title>维护系统权限</title>
+        <script type="text/javascript" src="${path_home}/xt/js/xtquanxian/list.js?id=<%=new Date()%>"></script>
         <%@include file="/WEB-INF/jspf/easyuiLocal.jspf"%>
         <%@include file="/WEB-INF/jspf/artDialog.jspf"%>
         <%@include file="/WEB-INF/jspf/ztree.jspf"%>
         <%@include file="/WEB-INF/jspf/GG.jspf"%>
         <script>
-            $(function (){
-                $('#dg').datagrid('hideColumn', 'bm_zj');
-                $('#dg').datagrid('hideColumn', 'bm_fzj');
-                $('#dg').datagrid('hideColumn', 'bm_fuzhiren_zj');
+            $(function () {
+                $('#dg').treegrid('hideColumn', 'xt_quanxian_zj');
+                $('#dg').treegrid('hideColumn', 'xt_quanxian_fzj');
             });
         </script>
     </head>
     <body class="easyui-layout">
         <table id="dg" class="easyui-treegrid" fit='true'
-               url="${path_home}/base/bm/select/grid.jw"
-               rownumbers="true" showFooter="true" toolbar="#tb"idField="bm_zj" treeField="bm_mc" >
+               data-options="
+               treeField:'xt_quanxian_mc',
+               idField:'xt_quanxian_zj',
+               rownumbers:true,
+               singleSelect:true,
+               showFooter:true,
+               toolbar:'#tb',
+               url:'${path_home}/xt/xtquanxian/select/grid.jw',
+               onContextMenu:f_gridMenu">
             <thead>
                 <tr>
-                    <th data-options="field:'ck',checkbox:true"></th>                    <th data-options="field:'bm_zj'">主键</th>
-                    <th data-options="field:'bm_fzj'">父键</th>
-                    <th data-options="field:'bm_mc',width:360"><div>名称</div></th>
-                       <th data-options="field:'bm_bianma',width:90"><div>编码</div></th>
-                       <th data-options="field:'bm_jianjie',width:90"><div>部门简介</div></th>
-                    <th data-options="field:'bm_tupian1',width:60,formatter:f_grid_img"><div>部门图片1</div></th>
-                    <th data-options="field:'bm_tupian2',width:60,formatter:f_grid_img"><div>部门图片2</div></th>
-                    <th data-options="field:'bm_chuangjianshijian',width:130"><div>部门创建时间</div></th>
-                    <th data-options="field:'bm_fuzhiren_zj'">部门负责人主键</th>
-                       <th data-options="field:'bm_fuzhiren',width:90"><div>部门负责人</div></th>
-                    <th data-options="field:'bm_zt',width:60,formatter:f_common_style"><div>部门状态</div></th>
+                    <th data-options="field:'ck',checkbox:true"></th>                    <th data-options="field:'xt_quanxian_zj'">主键</th>
+                    <th data-options="field:'xt_quanxian_fzj'">父键</th>
+                    <th data-options="field:'xt_quanxian_px',width:90"><div>排序</div></th>
+                    <th data-options="field:'xt_quanxian_mc',width:360"><div>名称</div></th>
+                    <th data-options="field:'xt_quanxian_dm',width:160"><div>权限代码</div></th>
+                    <th data-options="field:'xt_quanxian_url',width:190"><div>url</div></th>
+                    <th data-options="field:'xt_quanxian_keshi',width:40"><div>可视</div></th>
+                    <th data-options="field:'xt_quanxian_zhankai',width:40"><div>展开</div></th>
+                    <th data-options="field:'xt_quanxian_bz',width:130"><div>备注</div></th>
+                    <th data-options="field:'xt_quanxian_zt',width:60,formatter:f_common_style"><div>状态</div></th>
+                    <th data-options="field:'xt_quanxian_gelibiaoshi',width:90"><div>隔离标识</div></th>
                 </tr>
             </thead>
         </table>
@@ -68,5 +74,14 @@
              data-options="closable:false,closed:true,modal:true,maximized:true">
         </div> 
         <div id="gridShowIMG"></div>
+        <div id="menu" class="easyui-menu" style="width:150px;">
+            <div onclick="seeRow()">明细</div>
+            <div onclick="updateRow()">修改</div>
+            <div class="menu-sep"></div>
+            <div onclick="easyuiTreeGridReload('dg')">刷新</div>
+            <div class="menu-sep"></div>
+            <div onclick="update01()">审核</div>
+            <div onclick="update10()">反审核</div>
+        </div>
     </body>
 </html>

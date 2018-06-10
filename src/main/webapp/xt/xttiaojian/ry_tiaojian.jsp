@@ -37,7 +37,7 @@
     </head>
     <body class="easyui-layout">
 
-        <div data-options="region:'west',split:true,title:'查询方案列表'" style="width:250px;">
+        <div data-options="region:'west',split:true" style="width:250px;">
             <div id="divID_Tree_menu" class="ztree">查询方案列表</div>
         </div>
 
@@ -45,8 +45,6 @@
             <table id="dg" class="easyui-datagrid" fit='true'
                    data-options="
                    rownumbers:true,
-                   singleSelect:true,
-                   iconCls: 'icon-edit',
                    singleSelect: true,
                    toolbar:'#tb',
                    url:'${path_home}/xt/xttiaojian/select/selectOne/bodyGrid.jw',

@@ -8,13 +8,13 @@ var TIAOJIAN_PANDUAN =
             , {xt_tiaojian1_panduan: "LIKE%", xt_tiaojian1_panduan_mc: "左包含"}
             , {xt_tiaojian1_panduan: "%LIKE", xt_tiaojian1_panduan_mc: "右包含"}
             , {xt_tiaojian1_panduan: "=", xt_tiaojian1_panduan_mc: "等于"}
-            , {xt_tiaojian1_panduan: "<>", xt_tiaojian1_panduan_mc: "不等于"}
-            , {xt_tiaojian1_panduan: ">", xt_tiaojian1_panduan_mc: "大于"}
-            , {xt_tiaojian1_panduan: "<", xt_tiaojian1_panduan_mc: "小于"}
-            , {xt_tiaojian1_panduan: ">=", xt_tiaojian1_panduan_mc: "大于等于"}
-            , {xt_tiaojian1_panduan: "<=", xt_tiaojian1_panduan_mc: "小于等于"}
+            , {xt_tiaojian1_panduan: "{}", xt_tiaojian1_panduan_mc: "不等于"}
+            , {xt_tiaojian1_panduan: "}", xt_tiaojian1_panduan_mc: "大于"}
+            , {xt_tiaojian1_panduan: "{", xt_tiaojian1_panduan_mc: "小于"}
+            , {xt_tiaojian1_panduan: "}=", xt_tiaojian1_panduan_mc: "大于等于"}
+            , {xt_tiaojian1_panduan: "{=", xt_tiaojian1_panduan_mc: "小于等于"}
             , {xt_tiaojian1_panduan: "IN", xt_tiaojian1_panduan_mc: "在什么之中"}
         ]
-function gridFunctionToShowName(){
-    
+function f_panduanfu_ZY_DYH_XYH(str) {
+    return str ? str.replace(/}/g, ">").replace(/{/g, "<") : "";
 }

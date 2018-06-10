@@ -84,11 +84,11 @@ function getJsonByBody(obj, fh) {
             + '"xt_tiaojian1_zj":"' + toFormatZT(obj.xt_tiaojian1_zj) + '"' //主键
             + ',"xt_tiaojian_zj":"' + toFormatZT(obj.xt_tiaojian_zj) + '"' //表头主键
             + ',"xt_tiaojian1_kuohao":"' + toFormatZT(obj.xt_tiaojian1_kuohao) + '"' //括号区
-            + ',"xt_tiaojian1_lianjiefu":"' + toFormatZT(obj.xt_tiaojian1_lianjiefu) + '"' //接连符
+            + ',"xt_tiaojian1_lianjiefu":"' + obj.xt_tiaojian1_lianjiefu + '"' //接连符
             + ',"xt_tiaojian1_lianjiefu_mc":"' + toFormatZT(obj.xt_tiaojian1_lianjiefu_mc) + '"' //接连符展示名
             + ',"xt_shezhi_tiaojian1_mc":"' + toFormatZT(obj.xt_shezhi_tiaojian1_mc) + '"' //条件区展示名
             + ',"xt_shezhi_tiaojian1_zhi":"' + toFormatZT(obj.xt_shezhi_tiaojian1_zhi) + '"' //条件区值
-            + ',"xt_tiaojian1_panduan":"' + toFormatZT(obj.xt_tiaojian1_panduan) + '"' //判断区
+            + ',"xt_tiaojian1_panduan":"' + f_panduanfu_ZY_DYH_XYH(obj.xt_tiaojian1_panduan) + '"' //判断区
             + ',"xt_tiaojian1_panduan_mc":"' + toFormatZT(obj.xt_tiaojian1_panduan_mc) + '"' //判断区展示名
             + ',"xt_tiaojian1_zhi":"' + toFormatZT(obj.xt_tiaojian1_zhi) + '"' //条件值
     return str + "}";

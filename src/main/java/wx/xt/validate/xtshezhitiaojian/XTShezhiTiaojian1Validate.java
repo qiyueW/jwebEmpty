@@ -22,7 +22,7 @@ public class XTShezhiTiaojian1Validate extends ValidateModel {
                 .put("xt_shezhi_tiaojian1_zj","[1-9]{1}[0-9]{23}", "主键丢失", false)//主键
                 .put("xt_shezhi_tiaojian_zj","[1-9]{1}[0-9]{23}", "表头主键丢失", false)//表头主键
                 .put("xt_shezhi_tiaojian1_mc","[\\w\\W]{1,20}", "条件名:文本为空或长度超20字符", true)//条件名
-                .put("xt_shezhi_tiaojian1_zhi","[\\w\\W]{1,20}", "条件值:文本为空或长度超20字符", true)//条件值
+                .put("xt_shezhi_tiaojian1_zhi","[\\w\\W]{1,200}", "条件值:文本为空或长度超200字符", true)//条件值
 ;
     }
 

@@ -6,6 +6,7 @@
         <title>添加部门管理</title>
         <script type="text/javascript" src="${path_home}/static/js/bm/add.js"></script>
         <%@include file="/WEB-INF/jspf/easyuiLocal.jspf"%>
+        <%@include file="/WEB-INF/jspf/boostrap.jspf"%>
         <%@include file="/WEB-INF/jspf/artDialog.jspf"%>
         <%@include file="/WEB-INF/jspf/ztree.jspf"%>
         <%@include file="/WEB-INF/jspf/GG.jspf"%>

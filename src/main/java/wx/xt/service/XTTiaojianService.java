@@ -69,7 +69,7 @@ final public class XTTiaojianService {
      */
     public static List<XTTiaojian> selectByRy(String gelibiaoshi, String ry_zj, String mokuaizhi) {
         gelibiaoshi = null == gelibiaoshi || gelibiaoshi.isEmpty() ? "" : "xt_tiaojian_gelibiaoshi='" + gelibiaoshi + "' AND";
-        System.out.println("WHERE " + gelibiaoshi + " xt_shezhi_tiaojian_zhi='" + mokuaizhi + "' AND (xt_tiaojian_zt=" + BaseService.SHENHE + " OR xt_tiaojian_zhidanren_zj='" + ry_zj + "')");
+//        System.out.println("WHERE " + gelibiaoshi + " xt_shezhi_tiaojian_zhi='" + mokuaizhi + "' AND (xt_tiaojian_zt=" + BaseService.SHENHE + " OR xt_tiaojian_zhidanren_zj='" + ry_zj + "')");
         //审核状态或者自己添加的方案
         return DBO.service.S.selectByCondition(XTTiaojian.class,
                 //隔离标识+模块代码的条件下，找出人员自己的条件方案或公共方案
@@ -226,7 +226,9 @@ final public class XTTiaojianService {
         if (null == json) {
             return "";
         }
-        List<XTTiaojian1> list1 = JSON.parseArray(json.replace("（", "(").replace("）", ")").replace("'", ""), XTTiaojian1.class);
+        List<XTTiaojian1> list1 = JSON.parseArray(
+                json.replace("（", "(").replace("）", ")").replace("'", "")
+                , XTTiaojian1.class);
         if (null == list1 || list1.isEmpty()) {
             return "";
         }

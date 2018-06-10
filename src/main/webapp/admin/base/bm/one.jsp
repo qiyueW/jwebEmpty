@@ -5,6 +5,7 @@
     <head>
         <title>明细-部门管理</title>
         <%@include file="/WEB-INF/jspf/easyuiLocal.jspf"%>
+        <%@include file="/WEB-INF/jspf/boostrap.jspf"%>
         <%@include file="/WEB-INF/jspf/artDialog.jspf"%>
         <%@include file="/WEB-INF/jspf/ztree.jspf"%>
         <%@include file="/WEB-INF/jspf/GG.jspf"%>

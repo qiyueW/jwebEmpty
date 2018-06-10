@@ -25,11 +25,15 @@ final public class BMService {
     public static List<BM> select() {
         return DBO.service.S.select(BM.class);
     }
-
+    /**
+     * 检出树
+     *
+     * @param condition
+     * @return BM
+     */
     public static List<BM> select(String condition) {
         return DBO.service.S.selectByCondition(BM.class, condition);
     }
-
     /**
      * 检出一条记录
      *
@@ -50,8 +54,8 @@ final public class BMService {
     public static MsgVO addOne(BM obj) {
         obj.setBm_zt(0);
         obj.setBm_chuangjianshijian(new Date());
-        int i = DBO.service.A.addOne(obj, "bm_bianma");
-        if (i == -1) {
+        int i = DBO.service.A.addOne(obj,"bm_bianma");
+        if(i==-1){
             return MsgVO.setError("添加异常：请检查这些字段(编码)是否唯一");
         }
         return MsgVO.setAddRS(i);
@@ -65,7 +69,7 @@ final public class BMService {
      */
     public static MsgVO dellOne(String id) {
         BM cobj = selectOne(id);
-        if (null == cobj || null == cobj.getBm_zj() || cobj.getBm_zt() != BaseService.XINZENG) {
+        if (null == cobj||null==cobj.getBm_zj()||cobj.getBm_zt() != BaseService.XINZENG) {
             return MsgVO.setError("没找到该记录。请刷新后再尝试");
         }
         List<BM> list = select();
@@ -93,7 +97,7 @@ final public class BMService {
             return MsgVO.setError();
         }
         return MsgVO.setUpdateRS(DBO.service.U.updateSome_reject(obj,
-                //bm_zt,部门创建时间
+        //bm_zt,部门创建时间
                 "bm_zt,bm_chuangjianshijian"));
     }
 //---------------------------------------单据状态管理---------------------------------------
@@ -138,7 +142,6 @@ final public class BMService {
         return BaseService.updateStyle_unVoid(ids, "BM", "bm_zj", "bm_zt");
     }
 //---------------------------------------文件图片管理---------------------------------------
-
     /**
      * 上传图片
      *

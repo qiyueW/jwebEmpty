@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS `XTShezhiTiaojian`(
     `xt_shezhi_tiaojian_zj` CHAR(24) NOT NULL  COMMENT '主键'
     ,`xt_shezhi_tiaojian_mc` VARCHAR(20) NOT NULL COMMENT '展示名称'
-    ,`xt_shezhi_tiaojian_zhi` VARCHAR(20) NOT NULL COMMENT '使用值'
+    ,`xt_shezhi_tiaojian_zhi` VARCHAR(200) NOT NULL COMMENT '使用值'
     ,`xt_shezhi_tiaojian_bz` VARCHAR(200) NULL COMMENT '备注'
     ,`xt_shezhi_tiaojian_zt` INT NOT NULL COMMENT '单据状态管理'
 
