@@ -21,3 +21,19 @@ COMMENT='系统权限'
 COLLATE='utf8mb4_general_ci'
 ENGINE=InnoDB
 ;
+
+CREATE TABLE IF NOT EXISTS `XTJueseQuanxian`(
+    `xt_juesequanxian_zj` CHAR(24) NOT NULL  COMMENT '主键'
+    ,`xt_juese_zj` CHAR(24) NOT NULL COMMENT '角色主键'
+    ,`xt_juese_dm` VARCHAR(20) NOT NULL COMMENT '角色代码'
+    ,`xt_quanxian` TEXT NOT NULL COMMENT '权限集合'
+    ,`xt_zhidanren_zj` CHAR(24) NOT NULL COMMENT '制单人'
+
+    ,PRIMARY KEY (`xt_juesequanxian_zj`)
+   ,KEY `xt_juese_zj` (`xt_juese_zj`)
+   ,KEY `xt_zhidanren_zj` (`xt_zhidanren_zj`)
+)
+COMMENT='角色权限'
+COLLATE='utf8mb4_general_ci'
+ENGINE=InnoDB
+;

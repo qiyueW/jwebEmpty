@@ -46,7 +46,7 @@
                 <div class="row-fluid">
                     <div class="span12">
                         <a href="javascript:void(0)" class="btn btn-default btn-large" onclick="clearForm()">清空</a>
-                        <a href="javascript:void(0)" class="btn btn-primary btn-large" onclick="submitForm('BMFormID')">保存</a>
+                        <a href="javascript:void(0)" class="btn btn-primary btn-large" onclick="submitForm('XtQuanxianFormID')">保存</a>
                     </div>
                 </div>
                <div class="row-fluid">

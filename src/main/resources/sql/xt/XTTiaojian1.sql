@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS `XTTiaojian1`(
     ,`xt_tiaojian1_lianjiefu` VARCHAR(20) NULL COMMENT '接连符'
     ,`xt_tiaojian1_lianjiefu_mc` VARCHAR(20) NULL COMMENT '接连符展示名'
     ,`xt_shezhi_tiaojian1_mc` VARCHAR(20)  NULL COMMENT '条件区展示名'
-    ,`xt_shezhi_tiaojian1_zhi` VARCHAR(20)  NULL COMMENT '条件区值'
+    ,`xt_shezhi_tiaojian1_zhi` VARCHAR(200)  NULL COMMENT '条件区值'
     ,`xt_tiaojian1_panduan` VARCHAR(20)  NULL COMMENT '判断区'
     ,`xt_tiaojian1_panduan_mc` VARCHAR(20)  NULL COMMENT '判断区展示名'
     ,`xt_tiaojian1_zhi` VARCHAR(20) NULL COMMENT '条件值'

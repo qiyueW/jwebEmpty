@@ -47,7 +47,7 @@
         </div>
         <div data-options="region:'center'">
             <div data-options="border:false,fit:true" class="easyui-tabs" id="tt">
-                <div title="个人中心" data-options="href:'${path_home}/admin/iniView.jsp'"></div>
+                <!--<div title="个人中心" data-options="href:'${path_home}/admin/iniView.jsp'"></div>-->
             </div>
         </div>
 
