@@ -222,13 +222,33 @@ final public class XTTiaojianService {
     }
 //---------------------------------------交互区---------------------------------------
 
+    public static String openCondition_key(system.web.JWeb jw) {
+        String x = jw.getString("key", "");
+        if (x.isEmpty()) {
+            return "";
+        }
+        return wx.xt.service.XTTiaojianService.engineToSQLCondition(x);
+    }
+
+    public static String openConditionByReturnWhere_key(system.web.JWeb jw) {
+        String x = jw.getString("key", "");
+        if (x.isEmpty()) {
+            return "";
+        }
+        String condition = wx.xt.service.XTTiaojianService.engineToSQLCondition(x);
+        if (condition.length() > 0) {
+            condition = "WHERE " + condition;
+        }
+        return condition;
+    }
+
     public static String engineToSQLCondition(String json) {
         if (null == json) {
             return "";
         }
         List<XTTiaojian1> list1 = JSON.parseArray(
-                json.replace("（", "(").replace("）", ")").replace("'", "")
-                , XTTiaojian1.class);
+                json.replace("（", "(").replace("）", ")").replace("'", ""),
+                XTTiaojian1.class);
         if (null == list1 || list1.isEmpty()) {
             return "";
         }

@@ -34,14 +34,11 @@ function seeRowPower() {
     var treeObj = $.fn.zTree.getZTreeObj("divID_Tree_menu_XtQuanxian");
     treeObj.checkAllNodes(false);
     $.post(path_home + "xt/xtjuesequanxian/select/json.jw", {juese_zj: f_getJueseGrid_zj(rows)}, function (d) {
-        console.log(d);
         //重装上权限
         treeObj.expandAll(false);
         var rsdata =d.split(",");
-         console.log("1111")
         var mynode;
         for (var i = 0; i < rsdata.length; i++) {
-            console.log(rsdata[i])
             mynode = treeObj.getNodeByParam("xt_quanxian_dm", rsdata[i], null);//通过代码列，检出节点
             if (null != mynode) {//节点不为空，把节点设置为勾选状态
                 treeObj.checkNode(mynode, true, false);
