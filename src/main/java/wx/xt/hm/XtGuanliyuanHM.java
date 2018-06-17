@@ -5,12 +5,8 @@ import system.base.annotation.H;
 import system.base.annotation.M;
 import system.base.annotation.Validate;
 import system.web.JWeb;
-import configuration.MsgVO;
-import java.util.List;
-import configuration.WebConfigModel;
 import configuration.Tool;
 import plugins.easyui.EasyuiService;
-import java.util.Date;
 import wx.xt.bean.XtGuanliyuan;
 import wx.xt.service.XtGuanliyuanService;
 
@@ -102,7 +98,16 @@ public class XtGuanliyuanHM {
         jw.request.setAttribute("XtGuanliyuan", obj);
         jw.forward("/xt/xtguanliyuan/one.jsp");
     }
-
+    //@system.web.power.ann.SQ("xtguanliyuanS") 
+    @M("/select/selectOne/json")//查询权限
+    public void selectOneByJson() {
+        String id = jw.getString("id");
+        XtGuanliyuan obj = XtGuanliyuanService.selectOne(id);
+        if (null == obj.getXt_guanliyuan_zj()) {
+            return;
+        }
+        jw.printOne(obj.toString());
+    }
     //@system.web.power.ann.SQ("xtguanliyuanS")
     @M("/select/json")//针对表头的查询-返回json数据
     public static void selectJSON(JWeb jw) {

@@ -49,12 +49,11 @@
             <div id="divID_Tree_menu_BM" class="ztree">bean</div>
         </div>
         <div data-options="region:'center'" id='centerMain'>
-            <input type="hidden" id="bm_zj" name="bm_zj" value="">
-            <input type="hidden" id="bm_fzj" name="bm_fzj" value="">
-            <input type="hidden" id="bm_fuzhiren_zj" name="bm_fuzhiren_zj" value="">
-            <input type="hidden" id="bm_zt" name="bm_zt" value="0">
-
             <div class="container"  id="BMFormID">
+                <input type="hidden" id="bm_zj" name="bm_zj" value="">
+                <input type="hidden" id="bm_fzj" name="bm_fzj" value="">
+                <input type="hidden" id="bm_fuzhiren_zj" name="bm_fuzhiren_zj" value="">
+                <input type="hidden" id="bm_zt" name="bm_zt" value="0">                
                 <div class="row-fluid">
                     <div class="span12">
                         <a href="javascript:void(0)" class="btn btn-default btn-large" onclick="clearForm()">清空</a>

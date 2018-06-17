@@ -26,16 +26,13 @@ function ztree_getNodesValues(treeID, columnName, index_0_1_2) {
 function ztree_expandNotChoonse(treeID) {
     var obj = $.fn.zTree.getZTreeObj(treeID);//检出树
     var nodes = obj.getCheckedNodes(false);//所有未勾选的节点
-    var pnode;
+    var nodesOK = obj.getCheckedNodes(true);//所有未勾选的节点
+    for (var i = 0; i < nodesOK.length; i++) {
+        obj.expandNode(nodesOK[i], true, false, true);//执行展开
+    }
     for (var i = 0; i < nodes.length; i++) {
-        pnode = nodes[i].getParentNode();//未勾选节点的上级
-        if (null != pnode && pnode.checked) {//上级不为空，且是勾选状态
-            if (!pnode.open) {
-                obj.expandNode(pnode, true, false, true);//执行展开
-            }
-//            console.log(pnode.open);
-            
-
+        if (nodes[i].getCheckStatus().half || nodes[i].checked) {
+            obj.expandNode(nodes[i], true, false, true);//执行展开
         }
     }
 }

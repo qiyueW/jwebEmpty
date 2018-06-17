@@ -12,10 +12,11 @@ import wx.xt.bean.XtGuanliyuan;
  * @author wangchunzi
  */
 final public class XtGuanliyuanService {
+
     private static final String TABLE1 = "XtGuanliyuan";
     private static final String PK1 = "xt_guanliyuan_zj";
     private static final String STYLE1 = "xt_guanliyuan_zt";
-    
+
 //---------------------------------------查询---------------------------------------
     /**
      * 检出一条记录(表头)
@@ -49,8 +50,9 @@ final public class XtGuanliyuanService {
      */
     public static int selectCount(final String where) {
         return null == where || where.isEmpty() ? DBO.service.S.selectCount(XtGuanliyuan.class) : DBO.service.S.selectCountByCondition(XtGuanliyuan.class, where);
-    }    
+    }
 //---------------------------------------增删改--------------------------------------
+
     /**
      * 添加数据
      *
@@ -72,7 +74,7 @@ final public class XtGuanliyuanService {
      */
     public static MsgVO dellOne(String id) {
         XtGuanliyuan cobj = selectOne(id);
-        if (null == cobj||null==cobj.getXt_guanliyuan_zj()||cobj.getXt_guanliyuan_zt() != BaseService.XINZENG) {
+        if (null == cobj || null == cobj.getXt_guanliyuan_zj() || cobj.getXt_guanliyuan_zt() != BaseService.XINZENG) {
             return MsgVO.setError("没找到该记录。请刷新后再尝试");
         }
         int i = DBO.service.D.deleteOneByID_CheckToDeny(XtGuanliyuan.class, id, "xt_guanliyuan_zt<>0");
@@ -94,11 +96,31 @@ final public class XtGuanliyuanService {
             return MsgVO.setError();
         }
         return MsgVO.setUpdateRS(DBO.service.U.updateSome_reject(obj,
-        //xt_guanliyuan_zt,制单时间
-                "xt_guanliyuan_zt,xt_guanliyuan_zhidanshijian"));
+                //xt_guanliyuan_zt,制单时间
+                "xt_guanliyuan_zt,xt_guanliyuan_zhidanshijian,"
+                        + "xt_guanliyuan_zhanghao,xt_guanliyuan_quanxian"
+                        + ",xt_guanliyuan_bm,xt_guanliyuan_gelibiaoshi"));
     }
-//---------------------------------------单据状态管理---------------------------------------
 
+    public static MsgVO update_bm(XtGuanliyuan obj) {
+
+        if (selectOne(obj.getXt_guanliyuan_zj()).getXt_guanliyuan_zt() != BaseService.XINZENG) {
+            return MsgVO.setError("无法附部门范围：管理员已审核");
+        }
+        //设置权限
+        return MsgVO.setUpdateRS(DBO.service.U.updateSome_alloy(obj, "xt_guanliyuan_bm"));
+    }
+
+    public static MsgVO update_quanxian(XtGuanliyuan obj) {
+        
+        if (selectOne(obj.getXt_guanliyuan_zj()).getXt_guanliyuan_zt() != BaseService.XINZENG) {
+            return MsgVO.setError("无法附权限：管理员已审核");
+        }
+        //设置权限
+        return MsgVO.setUpdateRS(DBO.service.U.updateSome_alloy(obj, "xt_guanliyuan_quanxian"));
+    }
+
+//---------------------------------------单据状态管理---------------------------------------
     /**
      * 审核
      *
@@ -116,7 +138,7 @@ final public class XtGuanliyuanService {
      * @return
      */
     public static MsgVO updateStyle_unExamine(String ids) {
-        return BaseService.updateStyle_unExamine(ids,  TABLE1, PK1, STYLE1);
+        return BaseService.updateStyle_unExamine(ids, TABLE1, PK1, STYLE1);
     }
 
     /**
@@ -126,7 +148,7 @@ final public class XtGuanliyuanService {
      * @return
      */
     public static MsgVO updateStyle_void(String ids) {
-        return BaseService.updateStyle_void(ids,  TABLE1, PK1, STYLE1);
+        return BaseService.updateStyle_void(ids, TABLE1, PK1, STYLE1);
     }
 
     /**
