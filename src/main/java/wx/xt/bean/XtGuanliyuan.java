@@ -19,6 +19,7 @@ public class XtGuanliyuan {
     private  String xt_guanliyuan_gelibiaoshi ;// 隔离标识 
     @system.base.annotation.Time("yyyy-MM-dd HH:mm:ss")
     private  Date xt_guanliyuan_zhidanshijian ;// 制单时间
+    private  Integer xt_guanliyuan_jibie ;// 级别 
 
     @Override
     public String toString() {
@@ -33,7 +34,8 @@ public class XtGuanliyuan {
                 .append(",\"xt_guanliyuan_quanxian\":\"").append(xt_guanliyuan_quanxian).append("\"")
                 .append(",\"xt_guanliyuan_bm\":\"").append(xt_guanliyuan_bm).append("\"")
                 .append(",\"xt_guanliyuan_gelibiaoshi\":\"").append(xt_guanliyuan_gelibiaoshi).append("\"")
-                .append(",\"xt_guanliyuan_zhidanshijian\":\"").append(Tool.dateToString(this.xt_guanliyuan_zhidanshijian, "yyyy-MM-dd HH:mm:ss")).append("\"}")
+                .append(",\"xt_guanliyuan_zhidanshijian\":\"").append(Tool.dateToString(this.xt_guanliyuan_zhidanshijian, "yyyy-MM-dd HH:mm:ss")).append("\"")
+                .append(",\"xt_guanliyuan_jibie\":\"").append(xt_guanliyuan_jibie).append("\"}")
                 ;
         return sb.toString();
     }
@@ -224,5 +226,22 @@ public class XtGuanliyuan {
      */
     public Date getXt_guanliyuan_zhidanshijian() {
         return this.xt_guanliyuan_zhidanshijian;
+    }
+    /**
+     * 设置 级别
+     *
+     * @param xt_guanliyuan_jibie Integer
+     */
+    public void setXt_guanliyuan_jibie(Integer xt_guanliyuan_jibie) {
+        this.xt_guanliyuan_jibie=xt_guanliyuan_jibie;
+    }
+
+    /**
+     * 取得 级别
+     *
+     * @return Integer
+     */
+    public Integer getXt_guanliyuan_jibie() {
+        return this.xt_guanliyuan_jibie;
     }
 }

@@ -3,6 +3,7 @@ package wx.xt.service;
 import configuration.mvc.BaseService;
 import configuration.DBO;
 import configuration.MsgVO;
+import static configuration.mvc.BaseService.SHENHE;
 import java.util.List;
 import java.util.Date;
 import wx.xt.bean.XtGuanliyuan;
@@ -16,8 +17,28 @@ final public class XtGuanliyuanService {
     private static final String TABLE1 = "XtGuanliyuan";
     private static final String PK1 = "xt_guanliyuan_zj";
     private static final String STYLE1 = "xt_guanliyuan_zt";
+    public static final String GL_SUPERADMIN = "S";
 
+    static {
+        XtGuanliyuan u = DBO.service.S.selectOneByCondition(XtGuanliyuan.class, "WHERE  xt_guanliyuan_gelibiaoshi='" + GL_SUPERADMIN + "'");
+        if (null == u.getXt_guanliyuan_zj()) {
+            u.setXt_guanliyuan_bm(null);
+            u.setXt_guanliyuan_gelibiaoshi(GL_SUPERADMIN);
+            u.setXt_guanliyuan_mc("超级管理员");
+            u.setXt_guanliyuan_zhanghao("S");
+            u.setXt_guanliyuan_mima("S");
+            u.setXt_guanliyuan_jibie(1);
+            u.setXt_guanliyuan_quanxian("");
+            u.setXt_guanliyuan_bm("");
+            u.setXt_guanliyuan_youxiang("");
+            u.setXt_guanliyuan_zt(SHENHE);
+            u.setXt_guanliyuan_bz("");
+            u.setXt_guanliyuan_zhidanshijian(new Date());
+            DBO.service.A.addOne(u);
+        }
+    }
 //---------------------------------------查询---------------------------------------
+
     /**
      * 检出一条记录(表头)
      *
@@ -26,6 +47,25 @@ final public class XtGuanliyuanService {
      */
     public static XtGuanliyuan selectOne(String id) {
         return DBO.service.S.selectOneByID(XtGuanliyuan.class, id);
+    }
+
+    public static String[] myPower(final XtGuanliyuan obj) {
+        return null != obj.getXt_guanliyuan_quanxian() ? obj.getXt_guanliyuan_quanxian().split(",") : new String[]{};
+    }
+
+    /**
+     * 检出一条记录 已经审核的记录（登录专用）
+     *
+     * @param gelibiaoshi
+     * @param zhanghao
+     * @param mima
+     * @return
+     */
+    public static XtGuanliyuan selectOne(String gelibiaoshi, String zhanghao, String mima) {
+        return DBO.service.S.selectOneByCondition(XtGuanliyuan.class, "WHERE xt_guanliyuan_zt=" + SHENHE
+                + " AND xt_guanliyuan_gelibiaoshi='" + gelibiaoshi
+                + "' AND xt_guanliyuan_zhanghao='" + zhanghao
+                + "' AND xt_guanliyuan_mima='" + mima + "'");
     }
 
     /**
@@ -98,8 +138,8 @@ final public class XtGuanliyuanService {
         return MsgVO.setUpdateRS(DBO.service.U.updateSome_reject(obj,
                 //xt_guanliyuan_zt,制单时间
                 "xt_guanliyuan_zt,xt_guanliyuan_zhidanshijian,"
-                        + "xt_guanliyuan_zhanghao,xt_guanliyuan_quanxian"
-                        + ",xt_guanliyuan_bm,xt_guanliyuan_gelibiaoshi"));
+                + "xt_guanliyuan_zhanghao,xt_guanliyuan_quanxian"
+                + ",xt_guanliyuan_bm,xt_guanliyuan_gelibiaoshi"));
     }
 
     public static MsgVO update_bm(XtGuanliyuan obj) {
@@ -112,7 +152,7 @@ final public class XtGuanliyuanService {
     }
 
     public static MsgVO update_quanxian(XtGuanliyuan obj) {
-        
+
         if (selectOne(obj.getXt_guanliyuan_zj()).getXt_guanliyuan_zt() != BaseService.XINZENG) {
             return MsgVO.setError("无法附权限：管理员已审核");
         }

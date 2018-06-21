@@ -4,44 +4,39 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>维护系统权限</title>
-        <script type="text/javascript" src="${path_home}/xt/js/xtquanxian/list.js?id=<%=new Date()%>"></script>
+        <title>维护楼房分类</title>
+        <script type="text/javascript" src="${path_home}/static/js/loufangfl/list.js"></script>
         <%@include file="/WEB-INF/jspf/easyuiLocal.jspf"%>
         <%@include file="/WEB-INF/jspf/artDialog.jspf"%>
         <%@include file="/WEB-INF/jspf/ztree.jspf"%>
         <%@include file="/WEB-INF/jspf/GG.jspf"%>
         <script>
-            $(function () {
-                $('#dg').treegrid('hideColumn', 'xt_quanxian_zj');
-                $('#dg').treegrid('hideColumn', 'xt_quanxian_fzj');
+            $(function (){
+                $('#dg').treegrid('hideColumn', 'loufangfl_zj');
+                $('#dg').treegrid('hideColumn', 'loufangfl_fzj');
             });
         </script>
     </head>
     <body class="easyui-layout">
         <table id="dg" class="easyui-treegrid" fit='true'
                data-options="
-               treeField:'xt_quanxian_mc',
-               idField:'xt_quanxian_zj',
+               idField:'loufangfl_zj',
+               treeField:'loufangfl_mc',
                rownumbers:true,
                singleSelect:true,
                showFooter:true,
                toolbar:'#tb',
-               url:'${path_home}/xt/xtquanxian/select/grid.jw',
-               onContextMenu:f_gridMenu">
+               url:'${path_home}/base/loufangfl/select/grid.jw',
+               onContextMenu:f_gridMenu
+               ">
             <thead>
                 <tr>
-                    <th data-options="field:'ck',checkbox:true"></th>                    <th data-options="field:'xt_quanxian_zj'">主键</th>
-                    <th data-options="field:'xt_quanxian_fzj'">父键</th>
-                    <th data-options="field:'xt_quanxian_px',width:90"><div>排序</div></th>
-                    <th data-options="field:'xt_quanxian_mc',width:360"><div>名称</div></th>
-                    <th data-options="field:'xt_quanxian_dm',width:160"><div>权限代码</div></th>
-                    <th data-options="field:'xt_quanxian_url',width:190"><div>url</div></th>
-                    <th data-options="field:'xt_quanxian_keshi',width:40"><div>可视</div></th>
-                    <th data-options="field:'xt_quanxian_zhankai',width:40"><div>展开</div></th>
-                    <th data-options="field:'xt_quanxian_bz',width:130"><div>备注</div></th>
-                    <th data-options="field:'xt_quanxian_zt',width:60,formatter:f_common_style"><div>状态</div></th>
-                    <!--<th data-options="field:'xt_quanxian_gelibiaoshi',width:90"><div>隔离标识</div></th>-->
-                    <th data-options="field:'xt_quanxian_jibie',width:90"><div>级别</div></th>
+                    <th data-options="field:'ck',checkbox:true"></th>                       <th data-options="field:'loufangfl_px',width:90"><div>排序</div></th>
+                    <th data-options="field:'loufangfl_zj'">主键</th>
+                    <th data-options="field:'loufangfl_fzj'">父主键</th>
+                    <th data-options="field:'loufangfl_mc',width:360"><div>名称</div></th>
+                       <th data-options="field:'loufangfl_bz',width:90"><div>备注</div></th>
+                    <th data-options="field:'loufangfl_zt',width:60,formatter:f_common_style"><div>状态</div></th>
                 </tr>
             </thead>
         </table>

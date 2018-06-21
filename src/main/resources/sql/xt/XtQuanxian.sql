@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS `XtQuanxian`(
     ,`xt_quanxian_bz` VARCHAR(200) NULL COMMENT '备注'
     ,`xt_quanxian_zt` INT NOT NULL COMMENT '状态'
     ,`xt_quanxian_gelibiaoshi` VARCHAR(200) NULL COMMENT '隔离标识'
-
+    ,`xt_quanxian_jibie` INT NOT NULL COMMENT '级别'
     ,PRIMARY KEY (`xt_quanxian_zj`)
    ,KEY `xt_quanxian_fzj` (`xt_quanxian_fzj`)
    ,UNIQUE INDEX `xt_quanxian_dm` (`xt_quanxian_dm`)

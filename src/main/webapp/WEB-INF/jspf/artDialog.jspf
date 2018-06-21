@@ -1,6 +1,4 @@
 <%@ page pageEncoding="UTF-8" %>
-<!--还需要jq-->
-<!--<link  href="${path_home}/lib/artDialog/css/Aqua/css/ligerui-all.css" rel="stylesheet" type="text/css" />-->  
 <script src="${path_home}/lib/artDialog/js/dialog.js" type="text/javascript"></script> 
 <script src="${path_home}/lib/artDialog/js/dialog-plus.js" type="text/javascript"></script> 
 <style>
@@ -9,7 +7,6 @@
     }
 </style>
 <script>
-
     function aalert(content, title) {
         var d = dialog({
             title: title ? title : "提示",

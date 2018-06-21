@@ -1,5 +1,6 @@
-package wx.xt.hm;
+package wx.xt.hm.xtguanliyuan;
 
+import wx.xt.hm.*;
 import configuration.Page;
 import system.base.annotation.H;
 import system.base.annotation.M;
@@ -11,11 +12,11 @@ import wx.xt.bean.XtGuanliyuan;
 import wx.xt.service.XtGuanliyuanService;
 
 @H("/xt/xtguanliyuan")
-public class XtGuanliyuanHM {
+public class XtGuanliyuan1HM {
 
     JWeb jw;
 
-    public XtGuanliyuanHM(JWeb jw) {
+    public XtGuanliyuan1HM(JWeb jw) {
         this.jw = jw;
     }
 //===================添加操作=============================    
@@ -25,6 +26,7 @@ public class XtGuanliyuanHM {
     @Validate(wx.xt.validate.XtGuanliyuanValidate.class)
     public void add() {
         XtGuanliyuan obj = jw.getObject(XtGuanliyuan.class);
+        obj.setXt_guanliyuan_jibie(1);
         jw.printOne(XtGuanliyuanService.addOne(obj));
     }
 //===================删除操作=============================    

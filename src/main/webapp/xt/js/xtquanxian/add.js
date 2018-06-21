@@ -22,6 +22,7 @@ function submitForm(formid) {
                 data.xt_quanxian_bz = fzFormatZT($("#xt_quanxian_bz").val())//备注
                 data.xt_quanxian_zt = fzFormatZT($("#xt_quanxian_zt").val())//状态
                 data.xt_quanxian_gelibiaoshi = fzFormatZT($("#xt_quanxian_gelibiaoshi").val())//隔离标识
+                data.xt_quanxian_jibie = $("#xt_quanxian_jibie").val()//级别
                 easyuiAjax("/xt/xtquanxian/save.jw", data, "请确认保存操作", function () {
                     $.fn.zTree.getZTreeObj("divID_Tree_menu_XtQuanxian").reAsyncChildNodes(null, "refresh");
                 });
