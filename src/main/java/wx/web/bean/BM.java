@@ -6,7 +6,8 @@ import java.util.Date;
 @system.base.annotation.Table
 public class BM {
 
-    private  String bm_zj ;// 主键 
+    @system.base.annotation.ID
+    private  String bm_zj ;// 主键
     private  String bm_fzj ;// 父键 
     private  String bm_mc ;// 名称 
     private  String bm_bianma ;// 编码 
@@ -18,6 +19,7 @@ public class BM {
     private  String bm_fuzhiren_zj ;// 部门负责人主键 
     private  String bm_fuzhiren ;// 部门负责人 
     private  Integer bm_zt ;// 部门状态 
+    private  String bm_gelibiaoshi ;// 隔离标识 
 
     @Override
     public String toString() {
@@ -32,7 +34,8 @@ public class BM {
                 .append(",\"bm_chuangjianshijian\":\"").append(Tool.dateToString(this.bm_chuangjianshijian, "yyyy-MM-dd HH:mm:ss")).append("\"")
                 .append(",\"bm_fuzhiren_zj\":\"").append(bm_fuzhiren_zj).append("\"")
                 .append(",\"bm_fuzhiren\":\"").append(bm_fuzhiren).append("\"")
-                .append(",\"bm_zt\":\"").append(bm_zt).append("\"}")
+                .append(",\"bm_zt\":\"").append(bm_zt).append("\"")
+                .append(",\"bm_gelibiaoshi\":\"").append(bm_gelibiaoshi).append("\"}")
                 ;
         return sb.toString();
     }
@@ -223,5 +226,22 @@ public class BM {
      */
     public Integer getBm_zt() {
         return this.bm_zt;
+    }
+    /**
+     * 设置 隔离标识
+     *
+     * @param bm_gelibiaoshi String
+     */
+    public void setBm_gelibiaoshi(String bm_gelibiaoshi) {
+        this.bm_gelibiaoshi=bm_gelibiaoshi;
+    }
+
+    /**
+     * 取得 隔离标识
+     *
+     * @return String
+     */
+    public String getBm_gelibiaoshi() {
+        return this.bm_gelibiaoshi;
     }
 }

@@ -11,11 +11,11 @@
         <%@include file="/WEB-INF/jspf/artDialog.jspf"%>
         <%@include file="/WEB-INF/jspf/ztree.jspf"%>
         <%@include file="/WEB-INF/jspf/GG.jspf"%>
-        <script>
+<!--        <script>
             $(function () {
                 inido();
             });
-        </script>
+        </script>-->
         <style>
             .row-fluid{
                 margin: 10px;
@@ -62,7 +62,7 @@
                 <div class="row-fluid">
                     <div class="span12">
                         <span class="myname" >管理员密码</span>
-                        <input type="text"  value="${XtGuanliyuan.xt_guanliyuan_mima}" id="xt_guanliyuan_mima" name="xt_guanliyuan_mima" data-options="required:true" class="easyui-textbox"/>
+                        <input type="password"  value="${XtGuanliyuan.xt_guanliyuan_mima}" id="xt_guanliyuan_mima" name="xt_guanliyuan_mima" data-options="required:true" class="easyui-textbox"/>
                     </div>
                 </div>
                 <div class="row-fluid">

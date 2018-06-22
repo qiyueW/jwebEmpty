@@ -53,12 +53,12 @@
                             ${XtGuanliyuan.xt_guanliyuan_zhanghao}
                     </div>
                 </div>
-                <div class="row-fluid">
+<!--                <div class="row-fluid">
                     <div class="span12">
                             <span class="myname" >管理员密码</span>
                             ${XtGuanliyuan.xt_guanliyuan_mima}
                     </div>
-                </div>
+                </div>-->
                 <div class="row-fluid">
                     <div class="span12">
                             <span class="myname" >管理员邮箱</span>
@@ -71,7 +71,7 @@
                             ${XtGuanliyuan.xt_guanliyuan_bz}
                     </div>
                 </div>
-                <div class="row-fluid">
+<!--                <div class="row-fluid">
                     <div class="span12">
                             <span class="myname" >管理员权限集合</span>
                             <textarea rows=5 readonly="true" class="textarea easyui-validatebox" id="xt_guanliyuan_quanxian" name="xt_guanliyuan_quanxian" data-options="required:false">${XtGuanliyuan.xt_guanliyuan_quanxian}</textarea>
@@ -82,7 +82,7 @@
                             <span class="myname" >管理员部门集合</span>
                             <textarea rows=5 readonly="true" class="textarea easyui-validatebox" id="xt_guanliyuan_bm" name="xt_guanliyuan_bm" data-options="required:false">${XtGuanliyuan.xt_guanliyuan_bm}</textarea>
                     </div>
-                </div>                 
+                </div>                 -->
                 <div class="row-fluid">
                     <div class="span12">
                             <span class="myname" >隔离标识</span>

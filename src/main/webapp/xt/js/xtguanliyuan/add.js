@@ -22,8 +22,8 @@ function submitForm(formid) {
                 data.xt_guanliyuan_bm = fzFormatZT($("#xt_guanliyuan_bm").val())//管理员部门集合
                 data.xt_guanliyuan_gelibiaoshi = fzFormatZT($("#xt_guanliyuan_gelibiaoshi").val())//隔离标识
                 data.xt_guanliyuan_zhidanshijian = fzFormatZT($("#xt_guanliyuan_zhidanshijian").val())//制单时间
-                easyuiAjax("/xt/xtguanliyuan/save.jw", data, "请确认保存操作", function () {
-                    $.fn.zTree.getZTreeObj("divID_Tree_menu_XtGuanliyuan").reAsyncChildNodes(null, "refresh");
+                easyuiAjax("/xt/xtguanliyuan1/save.jw", data, "请确认保存操作", function () {
+//                    $.fn.zTree.getZTreeObj("divID_Tree_menu_XtGuanliyuan").reAsyncChildNodes(null, "refresh");
                 });
             }
 }

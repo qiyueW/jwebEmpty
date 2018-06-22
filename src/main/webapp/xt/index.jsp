@@ -10,9 +10,9 @@
         <%@include file="/WEB-INF/jspf/GG.jspf"%>
         <%@include file="/WEB-INF/jspf/artDialog.jspf"%>
         <%@include file="/WEB-INF/jspf/ztree.jspf"%>
-        <script src="${path_home}/xt/js/indexUser.js" type="text/javascript"></script>
+        <script src="${path_home}/xt/js/index.js" type="text/javascript"></script>
 
-        <title>您好</title>
+        <title>您好，欢迎您进入管理员后台</title>
         <script type="text/javascript">
             $(function () {
                 loadUserMainTree("divID_Tree_Main");

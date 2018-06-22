@@ -1,6 +1,5 @@
 package wx.xt.hm.xtguanliyuan;
 
-import wx.xt.hm.*;
 import configuration.Page;
 import system.base.annotation.H;
 import system.base.annotation.M;

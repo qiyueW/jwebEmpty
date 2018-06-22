@@ -26,7 +26,7 @@ public class XtQuanxianValidate extends ValidateModel {
                 .put("xt_quanxian_bz", "[\\w\\W]{0,200}", "备注:长度超200字符", false)//备注
                 .put("xt_quanxian_zt", "[0|1|2|3|4]{1}", "状态:请输入正整数。位数在1-1位之间", true)//状态
                 .put("xt_quanxian_gelibiaoshi", "[\\w\\W]{0,200}", "隔离标识:长度超200字符", false)//隔离标识
-                .put("xt_quanxian_jibie", "[0|1|2|3]{1}", "级别:请输入正整数。位数在1-1位之间", true)//级别
+                .put("xt_quanxian_jibie", "[0|1|2|3|4]{1}", "级别:请输入正整数。位数在1-1位之间", true)//级别
                 ;
     }
 

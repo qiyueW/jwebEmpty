@@ -54,12 +54,13 @@ function f_inidoLogin() {
                 }, 1100);
                 return;
             } else if (data.statusCode == '1') {
-                var url = path_home + "xt/index.jsp";
+                var url = path_home + "admin/index.jsp";
                 if ($('#sort').val() == "admin") {
                     url = path_home + "xt/index.jsp";
                 }
-                console.log(url);
                 window.location.href = url;
+            } else if (data.statusCode == '2') {
+                window.location.href = path_home + "xt/indexAdmin.jsp";
             }
         }, "json");
     });

@@ -41,6 +41,7 @@ function submitForm(formid) {
                 data.bm_fuzhiren_zj =fzFormatZT($("#bm_fuzhiren_zj").val())//部门负责人主键
                 data.bm_fuzhiren =fzFormatZT($("#bm_fuzhiren").val())//部门负责人
                 data.bm_zt =fzFormatZT($("#bm_zt").val())//部门状态
+                data.bm_gelibiaoshi =fzFormatZT($("#bm_gelibiaoshi").val())//隔离标识
                 easyuiAjax("/base/bm/update.jw", data, "请确认修改操作", function () {
                     $.fn.zTree.getZTreeObj("divID_Tree_menu_BM").reAsyncChildNodes(null, "refresh");
                 });

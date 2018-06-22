@@ -110,6 +110,8 @@
                             <option value="3">用户使用-3</option>
                             <option value="2">管理员使用-2</option>
                             <option value="1">超级管理专用-1</option>
+                            <option value="0">混合-所有管理员-0</option>
+                            <option value="4">混合-管理员与用户-4</option>
                         </select>
                     </div>
                 </div>

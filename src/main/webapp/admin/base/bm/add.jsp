@@ -45,6 +45,8 @@
         </style>  
     </head>
     <body class="easyui-layout">
+        <input type="hidden" id="bm_zt" name="bm_zt" value="0">
+        <input type="hidden"  id="bm_gelibiaoshi" name="bm_gelibiaoshi" value="111"/>
         <div data-options="region:'west',split:true,title:''" style="width:250px;padding:10px;">
             <div id="divID_Tree_menu_BM" class="ztree">bean</div>
         </div>
@@ -53,7 +55,6 @@
                 <input type="hidden" id="bm_zj" name="bm_zj" value="">
                 <input type="hidden" id="bm_fzj" name="bm_fzj" value="">
                 <input type="hidden" id="bm_fuzhiren_zj" name="bm_fuzhiren_zj" value="">
-                <input type="hidden" id="bm_zt" name="bm_zt" value="0">                
                 <div class="row-fluid">
                     <div class="span12">
                         <a href="javascript:void(0)" class="btn btn-default btn-large" onclick="clearForm()">清空</a>
@@ -114,5 +115,6 @@
                 </div>
             </div>
         </div>
+
     </body>
 </html>

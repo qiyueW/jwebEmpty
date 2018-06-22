@@ -229,7 +229,6 @@ final public class XTTiaojianService {
         }
         return wx.xt.service.XTTiaojianService.engineToSQLCondition(x);
     }
-
     public static String openConditionByReturnWhere_key(system.web.JWeb jw) {
         String x = jw.getString("key", "");
         if (x.isEmpty()) {
@@ -241,6 +240,37 @@ final public class XTTiaojianService {
         }
         return condition;
     }
+
+    public static String openConditionByReturnWhere_key(system.web.JWeb jw, String gelibiaoshiKey, String gelibiaoshiValue) {
+        String x = jw.getString("key", "");
+        String gelibiaoshi="WHERE " + gelibiaoshiKey + "='" + gelibiaoshiValue + "'";
+        if (x.isEmpty()) {
+            return gelibiaoshi;
+        }
+        String condition = wx.xt.service.XTTiaojianService.engineToSQLCondition(x);
+        if (condition.length() > 0) {
+            return gelibiaoshi+ " AND (" + condition + ")";
+        }
+        return gelibiaoshi;
+    }
+//
+//    public static String engineToSQLCondition(String json) {
+//        if (null == json) {
+//            return "";
+//        }
+//        List<XTTiaojian1> list1 = JSON.parseArray(
+//                json.replace("（", "(").replace("）", ")").replace("'", ""),
+//                XTTiaojian1.class);
+//        if (null == list1 || list1.isEmpty()) {
+//            return "";
+//        }
+//        list1.get(0).setXt_tiaojian1_lianjiefu("");
+//        StringBuilder sb = new StringBuilder();
+//        for (XTTiaojian1 obj : list1) {
+//            sb.append(toFormatOne(obj));
+//        }
+//        return sb.toString();
+//    }
 
     public static String engineToSQLCondition(String json) {
         if (null == json) {

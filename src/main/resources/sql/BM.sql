@@ -1,3 +1,4 @@
+drop table BM;
 CREATE TABLE IF NOT EXISTS `BM`(
     `bm_zj` CHAR(24) NOT NULL  COMMENT '主键'
     ,`bm_fzj` CHAR(24) NOT NULL COMMENT '父键'
@@ -10,12 +11,14 @@ CREATE TABLE IF NOT EXISTS `BM`(
     ,`bm_fuzhiren_zj` CHAR(24) NULL COMMENT '部门负责人主键'
     ,`bm_fuzhiren` VARCHAR(20) NULL COMMENT '部门负责人'
     ,`bm_zt` INT NOT NULL COMMENT '部门状态'
+    ,`bm_gelibiaoshi` VARCHAR(20) NOT NULL COMMENT '隔离标识'
 
     ,PRIMARY KEY (`bm_zj`)
    ,KEY `bm_fzj` (`bm_fzj`)
    ,UNIQUE INDEX `bm_bianma` (`bm_bianma`)
    ,KEY `bm_fuzhiren_zj` (`bm_fuzhiren_zj`)
    ,KEY `bm_zt` (`bm_zt`)
+   ,KEY `bm_gelibiaoshi` (`bm_gelibiaoshi`)
 )
 COMMENT='部门管理'
 COLLATE='utf8mb4_general_ci'

@@ -4,9 +4,10 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>添加部门管理</title>
+        <title>修改部门管理</title>
         <script type="text/javascript" src="${path_home}/static/js/bm/edit.js"></script>
         <%@include file="/WEB-INF/jspf/easyuiLocal.jspf"%>
+        <%@include file="/WEB-INF/jspf/boostrap.jspf"%>
         <%@include file="/WEB-INF/jspf/artDialog.jspf"%>
         <%@include file="/WEB-INF/jspf/ztree.jspf"%>
         <%@include file="/WEB-INF/jspf/GG.jspf"%>
@@ -42,7 +43,7 @@
                 width: 660px;
                 background-color: #ebfceb
             }
-        </style>
+        </style>  
     </head>
     <body class="easyui-layout">
         <div data-options="region:'west',split:true,title:'导航栏'" style="width:250px;padding:10px;">            <div id="divID_Tree_menu_BM" class="ztree">bean</div>
@@ -51,7 +52,7 @@
             <input type="hidden" id="bm_fzj" name="bm_fzj" value="${BM.bm_fzj}">
             <input type="hidden" id="bm_fuzhiren_zj" name="bm_fuzhiren_zj" value="${BM.bm_fuzhiren_zj}">
             <input type="hidden" id="bm_zt" name="bm_zt" value="${BM.bm_zt}">
-
+            <input type="hidden"  value="${BM.bm_gelibiaoshi}" id="bm_gelibiaoshi"/>
             <div class="container"  id="BMFormID">
                 <div class="row-fluid">
                     <div class="span12">
@@ -75,7 +76,7 @@
                 <div class="row-fluid">
                     <div class="span12">
                         <span class="myname" >编码</span>
-                        <input type="text"  value="${BM.bm_bianma}" id="bm_bianma" name="bm_bianma" data-options="required:true" class="easyui-textbox"/>
+                        <input type="text" readonly="true" value="${BM.bm_bianma}" id="bm_bianma" name="bm_bianma" data-options="required:true" class="easyui-textbox"/>
                     </div>
                 </div>
                 <div class="row-fluid">
@@ -112,7 +113,6 @@
                         <input type="text"  value="${BM.bm_fuzhiren}" id="bm_fuzhiren" name="bm_fuzhiren" data-options="required:false" class="easyui-textbox"/>
                     </div>
                 </div>
-                </form>
             </div>
         </div>
     </div>

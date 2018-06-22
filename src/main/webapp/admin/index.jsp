@@ -10,9 +10,9 @@
         <%@include file="/WEB-INF/jspf/GG.jspf"%>
         <%@include file="/WEB-INF/jspf/artDialog.jspf"%>
         <%@include file="/WEB-INF/jspf/ztree.jspf"%>
-        <script src="${path_home}/xt/js/indexAdmin.js" type="text/javascript"></script>
+        <script src="${path_home}/xt/js/indexUser.js" type="text/javascript"></script>
 
-        <title>您好，欢迎您进入超级管理员后台</title>
+        <title>您好</title>
         <script type="text/javascript">
             $(function () {
                 loadUserMainTree("divID_Tree_Main");
@@ -50,6 +50,9 @@
                 <!--<div title="个人中心" data-options="href:'${path_home}/admin/iniView.jsp'"></div>-->
             </div>
         </div>
+
+
+
     </body>
     <!-- 以下为tabs右击事件 -->  
     <div id="indexMainTabRClickMenu" class="easyui-menu" style="width:120px;">

@@ -5,7 +5,7 @@
 <html>
     <head>
         <title>维护系统管理员</title>
-        <script type="text/javascript" src="${path_home}/xt/js/xtguanliyuan/list.js"></script>
+        <script type="text/javascript" src="${path_home}/xt/js/xtguanliyuan/list2.js"></script>
         <%@include file="/WEB-INF/jspf/easyuiLocal.jspf"%>
         <%@include file="/WEB-INF/jspf/artDialog.jspf"%>
         <%@include file="/WEB-INF/jspf/ztree.jspf"%>
@@ -26,7 +26,7 @@
                singleSelect:true,
                showFooter:true,
                toolbar:'#tb',
-               url:'${path_home}/xt/xtguanliyuan/select/grid.jw',
+               url:'${path_home}/xt/xtguanliyuan2/select/grid.jw',
                onRowContextMenu:f_gridMenu
                ">
             <thead>
@@ -35,10 +35,10 @@
                     <th data-options="field:'xt_guanliyuan_zj'">管理员主键</th>
                     <th data-options="field:'xt_guanliyuan_mc',width:90"><div>管理员名称</div></th>
                     <th data-options="field:'xt_guanliyuan_zhanghao',width:90"><div>管理员账号</div></th>
-                    <th data-options="field:'xt_guanliyuan_mima',width:90"><div>管理员密码</div></th>
-                    <th data-options="field:'xt_guanliyuan_youxiang',width:90"><div>管理员邮箱</div></th>
-                    <th data-options="field:'xt_guanliyuan_zt',width:60,formatter:f_common_style"><div>管理员状态</div></th>
-                    <th data-options="field:'xt_guanliyuan_bz',width:90"><div>管理员备注</div></th>
+                    <!--<th data-options="field:'xt_guanliyuan_mima',width:90"><div>管理员密码</div></th>-->
+                    <th data-options="field:'xt_guanliyuan_youxiang',width:90"><div>邮箱</div></th>
+                    <th data-options="field:'xt_guanliyuan_zt',width:60,formatter:f_common_style"><div>状态</div></th>
+                    <th data-options="field:'xt_guanliyuan_bz',width:90"><div>管备注</div></th>
 <!--                    <th data-options="field:'xt_guanliyuan_quanxian',width:90"><div>管理员权限集合</div></th>
                     <th data-options="field:'xt_guanliyuan_bm',width:90"><div>管理员部门集合</div></th>-->
                     <th data-options="field:'xt_guanliyuan_gelibiaoshi',width:90"><div>隔离标识</div></th>

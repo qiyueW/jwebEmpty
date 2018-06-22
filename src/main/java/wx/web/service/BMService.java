@@ -29,7 +29,7 @@ final public class BMService {
      * 检出树
      *
      * @param condition
-     * @return BM
+     * @return List
      */
     public static List<BM> select(String condition) {
         return DBO.service.S.selectByCondition(BM.class, condition);

@@ -3,9 +3,12 @@ package wx.xt.service;
 import configuration.mvc.BaseService;
 import configuration.DBO;
 import configuration.MsgVO;
+import configuration.Tool;
 import static configuration.mvc.BaseService.SHENHE;
 import java.util.List;
 import java.util.Date;
+import system.web.JWeb;
+import system.web.power.PDK;
 import wx.xt.bean.XtGuanliyuan;
 
 /**
@@ -81,7 +84,31 @@ final public class XtGuanliyuanService {
         return DBO.service.S.selectVastByCondition(XtGuanliyuan.class, page, size, null == where ? "" : where, null == ordery ? "" : ordery);
     }
 
+    public static boolean isErrorGelibiaoshi(String ids, String gelibiaoshi) {
+        List<XtGuanliyuan> list = DBO.service.S.selectByCondition(XtGuanliyuan.class, "WHERE xt_guanliyuan_zj IN(" + Tool.replaceDToDDD(ids) + ")");
+        for (XtGuanliyuan obj : list) {
+            if (!obj.getXt_guanliyuan_gelibiaoshi().equals(gelibiaoshi)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    public static boolean isErrorGelibiaoshi(String zj, JWeb jw) {
+        XtGuanliyuan obj = selectOne(zj);
+        XtGuanliyuan admin = getSessionXtGuanliyuan(jw);
+        return null == obj || null == obj.getXt_guanliyuan_zj() || !admin.getXt_guanliyuan_gelibiaoshi().equals(obj.getXt_guanliyuan_gelibiaoshi());
+    }
+
+    public static boolean isErrorGelibiaoshi(XtGuanliyuan obj, JWeb jw) {
+        XtGuanliyuan admin = getSessionXtGuanliyuan(jw);
+        return null == obj || null == obj.getXt_guanliyuan_zj() || !admin.getXt_guanliyuan_gelibiaoshi().equals(obj.getXt_guanliyuan_gelibiaoshi());
+    }
+
+    public static XtGuanliyuan getSessionXtGuanliyuan(JWeb jw) {
+        return system.web.power.session.Login.getUserInfo(XtGuanliyuan.class, jw, PDK.SESSION_ADMIN_KEY);
+    }
 //---------------------------------------统计区--------------------------------------
+
     /**
      * 统计表头数据(条件为null或为空时，表示统计整张表)
      *
@@ -100,6 +127,9 @@ final public class XtGuanliyuanService {
      * @return
      */
     public static MsgVO addOne(XtGuanliyuan obj) {
+        if (selectCount("WHERE xt_guanliyuan_zhanghao='" + obj.getXt_guanliyuan_zhanghao() + "' AND xt_guanliyuan_gelibiaoshi='" + obj.getXt_guanliyuan_gelibiaoshi() + "'") > 0) {
+            return MsgVO.setError("账号重复");
+        }
         obj.setXt_guanliyuan_zt(0);
         obj.setXt_guanliyuan_zhidanshijian(new Date());
         int i = DBO.service.A.addOne(obj);
@@ -135,11 +165,9 @@ final public class XtGuanliyuanService {
         if (selectOne(obj.getXt_guanliyuan_zj()).getXt_guanliyuan_zt() != BaseService.XINZENG) {
             return MsgVO.setError();
         }
-        return MsgVO.setUpdateRS(DBO.service.U.updateSome_reject(obj,
-                //xt_guanliyuan_zt,制单时间
-                "xt_guanliyuan_zt,xt_guanliyuan_zhidanshijian,"
-                + "xt_guanliyuan_zhanghao,xt_guanliyuan_quanxian"
-                + ",xt_guanliyuan_bm,xt_guanliyuan_gelibiaoshi"));
+        return MsgVO.setUpdateRS(DBO.service.U.updateSome_alloy(obj,
+                //管理员名称,管理员密码,管理员邮箱,管理员备注
+                "xt_guanliyuan_mc,xt_guanliyuan_mima,xt_guanliyuan_youxiang,xt_guanliyuan_bz"));
     }
 
     public static MsgVO update_bm(XtGuanliyuan obj) {

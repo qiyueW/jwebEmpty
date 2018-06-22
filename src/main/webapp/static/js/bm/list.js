@@ -1,3 +1,11 @@
+function f_gridMenu(e, row) {         //右击事件
+    e.preventDefault(); //阻止浏览器捕获右键事件
+    $('#menu').menu('show', {
+        left: e.pageX, //弹出窗口的方位坐标
+        top: e.pageY
+    });
+    e.preventDefault();         //阻止浏览器自带的右键菜单弹出
+}
 /**
  * 过滤条件
  * @returns {void}

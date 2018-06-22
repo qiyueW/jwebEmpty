@@ -47,14 +47,16 @@ public class Login {
             outErrorMsg(jw, sf, "登录失败，请检查账号密码是否正确");
             return;
         }
-        if (obj.getXt_guanliyuan_gelibiaoshi().equals(XtGuanliyuanService.GL_SUPERADMIN)) {
-            system.web.power.session.Login.login(jw, obj, XtGuanliyuanService.myPower(obj), PDK.SESSION_SUPER_ADMIN_KEY);
-        } else {
-            system.web.power.session.Login.login(jw, obj,XtGuanliyuanService.myPower(obj), PDK.SESSION_ADMIN_KEY);
-        }
         //登陆成功
         sf.clearErrorCount();
-        jw.printOne(MsgVO.setOK("登陆成功，正在进入单据界面.."));
+        Gelibiaoshi.setSessionAdmin(jw, obj.getXt_guanliyuan_gelibiaoshi());
+        if (obj.getXt_guanliyuan_gelibiaoshi().equals(XtGuanliyuanService.GL_SUPERADMIN)) {
+            system.web.power.session.Login.login(jw, obj, XtGuanliyuanService.myPower(obj), PDK.SESSION_SUPER_ADMIN_KEY);
+            jw.printOne(new MsgVO("2", "登陆成功，正在进入单据界面.."));
+        } else {
+            system.web.power.session.Login.login(jw, obj, XtGuanliyuanService.myPower(obj), PDK.SESSION_ADMIN_KEY);
+            jw.printOne(MsgVO.setOK("登陆成功，正在进入单据界面.."));
+        }
     }
 
     private static void outErrorMsg(final JWeb jw, final SafeCode sf, final String msg) {

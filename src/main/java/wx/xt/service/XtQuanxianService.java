@@ -13,25 +13,27 @@ import wx.xt.bean.XtQuanxian;
  */
 final public class XtQuanxianService {
 //---------------------------------------查询---------------------------------------
-    private static final String PX="order by xt_quanxian_px ASC";//锁定排序，按xt_quanxian_px字段来
+
+    private static final String PX = "order by xt_quanxian_px ASC";//锁定排序，按xt_quanxian_px字段来
+
     /**
      * 检出树
      *
      * @return List
      */
     public static List<XtQuanxian> select() {
-        return DBO.service.S.select(XtQuanxian.class,PX);
+        return DBO.service.S.select(XtQuanxian.class, PX);
     }
-
+    
     /**
      * 取出可视化的菜单
-     * @return 
+     *
+     * @return
      */
     public static List<XtQuanxian> selectMenu() {
-        return DBO.service.S.selectByCondition(XtQuanxian.class, "WHERE xt_quanxian_keshi=1",PX);
+        return DBO.service.S.selectByCondition(XtQuanxian.class, "WHERE xt_quanxian_keshi=1", PX);
     }
 
-    
     /**
      * 检出树
      *
@@ -39,7 +41,7 @@ final public class XtQuanxianService {
      * @return List
      */
     public static List<XtQuanxian> select(String condition) {
-        return DBO.service.S.selectByCondition(XtQuanxian.class, condition,PX);
+        return DBO.service.S.selectByCondition(XtQuanxian.class, condition, PX);
     }
 
     /**
