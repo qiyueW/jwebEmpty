@@ -21,7 +21,7 @@ function addTab(title, url) {
     if ($('#tt').tabs('exists', title)) {
         $('#tt').tabs('select', title);
     } else {
-        var content = '<iframe scrolling="auto" frameborder="0"  src="' + path_home + url + '" style="width:99.4%;height:99.4%;"></iframe>';
+        var content = '<iframe frameborder="0" scrolling="auto" style="width:100%;height:100%;" src="' + path_home + url + '" ></iframe>';
         $('#tt').tabs('add', {
             title: title,
             content: content,

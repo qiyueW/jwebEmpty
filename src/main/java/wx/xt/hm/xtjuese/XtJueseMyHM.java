@@ -10,7 +10,7 @@ import system.base.tree.TreeService;
 import system.base.tree.vo.IdPidEnum;
 import configuration.Tool;
 import plugins.easyui.EasyuiService;
-import wx.xt.bean.XtJuese;
+import wx.xt.bean.xtjuese.XtJuese;
 import wx.xt.service.XtJueseService;
 
 /**

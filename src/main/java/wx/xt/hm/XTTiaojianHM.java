@@ -1,5 +1,6 @@
 package wx.xt.hm;
 
+import wx.xt.Gelibiaoshi;
 import configuration.MsgVO;
 import configuration.Page;
 import system.base.annotation.H;
@@ -52,8 +53,8 @@ public class XTTiaojianHM {
     @Validate({wx.xt.validate.xttiaojian.XTTiaojianValidate.class, wx.xt.validate.xttiaojian.XTTiaojian1Validate.class})
     public void add() {
         XTTiaojian obj = jw.getObject(XTTiaojian.class);
-        obj.setXt_tiaojian_gelibiaoshi("A001");//隔离标识，正常从人员的会话中提取
-        obj.setXt_tiaojian_zhidanren_zj("wangchunzi");//创建人。正常从人员的会话中提取。
+        obj.setXt_tiaojian_gelibiaoshi(Gelibiaoshi.getGelibiaoshi(jw));//隔离标识，正常从人员的会话中提取
+        obj.setXt_tiaojian_zhidanren_zj(Gelibiaoshi.getAdminOrUserID(jw));//创建人。正常从人员的会话中提取。
         obj.setXt_tiaojian_zhidanren("汪春滋");
         List<XTTiaojian1> obj2 = (List<XTTiaojian1>) jw.request.getAttribute(WebConfigModel.JSONKEY);
         jw.printOne(XTTiaojianService.addOne(obj, obj2));
@@ -90,7 +91,7 @@ public class XTTiaojianHM {
     @Validate({wx.xt.validate.xttiaojian.XTTiaojianValidate.class, wx.xt.validate.xttiaojian.XTTiaojian1Validate.class})
     public void update2() {
         XTTiaojian obj = jw.getObject(XTTiaojian.class);
-        if(null==obj||null==obj.getXt_tiaojian_zj()){
+        if (null == obj || null == obj.getXt_tiaojian_zj()) {
             jw.printOne(MsgVO.setError("请选择要修改的单据"));
             return;
         }
@@ -149,14 +150,14 @@ public class XTTiaojianHM {
     //@system.web.power.ann.SQ("xttiaojianS")
     @M("/select/myself/json")//查询自己的或公共的方案
     public static void selectMyselfJSON(JWeb jw) {
-        String condition = "wangchunzi";
-        jw.printOne(Tool.entityToJSON(XTTiaojianService.selectByRy(null, condition, jw.getString("key"))));
+        String condition = Gelibiaoshi.getAdminOrUserID(jw);
+        jw.printOne(Tool.entityToJSON(XTTiaojianService.selectByRy(Gelibiaoshi.getGelibiaoshi(jw), condition, jw.getString("key"))));
     }
 
     //@system.web.power.ann.SQ("xttiaojianS")
     @M("/select/json")//针对表头的查询-返回json数据
     public static void selectJSON(JWeb jw) {
-        String condition = "";
+        String condition = "WHERE xt_tiaojian_gelibiaoshi='" + Gelibiaoshi.getGelibiaoshi(jw) + "'";
         Page page = EasyuiService.getPageAndOrderby(jw);
         jw.printOne(Tool.entityToJSON(XTTiaojianService.select(page.getPage(), page.getRows(), condition, page.getOrderBy())));
     }
@@ -164,9 +165,10 @@ public class XTTiaojianHM {
 
     @M("/select/grid")//针对表头的查询-返回Grid数据
     public static void selectGrid(JWeb jw) {
-        String condition = jw.getString("xt_shezhi_tiaojian_zj");
-        if (!condition.isEmpty()) {
-            condition = "WHERE xt_shezhi_tiaojian_zj='" + condition + "'";
+        String condition = "WHERE xt_tiaojian_gelibiaoshi='" + Gelibiaoshi.getGelibiaoshi(jw) + "'";
+        String fl_zj = jw.getString("xt_shezhi_tiaojian_zj");
+        if (!fl_zj.isEmpty()) {
+            condition =condition+ "AND xt_shezhi_tiaojian_zj='" + fl_zj + "'";
         }
         Page page = EasyuiService.getPageAndOrderby(jw);
         jw.printOne(EasyuiService.formatGrid(

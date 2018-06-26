@@ -3,9 +3,10 @@ package wx.xt.service;
 import configuration.mvc.BaseService;
 import configuration.DBO;
 import configuration.MsgVO;
+import configuration.Tool;
 import java.util.List;
 import java.util.Date;
-import wx.xt.bean.XtJuese;
+import wx.xt.bean.xtjuese.XtJuese;
 
 /**
  *
@@ -40,6 +41,16 @@ final public class XtJueseService {
     public static XtJuese selectOne(String id) {
         return DBO.service.S.selectOneByID(XtJuese.class, id);
     }
+//---------------------------------------隔离标识管理--------------------------------------
+    public static boolean isErrorGelibiaoshiVast(String ids, String gelibiaoshi) {
+        List<XtJuese> list = DBO.service.S.selectByCondition(XtJuese.class, "WHERE xt_juese_gelibiaoshi IN(" + Tool.replaceDToDDD(ids) + ")");
+        return BaseService.isErrorGelibiaoshiVast(list, "xt_juese_gelibiaoshi", gelibiaoshi);
+    }
+
+    public static boolean isErrorGelibiaoshiOne(String id, String gelibiaoshi) {
+        XtJuese obj = DBO.service.S.selectOneByID(XtJuese.class, id);
+        return BaseService.isErrorGelibiaoshiOne(obj, "xt_juese_gelibiaoshi", gelibiaoshi);
+    }    
 //---------------------------------------增删改--------------------------------------
 
     /**

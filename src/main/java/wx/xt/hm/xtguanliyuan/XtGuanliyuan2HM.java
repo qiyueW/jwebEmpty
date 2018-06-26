@@ -9,6 +9,7 @@ import system.web.JWeb;
 import configuration.Tool;
 import plugins.easyui.EasyuiService;
 import system.web.power.PDK;
+import wx.xt.Gelibiaoshi;
 import wx.xt.bean.XtGuanliyuan;
 import wx.xt.service.XtGuanliyuanService;
 
@@ -50,7 +51,7 @@ public class XtGuanliyuan2HM {
     @M("/save")
     @Validate(wx.xt.validate.XtGuanliyuanValidate.class)
     public void add() {
-        XtGuanliyuan admin = XtGuanliyuanService.getSessionXtGuanliyuan(jw);
+        XtGuanliyuan admin = Gelibiaoshi.getSessionXtGuanliyuan(jw);
         XtGuanliyuan obj = jw.getObject(XtGuanliyuan.class);
         obj.setXt_guanliyuan_jibie(3);
         obj.setXt_guanliyuan_gelibiaoshi(admin.getXt_guanliyuan_gelibiaoshi());
@@ -123,7 +124,7 @@ public class XtGuanliyuan2HM {
     @system.web.power.ann.SQ(value = "xtguanliyuan2S", scope = PDK.SESSION_ADMIN_KEY)
     @M("/select/json")//针对表头的查询-返回json数据
     public static void selectJSON(JWeb jw) {
-        XtGuanliyuan admin = XtGuanliyuanService.getSessionXtGuanliyuan(jw);
+        XtGuanliyuan admin = Gelibiaoshi.getSessionXtGuanliyuan(jw);
         String condition = wx.xt.service.XTTiaojianService.openConditionByReturnWhere_key(jw, "xt_guanliyuan_gelibiaoshi", admin.getXt_guanliyuan_gelibiaoshi());
         Page page = EasyuiService.getPageAndOrderby(jw);
         jw.printOne(Tool.entityToJSON(XtGuanliyuanService.select(page.getPage(), page.getRows(), condition, page.getOrderBy())));
@@ -132,7 +133,7 @@ public class XtGuanliyuan2HM {
     @system.web.power.ann.SQ(value = "xtguanliyuan2S", scope = PDK.SESSION_ADMIN_KEY)
     @M("/select/grid")//针对表头的查询-返回Grid数据
     public static void selectGrid(JWeb jw) {
-        XtGuanliyuan admin = XtGuanliyuanService.getSessionXtGuanliyuan(jw);
+        XtGuanliyuan admin = Gelibiaoshi.getSessionXtGuanliyuan(jw);
         String condition = wx.xt.service.XTTiaojianService.openConditionByReturnWhere_key(jw, "xt_guanliyuan_gelibiaoshi", admin.getXt_guanliyuan_gelibiaoshi());
         Page page = EasyuiService.getPageAndOrderby(jw);
         jw.printOne(EasyuiService.formatGrid(
@@ -146,7 +147,7 @@ public class XtGuanliyuan2HM {
     @M("/update/examine")//审核单据
     public void examine() {
         String ids = jw.getString("ids", "");
-        XtGuanliyuan admin = XtGuanliyuanService.getSessionXtGuanliyuan(jw);
+        XtGuanliyuan admin = Gelibiaoshi.getSessionXtGuanliyuan(jw);
         if (ids.isEmpty() || XtGuanliyuanService.isErrorGelibiaoshi(ids, admin.getXt_guanliyuan_gelibiaoshi())) {
             return;
         }
@@ -157,7 +158,7 @@ public class XtGuanliyuan2HM {
     @M("/update/unexamine")//反审核
     public void unexamine() {
         String ids = jw.getString("ids", "");
-        XtGuanliyuan admin = XtGuanliyuanService.getSessionXtGuanliyuan(jw);
+        XtGuanliyuan admin = Gelibiaoshi.getSessionXtGuanliyuan(jw);
         if(ids.contains(admin.getXt_guanliyuan_zj())){
             jw.printOne(MsgVO.setError("无法自己反审自己。这会引起无法登陆的异常"));
             return;
@@ -172,7 +173,7 @@ public class XtGuanliyuan2HM {
     @M("/update/void")//作废
     public void tovoid() {
         String ids = jw.getString("ids", "");
-        XtGuanliyuan admin = XtGuanliyuanService.getSessionXtGuanliyuan(jw);
+        XtGuanliyuan admin = Gelibiaoshi.getSessionXtGuanliyuan(jw);
         if (ids.isEmpty() || XtGuanliyuanService.isErrorGelibiaoshi(ids, admin.getXt_guanliyuan_gelibiaoshi())) {
             return;
         }
@@ -183,7 +184,7 @@ public class XtGuanliyuan2HM {
     @M("/update/unvoid")//反作废
     public void untovoid() {
         String ids = jw.getString("ids", "");
-        XtGuanliyuan admin = XtGuanliyuanService.getSessionXtGuanliyuan(jw);
+        XtGuanliyuan admin = Gelibiaoshi.getSessionXtGuanliyuan(jw);
         if (ids.isEmpty() || XtGuanliyuanService.isErrorGelibiaoshi(ids, admin.getXt_guanliyuan_gelibiaoshi())) {
             return;
         }

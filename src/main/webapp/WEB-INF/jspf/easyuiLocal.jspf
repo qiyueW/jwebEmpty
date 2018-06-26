@@ -88,8 +88,8 @@
      * @returns {void}
      */
     function easyuiAjax(url, data, msg, okfun, async, fun, w, h) {
-        w = w ? w : 400;
-        h = h ? h : 300;
+        w = w ? w : 300;
+        h = h ? h : 200;
         if (msg) {
             $.messager.confirm('请确认', msg, function (r) {
                 if (r) {
@@ -116,17 +116,29 @@
                             for (var i in rs.msg) {
                                 msg = msg + rs.msg[i] + "<br/>";
                             }
-                            $.messager.show({title: '校验异常', width: w, height: h, msg: msg, showType: 'show', style: {}});
+                            $.messager.show({title: '<div style="color:red;font-size:9px;">校验异常</div>', width: w, height: h, msg: msg, showType: 'show', style: {
+                                    right: '',
+                                    top: '',
+                                    bottom: -document.body.scrollTop - document.documentElement.scrollTop
+                                }});
                         } else if (rs.statusCode == 1) {
-                            $.messager.show({title: '操作成功', width: w, height: h, msg: rs.msg, showType: 'show', style: {}});
+                            $.messager.show({title: '<div style="color:#339933;font-size:9px;">操作成功</div>', width: w, height: h, msg: rs.msg, showType: 'show', style: {
+                                    right: '',
+                                    top: '',
+                                    bottom: -document.body.scrollTop - document.documentElement.scrollTop
+                                }});
                             if (okfun)
                                 okfun();
                         } else {
-                            $.messager.show({title: '执行异常', width: w, height: h, msg: rs.msg, showType: 'show', style: {}});
+                            $.messager.show({title: '<div style="color:red;font-size:9px;">执行异常</div>', width: w, height: h, msg: rs.msg, showType: 'show', style: {
+                                    right: '',
+                                    top: '',
+                                    bottom: -document.body.scrollTop - document.documentElement.scrollTop
+                                }});
                         }
                     }
                 }
-                , timeout: 6000
+                , timeout: 4000
             });
         }
     }

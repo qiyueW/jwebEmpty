@@ -16,7 +16,7 @@ public class RYValidate extends ValidateModel {
     public void iniValidate() {
         super
                 .put("ry_zj","[1-9]{1}[0-9]{23}", "主键丢失", false)//主键
-                .put("ry_bm","[\\w\\W]{1,50}", "部门:文本为空或长度超50字符", true)//部门
+                .put("ry_bm","[\\w\\W]{1,50}", "部门:文本为空或长度超50字符", false)//部门
                 .put("ry_bm_zj","[1-9]{1}[0-9]{23}", "部门主键丢失", true)//部门主键
                 .put("ry_mc","[\\w\\W]{1,20}", "人员名称:文本为空或长度超20字符", true)//人员名称
                 .put("ry_zhanghao","[\\w\\W]{1,100}", "账号:文本为空或长度超100字符", true)//账号
@@ -60,9 +60,9 @@ public class RYValidate extends ValidateModel {
                 .put("ry_neibutongxing8","[\\w\\W]{0,50}", "内部通信8:长度超50字符", false)//内部通信8
                 .put("ry_neibutongxing9","[\\w\\W]{0,50}", "内部通信9:长度超50字符", false)//内部通信9
                 .put("ry_neibutongxing10","[\\w\\W]{0,50}", "内部通信10:长度超50字符", false)//内部通信10
-                .put("ry_zhidanren_zj","[1-9]{1}[0-9]{23}", "制单人主键丢失", true)//制单人主键
-                .put("ry_zhidanren","[\\w\\W]{1,200}", "制单人:文本为空或长度超200字符", true)//制单人
-                .put("ry_gelibiaoshi","[\\w\\W]{1,20}", "隔离标识:文本为空或长度超20字符", true)//隔离标识
+                .put("ry_zhidanren_zj","[1-9]{1}[0-9]{23}", "制单人主键丢失", false)//制单人主键
+                .put("ry_zhidanren","[\\w\\W]{1,200}", "制单人:文本为空或长度超200字符", false)//制单人
+                .put("ry_gelibiaoshi","[\\w\\W]{1,20}", "隔离标识:文本为空或长度超20字符", false)//隔离标识
 ;
     }
 

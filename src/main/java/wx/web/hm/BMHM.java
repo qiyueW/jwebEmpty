@@ -9,13 +9,11 @@ import java.util.List;
 import system.base.tree.TreeService;
 import system.base.tree.vo.IdPidEnum;
 import configuration.Tool;
+import configuration.mvc.BaseService;
 import plugins.easyui.EasyuiService;
 import wx.web.bean.BM;
-import wx.web.bean.RY;
 import wx.web.service.BMService;
-import wx.xt.bean.XtGuanliyuan;
-import wx.xt.hm.Gelibiaoshi;
-import static wx.xt.service.XtGuanliyuanService.getSessionXtGuanliyuan;
+import wx.xt.Gelibiaoshi;
 
 /**
  * 1.添加请求路径：/base/bm/save.jw <br>
@@ -66,6 +64,9 @@ public class BMHM {
         if (null == id || id.length() != 24) {
             return;
         }
+        if (BMService.isErrorGelibiaoshiOne(id, Gelibiaoshi.getGelibiaoshi(jw))) {//存在别人家的隔离标识的单据
+            return;
+        }
         jw.printOne(BMService.dellOne(id));
     }
 //===================修改操作=============================    
@@ -81,7 +82,9 @@ public class BMHM {
         if (null == obj.getBm_fzj() || obj.getBm_fzj().isEmpty()) {
             obj.setBm_fzj("0");
         }
-
+        if (BMService.isErrorGelibiaoshiOne(obj.getBm_zj(), Gelibiaoshi.getGelibiaoshi(jw))) {//存在别人家的隔离标识的单据
+            return;
+        }
         List<BM> list = BMService.select();
         int tkey = TreeService.CHECK.getError_FatherIsSon(list, "bm_zj", "bm_fzj", obj.getBm_zj(), obj.getBm_fzj()).key;
 
@@ -100,6 +103,9 @@ public class BMHM {
     @M("/update/select")
     public void updateSelect() {
         String id = jw.getString("id");
+        if (BMService.isErrorGelibiaoshiOne(id, Gelibiaoshi.getGelibiaoshi(jw))) {//存在别人家的隔离标识的单据
+            return;
+        }
         BM obj = BMService.selectOne(id);
         if (null == obj.getBm_zj()) {
             return;
@@ -114,6 +120,9 @@ public class BMHM {
     @M("/select/selectOne")
     public void selectOne() {
         String id = jw.getString("id");
+        if (BMService.isErrorGelibiaoshiOne(id, Gelibiaoshi.getGelibiaoshi(jw))) {//存在别人家的隔离标识的单据
+            return;
+        }
         BM obj = BMService.selectOne(id);
         if (null == obj.getBm_zj()) {
             return;
@@ -126,21 +135,22 @@ public class BMHM {
     @system.web.power.ann.ZDY(zdy = configuration.zdy.SQ_AdminOrUser.class, value = "bmS")
     @M("/select/json")
     public static void select(JWeb jw) {
-        // jw.printOne(Tool.entityToJSON(DBO.service.S.select(LoufangFL.class, "order by loufangfl_px ASC"))); 如果有排序的话，将loufangfl_px字段替换为你的项目中的字段
-        jw.printOne(Tool.entityToJSON(BMService.select()).replace("\n", "/n"));
+        String condition = wx.xt.service.XTTiaojianService.openConditionByReturnWhere_key(jw, "bm_gelibiaoshi", Gelibiaoshi.getGelibiaoshi(jw));
+        jw.printOne(Tool.entityToJSON(BMService.select(condition)).replace("\n", "/n"));
     }
 
     @system.web.power.ann.ZDY(zdy = configuration.zdy.SQ_AdminOrUser.class, value = "bmS")
     @M("/select/json2")
     public static void select2(JWeb jw) {
-        jw.printOne(EasyuiService.formatTree(BMService.select(), "bm_zj", "bm_fzj", "bm_mc").replace("\n", "/n"));
+        String condition = wx.xt.service.XTTiaojianService.openConditionByReturnWhere_key(jw, "bm_gelibiaoshi", Gelibiaoshi.getGelibiaoshi(jw));
+        jw.printOne(EasyuiService.formatTree(BMService.select(condition), "bm_zj", "bm_fzj", "bm_mc").replace("\n", "/n"));
     }
 
     @system.web.power.ann.ZDY(zdy = configuration.zdy.SQ_AdminOrUser.class, value = "bmS")
     @M("/select/grid")
     public static void selectUI(JWeb jw) {//_UIGrid
         //如果有某个字段要进行排序,例 以主键=。=
-        String condition = wx.xt.service.XTTiaojianService.openConditionByReturnWhere_key(jw);
+        String condition = wx.xt.service.XTTiaojianService.openConditionByReturnWhere_key(jw, "bm_gelibiaoshi", Gelibiaoshi.getGelibiaoshi(jw));
         jw.printOne(EasyuiService.formatTreeGrid(BMService.select(condition), "bm_zj", "bm_fzj", "bm_mc").replace("\n", "/n"));
     }
 //---------------------------------------单据状态管理---------------------------------------
@@ -148,25 +158,41 @@ public class BMHM {
     @system.web.power.ann.ZDY(zdy = configuration.zdy.SQ_AdminOrUser.class, value = "bmE")
     @M("/update/examine")//审核单据
     public void examine() {
-        jw.printOne(BMService.updateStyle_examine(jw.getString("ids")));
+        String ids = jw.getString("ids");
+        if (BMService.isErrorGelibiaoshiVast(ids, Gelibiaoshi.getGelibiaoshi(jw))) {//存在别人家的隔离标识的单据
+            return;
+        }
+        jw.printOne(BMService.updateStyle_examine(ids));
     }
 
     @system.web.power.ann.ZDY(zdy = configuration.zdy.SQ_AdminOrUser.class, value = "bmUE")
     @M("/update/unexamine")//反审核
     public void unexamine() {
-        jw.printOne(BMService.updateStyle_unExamine(jw.getString("ids")));
+        String ids = jw.getString("ids");
+        if (BMService.isErrorGelibiaoshiVast(ids, Gelibiaoshi.getGelibiaoshi(jw))) {//存在别人家的隔离标识的单据
+            return;
+        }
+        jw.printOne(BMService.updateStyle_unExamine(ids));
     }
 
     @system.web.power.ann.ZDY(zdy = configuration.zdy.SQ_AdminOrUser.class, value = "bmV")
     @M("/update/void")//作废
     public void tovoid() {
-        jw.printOne(BMService.updateStyle_void(jw.getString("ids")));
+        String ids = jw.getString("ids");
+        if (BMService.isErrorGelibiaoshiVast(ids, Gelibiaoshi.getGelibiaoshi(jw))) {//存在别人家的隔离标识的单据
+            return;
+        }
+        jw.printOne(BMService.updateStyle_void(ids));
     }
 
     @system.web.power.ann.ZDY(zdy = configuration.zdy.SQ_AdminOrUser.class, value = "bmUV")
     @M("/update/unvoid")//反作废
     public void untovoid() {
-        jw.printOne(BMService.updateStyle_unVoid(jw.getString("ids")));
+        String ids = jw.getString("ids");
+        if (BMService.isErrorGelibiaoshiVast(ids, Gelibiaoshi.getGelibiaoshi(jw))) {//存在别人家的隔离标识的单据
+            return;
+        }
+        jw.printOne(BMService.updateStyle_unVoid(ids));
     }
 
 //---------------------------------------文件图片管理---------------------------------------

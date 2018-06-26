@@ -54,7 +54,7 @@ function f_inidoLogin() {
                 }, 1100);
                 return;
             } else if (data.statusCode == '1') {
-                var url = path_home + "admin/index.jsp";
+                var url = path_home + "admin/indexUser.jsp";
                 if ($('#sort').val() == "admin") {
                     url = path_home + "xt/index.jsp";
                 }

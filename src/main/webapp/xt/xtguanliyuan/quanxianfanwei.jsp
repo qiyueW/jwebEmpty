@@ -31,7 +31,7 @@
                    singleSelect:true,
                    showFooter:true,
                    toolbar:'#tb',
-                   url:'${path_home}/xt/xtguanliyuan/select/grid.jw',
+                   url:'${path_home}/xt/xtguanliyuan2/select/grid.jw',
                    onRowContextMenu:f_gridMenu
                    ">
                 <thead>

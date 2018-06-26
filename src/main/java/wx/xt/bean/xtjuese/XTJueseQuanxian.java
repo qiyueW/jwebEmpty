@@ -1,4 +1,4 @@
-package wx.xt.bean;
+package wx.xt.bean.xtjuese;
 
 @system.base.annotation.Table
 public class XTJueseQuanxian {

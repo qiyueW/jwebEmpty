@@ -3,6 +3,7 @@ package wx.web.service;
 import configuration.mvc.BaseService;
 import configuration.DBO;
 import configuration.MsgVO;
+import configuration.Tool;
 import java.util.List;
 import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
@@ -25,6 +26,7 @@ final public class BMService {
     public static List<BM> select() {
         return DBO.service.S.select(BM.class);
     }
+
     /**
      * 检出树
      *
@@ -34,6 +36,30 @@ final public class BMService {
     public static List<BM> select(String condition) {
         return DBO.service.S.selectByCondition(BM.class, condition);
     }
+
+    /**
+     * 检出部门
+     *
+     * @param gelibiaoshi
+     * @param condition
+     * @return List
+     */
+    public static List<BM> select(final String gelibiaoshi, final String condition) {
+        return DBO.service.S.selectByCondition(BM.class, "WHERE bm_gelibiaoshi='" + gelibiaoshi + "' "
+                + (null == condition || condition.isEmpty() ? "" : " AND (" + condition + ")"));
+    }
+
+    /**
+     * 根据权限，检出部门
+     *
+     * @param gelibiaoshi
+     * @param bm_ids
+     * @return List
+     */
+    public static List<BM> selectByBmIDs(final String gelibiaoshi, final String bm_ids) {
+        return DBO.service.S.selectByCondition(BM.class, "WHERE bm_gelibiaoshi='" + gelibiaoshi + "' AND bm_zj IN(" + Tool.replaceDToDDD(bm_ids) + ")");
+    }
+
     /**
      * 检出一条记录
      *
@@ -43,8 +69,18 @@ final public class BMService {
     public static BM selectOne(String id) {
         return DBO.service.S.selectOneByID(BM.class, id);
     }
-//---------------------------------------增删改--------------------------------------
+//---------------------------------------隔离标识管理--------------------------------------
+    public static boolean isErrorGelibiaoshiVast(String ids, String gelibiaoshi) {
+        List<BM> list = DBO.service.S.selectByCondition(BM.class, "WHERE bm_gelibiaoshi IN(" + Tool.replaceDToDDD(ids) + ")");
+        return BaseService.isErrorGelibiaoshiVast(list, "bm_gelibiaoshi", gelibiaoshi);
+    }
 
+    public static boolean isErrorGelibiaoshiOne(String id, String gelibiaoshi) {
+        BM obj = DBO.service.S.selectOneByID(BM.class, id);
+        return BaseService.isErrorGelibiaoshiOne(obj, "bm_gelibiaoshi", gelibiaoshi);
+    }
+
+//---------------------------------------增删改--------------------------------------
     /**
      * 添加数据
      *
@@ -54,8 +90,8 @@ final public class BMService {
     public static MsgVO addOne(BM obj) {
         obj.setBm_zt(0);
         obj.setBm_chuangjianshijian(new Date());
-        int i = DBO.service.A.addOne(obj,"bm_bianma");
-        if(i==-1){
+        int i = DBO.service.A.addOne(obj, "bm_bianma");
+        if (i == -1) {
             return MsgVO.setError("添加异常：请检查这些字段(编码)是否唯一");
         }
         return MsgVO.setAddRS(i);
@@ -69,7 +105,7 @@ final public class BMService {
      */
     public static MsgVO dellOne(String id) {
         BM cobj = selectOne(id);
-        if (null == cobj||null==cobj.getBm_zj()||cobj.getBm_zt() != BaseService.XINZENG) {
+        if (null == cobj || null == cobj.getBm_zj() || cobj.getBm_zt() != BaseService.XINZENG) {
             return MsgVO.setError("没找到该记录。请刷新后再尝试");
         }
         List<BM> list = select();
@@ -97,7 +133,7 @@ final public class BMService {
             return MsgVO.setError();
         }
         return MsgVO.setUpdateRS(DBO.service.U.updateSome_reject(obj,
-        //bm_zt,部门创建时间
+                //bm_zt,部门创建时间
                 "bm_zt,bm_chuangjianshijian"));
     }
 //---------------------------------------单据状态管理---------------------------------------
@@ -142,6 +178,7 @@ final public class BMService {
         return BaseService.updateStyle_unVoid(ids, "BM", "bm_zj", "bm_zt");
     }
 //---------------------------------------文件图片管理---------------------------------------
+
     /**
      * 上传图片
      *

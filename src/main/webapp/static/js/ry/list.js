@@ -11,6 +11,10 @@ function dellRow() {
         $.messager.alert('提示', '请选择行');
         return;
     } 
+    else if (rows[0].ry_zt != '0') {
+        $.messager.alert('异常', '单据锁定，无法删除');
+        return;
+    }
     easyuiAjax("/base/ry/remove.jw", {id: rows[0].ry_zj}, "请确认删除操作", function () {
         easyuiGridReload('dg')
     });
@@ -21,6 +25,10 @@ function updateRow() {
         $.messager.alert('提示', '请选择行');
         return;
     } 
+    else if (rows[0].ry_zt != '0') {
+        $.messager.alert('异常', '单据锁定，无法修改');
+        return;
+    }
     easyuiLoadWindowByURL('showUpdatePage', '修改', '/base/ry/update/select.jw?id=' + rows[0].ry_zj);
 }
 
@@ -33,6 +41,47 @@ function seeRow() {
     easyuiLoadWindowByURL('showSeeOnePage', '明细', '/base/ry/select/selectOne.jw?id=' + rows[0].ry_zj);
 }
 
+//-------------------------单据状态管理-------------------------                
+function update01() {//审核
+    var rows = $('#dg').datagrid('getSelections');
+    if (!rows[0]) {
+        $.messager.alert('提示', '请选择行');
+        return;
+    }
+    easyuiAjax("/base/ry/update/examine.jw", {ids: easyuiGetRowsID(rows, 'ry_zj')}, "请确认审核操作", function () {
+        easyuiGridReload('dg')
+    });
+}
+function update10() {//反审核
+    var rows = $('#dg').datagrid('getSelections');
+    if (!rows[0]) {
+        $.messager.alert('提示', '请选择行');
+        return;
+    }
+    easyuiAjax("/base/ry/update/unexamine.jw", {ids: easyuiGetRowsID(rows, 'ry_zj')}, "请确认反审核操作", function () {
+        easyuiGridReload('dg')
+    });
+}
+function update04() {//作废
+    var rows = $('#dg').datagrid('getSelections');
+    if (!rows[0]) {
+        $.messager.alert('提示', '请选择行');
+        return;
+    }
+    easyuiAjax("/base/ry/update/void.jw", {ids: easyuiGetRowsID(rows, 'ry_zj')}, "请确认作废操作", function () {
+        easyuiGridReload('dg')
+    });
+}
+function update40() {//反作废
+    var rows = $('#dg').datagrid('getSelections');
+    if (!rows[0]) {
+        $.messager.alert('提示', '请选择行');
+        return;
+    }
+    easyuiAjax("/base/ry/update/unvoid.jw", {ids: easyuiGetRowsID(rows, 'ry_zj')}, "请确认反作废操作", function () {
+        easyuiGridReload('dg')
+    });
+}
 //-------------------------子页面调用方法-------------------------                
 function closethisWindow() {
     $('#showUpdatePage').panel('close');

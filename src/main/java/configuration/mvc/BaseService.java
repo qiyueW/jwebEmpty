@@ -2,6 +2,13 @@ package configuration.mvc;
 
 import configuration.DBO;
 import configuration.MsgVO;
+import configuration.Tool;
+import java.lang.reflect.Field;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -199,5 +206,73 @@ public class BaseService {
                 .append(styleName).append("=").append(whereValue).append(" AND ")//必须是状态为XINZENG的单据。即新增状态的单据。
                 .append(idName).append(in);
         return sb.toString();
+    }
+
+//-------------------隔离标识管理    
+    private static final Map<Class, Field> GET_GELIBIAOSHI_FIELD = new HashMap();
+
+    private static Field getGelibiaoshiField(final Class c, final String fieldName) {
+        Field f = GET_GELIBIAOSHI_FIELD.get(c);
+        if (null != f) {
+            return f;
+        }
+        try {
+            Field field = c.getDeclaredField(fieldName);
+            field.setAccessible(true);
+            GET_GELIBIAOSHI_FIELD.put(c, field);
+            return field;
+        } catch (NoSuchFieldException | SecurityException ex) {
+        }
+        return null;
+    }
+
+    private static String getGelibiaoshiFieldValue(final Object obj, final Field f) {
+        try {
+            return f.get(obj).toString();
+        } catch (IllegalArgumentException | IllegalAccessException ex) {
+            Logger.getLogger(BaseService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    public static <T> boolean isErrorGelibiaoshiVast(final Class<T> t, final String idFieldName, final String gelibiaoshiFieldName, final String ids, final String gelibiaoshi) {
+        Field f = getGelibiaoshiField(t, gelibiaoshiFieldName);
+        List<T> list = DBO.service.S.selectByCondition(t, "WHERE " + idFieldName + " IN(" + Tool.replaceDToDDD(ids) + ")");
+        for (T obj : list) {
+            if (!getGelibiaoshiFieldValue(obj, f).equals(gelibiaoshi)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static <T> boolean isErrorGelibiaoshiVast(List<T> list, final String gelibiaoshiFieldName, final String gelibiaoshi) {
+        if (null == list || list.isEmpty()) {
+            return false;
+        }
+        Field f = getGelibiaoshiField(list.get(0).getClass(), gelibiaoshiFieldName);
+        for (T obj : list) {
+            if (!getGelibiaoshiFieldValue(obj, f).equals(gelibiaoshi)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static <T> boolean isErrorGelibiaoshiOne(final Class<T> t, final String idFieldName, final String gelibiaoshiFieldName, final String id, final String gelibiaoshi) {
+        Field f = getGelibiaoshiField(t, gelibiaoshiFieldName);
+        T obj = DBO.service.S.selectOneByID(t, id);
+        if (!getGelibiaoshiFieldValue(obj, f).equals(gelibiaoshi)) {
+            return true;
+        }
+        return false;
+    }
+
+    public static <T> boolean isErrorGelibiaoshiOne(final T obj, final String gelibiaoshiFieldName, final String gelibiaoshi) {
+        Field f = getGelibiaoshiField(obj.getClass(), gelibiaoshiFieldName);
+        if (!getGelibiaoshiFieldValue(obj, f).equals(gelibiaoshi)) {
+            return true;
+        }
+        return false;
     }
 }

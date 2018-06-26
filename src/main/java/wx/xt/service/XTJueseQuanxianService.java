@@ -8,8 +8,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import wx.xt.bean.XTJueseQuanxian;
-import wx.xt.bean.XtJuese;
+import wx.xt.bean.xtjuese.XTJueseQuanxian;
+import wx.xt.bean.xtjuese.XtJuese;
 
 /**
  *

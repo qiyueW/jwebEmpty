@@ -60,7 +60,6 @@ function submitForm(formid) {
                 data.ry_zhidanren = fzFormatZT($("#ry_zhidanren").val())//制单人
                 data.ry_gelibiaoshi = fzFormatZT($("#ry_gelibiaoshi").val())//隔离标识
                 easyuiAjax("/base/ry/save.jw", data, "请确认保存操作", function () {
-                    $.fn.zTree.getZTreeObj("divID_Tree_menu_RY").reAsyncChildNodes(null, "refresh");
                 });
             }
 }

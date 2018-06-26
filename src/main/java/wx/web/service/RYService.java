@@ -3,8 +3,9 @@ package wx.web.service;
 import configuration.mvc.BaseService;
 import configuration.DBO;
 import configuration.MsgVO;
+import configuration.Tool;
+import static configuration.mvc.BaseService.SHENHE;
 import java.util.List;
-import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 import system.web.file.FI;
 import system.web.file.engine.FileEngine;
@@ -15,10 +16,11 @@ import wx.web.bean.RY;
  * @author wangchunzi
  */
 final public class RYService {
+
     private static final String TABLE1 = "RY";
     private static final String PK1 = "ry_zj";
-    private static final String STYLE1 = "";
-    
+    private static final String STYLE1 = "ry_zt";
+
 //---------------------------------------查询---------------------------------------
     /**
      * 检出一条记录(表头)
@@ -28,6 +30,18 @@ final public class RYService {
      */
     public static RY selectOne(String id) {
         return DBO.service.S.selectOneByID(RY.class, id);
+    }
+
+    /**
+     * 检出一条记录
+     *
+     * @param gelibiaoshi
+     * @param zh
+     * @param mm
+     * @return RY
+     */
+    public static RY selectOne(String gelibiaoshi, String zh, String mm) {
+        return DBO.service.S.selectOneByCondition(RY.class, "WHERE ry_gelibiaoshi='" + gelibiaoshi + "' AND ry_zhanghao='" + zh + "' AND ry_mima='" + mm + "' AND ry_zt="+SHENHE);
     }
 
     /**
@@ -42,7 +56,16 @@ final public class RYService {
     public static List<RY> select(final int page, final int size, final String where, final String ordery) {
         return DBO.service.S.selectVastByCondition(RY.class, page, size, null == where ? "" : where, null == ordery ? "" : ordery);
     }
+//---------------------------------------隔离标识管理--------------------------------------
+    public static boolean isErrorGelibiaoshiVast(String ids, String gelibiaoshi) {
+        List<RY> list = DBO.service.S.selectByCondition(RY.class, "WHERE ry_gelibiaoshi IN(" + Tool.replaceDToDDD(ids) + ")");
+        return BaseService.isErrorGelibiaoshiVast(list, "ry_gelibiaoshi", gelibiaoshi);
+    }
 
+    public static boolean isErrorGelibiaoshiOne(String id, String gelibiaoshi) {
+        RY obj = DBO.service.S.selectOneByID(RY.class, id);
+        return BaseService.isErrorGelibiaoshiOne(obj, "ry_gelibiaoshi", gelibiaoshi);
+    }
 //---------------------------------------统计区--------------------------------------
     /**
      * 统计表头数据(条件为null或为空时，表示统计整张表)
@@ -52,8 +75,9 @@ final public class RYService {
      */
     public static int selectCount(final String where) {
         return null == where || where.isEmpty() ? DBO.service.S.selectCount(RY.class) : DBO.service.S.selectCountByCondition(RY.class, where);
-    }    
+    }
 //---------------------------------------增删改--------------------------------------
+
     /**
      * 添加数据
      *
@@ -61,8 +85,9 @@ final public class RYService {
      * @return
      */
     public static MsgVO addOne(RY obj) {
-        int i = DBO.service.A.addOne(obj,"ry_zhanghao");
-        if(i==-1){
+        obj.setRy_zt(0);
+        int i = DBO.service.A.addOne(obj, "ry_zhanghao");
+        if (i == -1) {
             return MsgVO.setError("添加异常：请检查这些字段(账号)是否唯一");
         }
         return MsgVO.setAddRS(i);
@@ -76,10 +101,13 @@ final public class RYService {
      */
     public static MsgVO dellOne(String id) {
         RY cobj = selectOne(id);
-        if (null == cobj||null==cobj.getRy_zj()) {
+        if (null == cobj || null == cobj.getRy_zj() || cobj.getRy_zt() != BaseService.XINZENG) {
             return MsgVO.setError("没找到该记录。请刷新后再尝试");
-        }        
-        int i = DBO.service.D.dellByID(RY.class, id);
+        }
+        int i = DBO.service.D.deleteOneByID_CheckToDeny(RY.class, id, "ry_zt<>0");
+        if (i == -1) {
+            return MsgVO.setError("单据锁定，无法删除");
+        }
         return MsgVO.setDellRS(i);
     }
 
@@ -91,9 +119,56 @@ final public class RYService {
      */
     public static MsgVO update(RY obj) {
 
-        return MsgVO.setUpdateRS(DBO.service.U.update_notNull(obj));
+        if (selectOne(obj.getRy_zj()).getRy_zt() != BaseService.XINZENG) {
+            return MsgVO.setError();
+        }
+        return MsgVO.setUpdateRS(DBO.service.U.updateSome_reject(obj,
+                //状态,账号,密码,隔离标识,制单人,制单人主键
+                "ry_zt,ry_zhanghao,ry_mima,ry_gelibiaoshi,ry_zhidanren,ry_zhidanren_zj"));
+    }
+//---------------------------------------单据状态管理---------------------------------------
+
+    /**
+     * 审核
+     *
+     * @param ids
+     * @return
+     */
+    public static MsgVO updateStyle_examine(String ids) {
+        return BaseService.updateStyle_examine(ids, TABLE1, PK1, STYLE1);
+    }
+
+    /**
+     * 反审核
+     *
+     * @param ids
+     * @return
+     */
+    public static MsgVO updateStyle_unExamine(String ids) {
+        return BaseService.updateStyle_unExamine(ids, TABLE1, PK1, STYLE1);
+    }
+
+    /**
+     * 作废
+     *
+     * @param ids
+     * @return
+     */
+    public static MsgVO updateStyle_void(String ids) {
+        return BaseService.updateStyle_void(ids, TABLE1, PK1, STYLE1);
+    }
+
+    /**
+     * 反作废
+     *
+     * @param ids
+     * @return
+     */
+    public static MsgVO updateStyle_unVoid(String ids) {
+        return BaseService.updateStyle_unVoid(ids, TABLE1, PK1, STYLE1);
     }
 //---------------------------------------文件图片管理---------------------------------------
+
     /**
      * 上传文件
      *
@@ -102,7 +177,7 @@ final public class RYService {
      */
     public static FI upOneFile(HttpServletRequest reqeust) {
         FileEngine file = new FileEngine(reqeust);
-        FI upOne = file.upOne(configuration.file.OfficeFileModel.class);//可以自己写一个Model 系统默认office系列小部分
+        FI upOne = file.upOne(configuration.file.ImgFileModel.class);//可以自己写一个Model 系统默认office系列小部分
         return upOne;
     }
 }

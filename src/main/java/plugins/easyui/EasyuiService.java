@@ -38,7 +38,7 @@ final public class EasyuiService {
             return "[]";
         }
         Tree tree = new Tree<>(rsList, id, pid, name);
-        return tree.toTree();
+        return tree.toTree().replace(id, "id").replace(name, "text");
 
     }
 

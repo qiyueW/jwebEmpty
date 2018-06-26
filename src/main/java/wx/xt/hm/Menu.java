@@ -6,6 +6,7 @@ import system.base.annotation.M;
 import system.web.JWeb;
 import system.web.power.PDK;
 import system.web.power.ann.DL;
+import wx.web.bean.RY;
 import wx.xt.bean.XtGuanliyuan;
 import wx.xt.service.XtQuanxianService;
 
@@ -16,8 +17,18 @@ import wx.xt.service.XtQuanxianService;
 @H("/xt/menu")
 public class Menu {
 
+    @DL
     @M("/user")
     public static void menu_user(JWeb jw) {
+        RY ry = system.web.power.session.Login.getUserInfo(RY.class, jw, PDK.SESSION_ADMIN_KEY);
+        if (null == ry) {
+            return;
+        }
+        jw.printOne(Tool.entityToJSON(
+                XtQuanxianService.select(
+                        "WHERE xt_quanxian_keshi IN(1) AND xt_quanxian_jibie IN(3,4) AND xt_quanxian_dm IN(" + Tool.replaceDToDDD(ry.getRy_zj()) + ")"
+                )
+        ));
     }
 
     @DL(PDK.SESSION_ADMIN_KEY)

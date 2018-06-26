@@ -8,7 +8,7 @@ import static configuration.mvc.BaseService.SHENHE;
 import java.util.List;
 import java.util.Date;
 import system.web.JWeb;
-import system.web.power.PDK;
+import static wx.xt.Gelibiaoshi.getSessionXtGuanliyuan;
 import wx.xt.bean.XtGuanliyuan;
 
 /**
@@ -82,30 +82,6 @@ final public class XtGuanliyuanService {
      */
     public static List<XtGuanliyuan> select(final int page, final int size, final String where, final String ordery) {
         return DBO.service.S.selectVastByCondition(XtGuanliyuan.class, page, size, null == where ? "" : where, null == ordery ? "" : ordery);
-    }
-
-    public static boolean isErrorGelibiaoshi(String ids, String gelibiaoshi) {
-        List<XtGuanliyuan> list = DBO.service.S.selectByCondition(XtGuanliyuan.class, "WHERE xt_guanliyuan_zj IN(" + Tool.replaceDToDDD(ids) + ")");
-        for (XtGuanliyuan obj : list) {
-            if (!obj.getXt_guanliyuan_gelibiaoshi().equals(gelibiaoshi)) {
-                return true;
-            }
-        }
-        return false;
-    }
-    public static boolean isErrorGelibiaoshi(String zj, JWeb jw) {
-        XtGuanliyuan obj = selectOne(zj);
-        XtGuanliyuan admin = getSessionXtGuanliyuan(jw);
-        return null == obj || null == obj.getXt_guanliyuan_zj() || !admin.getXt_guanliyuan_gelibiaoshi().equals(obj.getXt_guanliyuan_gelibiaoshi());
-    }
-
-    public static boolean isErrorGelibiaoshi(XtGuanliyuan obj, JWeb jw) {
-        XtGuanliyuan admin = getSessionXtGuanliyuan(jw);
-        return null == obj || null == obj.getXt_guanliyuan_zj() || !admin.getXt_guanliyuan_gelibiaoshi().equals(obj.getXt_guanliyuan_gelibiaoshi());
-    }
-
-    public static XtGuanliyuan getSessionXtGuanliyuan(JWeb jw) {
-        return system.web.power.session.Login.getUserInfo(XtGuanliyuan.class, jw, PDK.SESSION_ADMIN_KEY);
     }
 //---------------------------------------统计区--------------------------------------
 
@@ -186,6 +162,25 @@ final public class XtGuanliyuanService {
         }
         //设置权限
         return MsgVO.setUpdateRS(DBO.service.U.updateSome_alloy(obj, "xt_guanliyuan_quanxian"));
+    }
+//---------------------------------------隔离标识管理---------------------------------------
+    public static boolean isErrorGelibiaoshi(String ids, String gelibiaoshi) {
+        List<XtGuanliyuan> list = DBO.service.S.selectByCondition(XtGuanliyuan.class, "WHERE xt_guanliyuan_zj IN(" + Tool.replaceDToDDD(ids) + ")");
+        for (XtGuanliyuan obj : list) {
+            if (!obj.getXt_guanliyuan_gelibiaoshi().equals(gelibiaoshi)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    public static boolean isErrorGelibiaoshi(String zj, JWeb jw) {
+        XtGuanliyuan obj = selectOne(zj);
+        XtGuanliyuan admin = getSessionXtGuanliyuan(jw);
+        return null == obj || null == obj.getXt_guanliyuan_zj() || !admin.getXt_guanliyuan_gelibiaoshi().equals(obj.getXt_guanliyuan_gelibiaoshi());
+    }
+    public static boolean isErrorGelibiaoshi(XtGuanliyuan obj, JWeb jw) {
+        XtGuanliyuan admin = getSessionXtGuanliyuan(jw);
+        return null == obj || null == obj.getXt_guanliyuan_zj() || !admin.getXt_guanliyuan_gelibiaoshi().equals(obj.getXt_guanliyuan_gelibiaoshi());
     }
 
 //---------------------------------------单据状态管理---------------------------------------

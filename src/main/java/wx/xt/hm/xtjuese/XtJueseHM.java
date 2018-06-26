@@ -10,7 +10,9 @@ import system.base.tree.TreeService;
 import system.base.tree.vo.IdPidEnum;
 import configuration.Tool;
 import plugins.easyui.EasyuiService;
-import wx.xt.bean.XtJuese;
+import wx.xt.Gelibiaoshi;
+import wx.xt.bean.XtGuanliyuan;
+import wx.xt.bean.xtjuese.XtJuese;
 import wx.xt.service.XtJueseService;
 
 /**
@@ -47,9 +49,10 @@ public class XtJueseHM {
         if (null == obj.getXt_juese_fzj() || obj.getXt_juese_fzj().isEmpty()) {
             obj.setXt_juese_fzj("0");
         }
-        obj.setXt_juese_zhidanren_zj("wangchunzi");
-        obj.setXt_juese_zhidanren("汪春滋");
-        obj.setXt_juese_gelibiaoshi("A001");
+        XtGuanliyuan admin = Gelibiaoshi.getSessionXtGuanliyuan(jw);
+        obj.setXt_juese_zhidanren_zj(admin.getXt_guanliyuan_zj());
+        obj.setXt_juese_zhidanren(admin.getXt_guanliyuan_mc());
+        obj.setXt_juese_gelibiaoshi(Gelibiaoshi.getGelibiaoshiAdmin(jw));
         //其他一些预定值设置
         jw.printOne(XtJueseService.addOne(obj));
     }
@@ -60,6 +63,9 @@ public class XtJueseHM {
     public void dellVast() {
         String id = jw.getString("id");
         if (null == id || id.length() != 24) {
+            return;
+        }
+        if (XtJueseService.isErrorGelibiaoshiOne(id, Gelibiaoshi.getGelibiaoshi(jw))) {//存在别人家的隔离标识的单据
             return;
         }
         jw.printOne(XtJueseService.dellOne(id));
@@ -77,7 +83,9 @@ public class XtJueseHM {
         if (null == obj.getXt_juese_fzj() || obj.getXt_juese_fzj().isEmpty()) {
             obj.setXt_juese_fzj("0");
         }
-
+        if (XtJueseService.isErrorGelibiaoshiOne(obj.getXt_juese_zj(), Gelibiaoshi.getGelibiaoshi(jw))) {//存在别人家的隔离标识的单据
+            return;
+        }
         List<XtJuese> list = XtJueseService.select();
         int tkey = TreeService.CHECK.getError_FatherIsSon(list, "xt_juese_zj", "xt_juese_fzj", obj.getXt_juese_zj(), obj.getXt_juese_fzj()).key;
 
@@ -100,6 +108,9 @@ public class XtJueseHM {
         if (null == obj.getXt_juese_zj()) {
             return;
         }
+        if (XtJueseService.isErrorGelibiaoshiOne(id, Gelibiaoshi.getGelibiaoshi(jw))) {//存在别人家的隔离标识的单据
+            return;
+        }
         jw.request.setAttribute("XtJuese", obj);
         jw.request.setAttribute("fl_P", XtJueseService.selectOne(obj.getXt_juese_fzj()));
         jw.forward("/xt/xtjuese/edit.jsp");
@@ -115,6 +126,9 @@ public class XtJueseHM {
         if (null == obj.getXt_juese_zj()) {
             return;
         }
+        if (XtJueseService.isErrorGelibiaoshiOne(id, Gelibiaoshi.getGelibiaoshi(jw))) {//存在别人家的隔离标识的单据
+            return;
+        }
         jw.request.setAttribute("XtJuese", obj);
         jw.request.setAttribute("fl_P", XtJueseService.selectOne(obj.getXt_juese_fzj()));
         jw.forward("/xt/xtjuese/one.jsp");
@@ -123,48 +137,62 @@ public class XtJueseHM {
     //@system.web.power.ann.SQ("xtjueseS")
     @M("/select/json")
     public static void select(JWeb jw) {
-        // jw.printOne(Tool.entityToJSON(DBO.service.S.select(LoufangFL.class, "order by loufangfl_px ASC"))); 如果有排序的话，将loufangfl_px字段替换为你的项目中的字段
-        jw.printOne(Tool.entityToJSON(XtJueseService.select()).replace("\n", "/n"));
+        XtGuanliyuan admin = Gelibiaoshi.getSessionXtGuanliyuan(jw);
+        String condition = wx.xt.service.XTTiaojianService.openConditionByReturnWhere_key(jw, "xt_juese_gelibiaoshi", admin.getXt_guanliyuan_gelibiaoshi());
+        jw.printOne(Tool.entityToJSON(XtJueseService.select(condition)).replace("\n", "/n"));
     }
     //@system.web.power.ann.SQ("xtjueseS")
 
     @M("/select/json2")
     public static void select2(JWeb jw) {
-        jw.printOne(EasyuiService.formatTree(XtJueseService.select(), "xt_juese_zj", "xt_juese_fzj", "xt_juese_mc").replace("\n", "/n"));
+        XtGuanliyuan admin = Gelibiaoshi.getSessionXtGuanliyuan(jw);
+        String condition = wx.xt.service.XTTiaojianService.openConditionByReturnWhere_key(jw, "xt_juese_gelibiaoshi", admin.getXt_guanliyuan_gelibiaoshi());
+        jw.printOne(EasyuiService.formatTree(XtJueseService.select(condition), "xt_juese_zj", "xt_juese_fzj", "xt_juese_mc").replace("\n", "/n"));
     }
 
     //@system.web.power.ann.SQ("xtjueseS")
     @M("/select/grid")
     public static void selectUI(JWeb jw) {//_UIGrid
-        //如果有某个字段要进行排序,例 以主键=。=
-        //jw.printOne(EasyuiService.formatTreeGrid(DBO.service.S.select(XtJuese.class, "order by xt_juese_zj ASC" ), "xt_juese_zj", "xt_juese_fzj", "xt_juese_mc"));
-        String x = jw.getString("key");
-        String condition = wx.xt.service.XTTiaojianService.engineToSQLCondition(x);
-        if (condition.length() > 0) {
-            condition = "WHERE " + condition;
-        }
+        XtGuanliyuan admin = Gelibiaoshi.getSessionXtGuanliyuan(jw);
+        String condition = wx.xt.service.XTTiaojianService.openConditionByReturnWhere_key(jw, "xt_juese_gelibiaoshi", admin.getXt_guanliyuan_gelibiaoshi());
         jw.printOne(EasyuiService.formatTreeGrid(XtJueseService.select(condition), "xt_juese_zj", "xt_juese_fzj", "xt_juese_mc").replace("\n", "/n"));
     }
 //---------------------------------------单据状态管理---------------------------------------
 
     @M("/update/examine")//审核单据
     public void examine() {
-        jw.printOne(XtJueseService.updateStyle_examine(jw.getString("ids")));
+        String ids = jw.getString("ids");
+        if (XtJueseService.isErrorGelibiaoshiVast(ids, Gelibiaoshi.getGelibiaoshi(jw))) {//存在别人家的隔离标识的单据
+            return;
+        }
+        jw.printOne(XtJueseService.updateStyle_examine(ids));
     }
 
     @M("/update/unexamine")//反审核
     public void unexamine() {
-        jw.printOne(XtJueseService.updateStyle_unExamine(jw.getString("ids")));
+        String ids = jw.getString("ids");
+        if (XtJueseService.isErrorGelibiaoshiVast(ids, Gelibiaoshi.getGelibiaoshi(jw))) {//存在别人家的隔离标识的单据
+            return;
+        }
+        jw.printOne(XtJueseService.updateStyle_unExamine(ids));
     }
 
     @M("/update/void")//作废
     public void tovoid() {
-        jw.printOne(XtJueseService.updateStyle_void(jw.getString("ids")));
+        String ids = jw.getString("ids");
+        if (XtJueseService.isErrorGelibiaoshiVast(ids, Gelibiaoshi.getGelibiaoshi(jw))) {//存在别人家的隔离标识的单据
+            return;
+        }
+        jw.printOne(XtJueseService.updateStyle_void(ids));
     }
 
     @M("/update/unvoid")//反作废
     public void untovoid() {
-        jw.printOne(XtJueseService.updateStyle_unVoid(jw.getString("ids")));
+        String ids = jw.getString("ids");
+        if (XtJueseService.isErrorGelibiaoshiVast(ids, Gelibiaoshi.getGelibiaoshi(jw))) {//存在别人家的隔离标识的单据
+            return;
+        }
+        jw.printOne(XtJueseService.updateStyle_unVoid(ids));
     }
 
 }

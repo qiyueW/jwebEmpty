@@ -1,3 +1,12 @@
+function f_onHidePanel_combotree() {
+    var mytree = $(this).combotree('tree').tree('getSelected');
+    if (mytree) {
+        $(this).combotree('setValue', mytree.id);
+        $(this).combotree('setText', mytree.text);
+        return;
+    }
+    $(this).combotree('clear');
+}
 function pageCN(tableID, pagesize, pageList) {
     var p = $('#' + tableID).datagrid('getPager');
     var mpage = pagesize ? pagesize : 50;
@@ -68,8 +77,8 @@ function f_extend_select() {
 
                 if (options.url) {
                     if (options.param) {
-                        var x=eval(options.param);
-                        datas = f_myajax(options.url,x())
+                        var x = eval(options.param);
+                        datas = f_myajax(options.url, x())
                     } else {
                         datas = f_myajax(options.url, null)
                     }

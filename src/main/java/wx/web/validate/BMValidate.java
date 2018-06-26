@@ -24,8 +24,8 @@ public class BMValidate extends ValidateModel {
                 .put("bm_tupian2","[\\w\\W]{0,200}", "部门图片2:图片名及路径长度超200字符", false)//部门图片2
                 .put("bm_fuzhiren_zj","[1-9]{1}[0-9]{23}", "部门负责人主键丢失", false)//部门负责人主键
                 .put("bm_fuzhiren","[\\w\\W]{0,20}", "部门负责人:长度超20字符", false)//部门负责人
-                .put("bm_zt","[0|1|2|3|4]{1}", "部门状态:请输入正整数。位数在1-1位之间", true)//部门状态
-                .put("bm_gelibiaoshi","[\\w\\W]{1,20}", "隔离标识:文本为空或长度超20字符", true)//隔离标识
+                .put("bm_zt","[0|1|2|3|4]{1}", "部门状态:请输入正整数。位数在1-1位之间", false)//部门状态
+                .put("bm_gelibiaoshi","[\\w\\W]{1,20}", "隔离标识:文本为空或长度超20字符", false)//隔离标识
 ;
     }
 

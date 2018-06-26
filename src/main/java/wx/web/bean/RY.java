@@ -58,6 +58,7 @@ public class RY {
     private  String ry_zhidanren_zj ;// 制单人主键 
     private  String ry_zhidanren ;// 制单人 
     private  String ry_gelibiaoshi ;// 隔离标识 
+    private  Integer ry_zt ;// 状态 
 
     @Override
     public String toString() {
@@ -109,7 +110,8 @@ public class RY {
                 .append(",\"ry_neibutongxing10\":\"").append(ry_neibutongxing10).append("\"")
                 .append(",\"ry_zhidanren_zj\":\"").append(ry_zhidanren_zj).append("\"")
                 .append(",\"ry_zhidanren\":\"").append(ry_zhidanren).append("\"")
-                .append(",\"ry_gelibiaoshi\":\"").append(ry_gelibiaoshi).append("\"}")
+                .append(",\"ry_gelibiaoshi\":\"").append(ry_gelibiaoshi).append("\"")
+                .append(",\"ry_zt\":\"").append(ry_zt).append("\"}")
                 ;
         return sb.toString();
     }
@@ -929,5 +931,22 @@ public class RY {
      */
     public String getRy_gelibiaoshi() {
         return this.ry_gelibiaoshi;
+    }
+    /**
+     * 设置 状态
+     *
+     * @param ry_zt Integer
+     */
+    public void setRy_zt(Integer ry_zt) {
+        this.ry_zt=ry_zt;
+    }
+
+    /**
+     * 取得 状态
+     *
+     * @return Integer
+     */
+    public Integer getRy_zt() {
+        return this.ry_zt;
     }
 }

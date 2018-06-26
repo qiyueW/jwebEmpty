@@ -6,7 +6,7 @@ import system.web.JWeb;
 import configuration.Tool;
 import java.util.List;
 import java.util.Set;
-import wx.xt.bean.XtJuese;
+import wx.xt.bean.xtjuese.XtJuese;
 import wx.xt.service.XTJueseQuanxianService;
 import wx.xt.service.XtJueseService;
 
