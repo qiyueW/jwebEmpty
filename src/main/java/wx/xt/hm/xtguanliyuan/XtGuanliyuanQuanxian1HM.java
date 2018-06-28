@@ -1,17 +1,20 @@
-package wx.xt.hm;
+package wx.xt.hm.xtguanliyuan;
 
 import system.base.annotation.H;
 import system.base.annotation.M;
 import system.web.JWeb;
-import wx.xt.bean.XtGuanliyuan;
+import system.web.power.PDK;
+import system.web.power.ann.DL;
+import wx.xt.bean.xtguanliyuan.XtGuanliyuan;
 import wx.xt.service.XtGuanliyuanService;
 
-@H("/xt/xtguanliyuan/quanxian")
-public class XtGuanliyuanQuanxianHM {
+@DL(PDK.SESSION_SUPER_ADMIN_KEY)
+@H("/xt/xtguanliyuan1/quanxian")
+public class XtGuanliyuanQuanxian1HM {
 
     JWeb jw;
 
-    public XtGuanliyuanQuanxianHM(JWeb jw) {
+    public XtGuanliyuanQuanxian1HM(JWeb jw) {
         this.jw = jw;
     }
     //@system.web.power.ann.SQ("xtguanliyuanU")

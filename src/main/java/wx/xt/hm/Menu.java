@@ -7,7 +7,7 @@ import system.web.JWeb;
 import system.web.power.PDK;
 import system.web.power.ann.DL;
 import wx.web.bean.RY;
-import wx.xt.bean.XtGuanliyuan;
+import wx.xt.bean.xtguanliyuan.XtGuanliyuan;
 import wx.xt.service.XtQuanxianService;
 
 /**
@@ -26,7 +26,7 @@ public class Menu {
         }
         jw.printOne(Tool.entityToJSON(
                 XtQuanxianService.select(
-                        "WHERE xt_quanxian_keshi IN(1) AND xt_quanxian_jibie IN(3,4) AND xt_quanxian_dm IN(" + Tool.replaceDToDDD(ry.getRy_zj()) + ")"
+                        "WHERE xt_quanxian_keshi IN(1) AND xt_quanxian_jibie IN(3,7,9) AND xt_quanxian_dm IN(" + Tool.replaceDToDDD(ry.getRy_zj()) + ")"
                 )
         ));
     }
@@ -38,16 +38,24 @@ public class Menu {
         if (null == obj.getXt_guanliyuan_quanxian() || obj.getXt_guanliyuan_quanxian().isEmpty()) {
             return;
         }
-        jw.printOne(Tool.entityToJSON(
-                XtQuanxianService.select(
-                        "WHERE xt_quanxian_keshi IN(1) AND xt_quanxian_jibie IN(0,2,4) AND xt_quanxian_dm IN(" + Tool.replaceDToDDD(obj.getXt_guanliyuan_quanxian()) + ")"
-                )
-        ));
+        if (obj.getXt_guanliyuan_jibie() == 2) {//总管
+            jw.printOne(Tool.entityToJSON(
+                    XtQuanxianService.select(
+                            "WHERE xt_quanxian_keshi IN(1) AND xt_quanxian_jibie IN(2,5,9) AND xt_quanxian_dm IN(" + Tool.replaceDToDDD(obj.getXt_guanliyuan_quanxian()) + ")"
+                    )
+            ));
+        } else {//普通管理员
+            jw.printOne(Tool.entityToJSON(
+                    XtQuanxianService.select(
+                            "WHERE xt_quanxian_keshi IN(1) AND xt_quanxian_jibie IN(3,5,7,9) AND xt_quanxian_dm IN(" + Tool.replaceDToDDD(obj.getXt_guanliyuan_quanxian()) + ")"
+                    )
+            ));
+        }
     }
 
     @DL(PDK.SESSION_SUPER_ADMIN_KEY)
     @M("/superadmin")
     public static void menu_superAdmin(JWeb jw) {
-        jw.printOne(Tool.entityToJSON(XtQuanxianService.select("WHERE xt_quanxian_keshi IN(1) AND xt_quanxian_jibie IN(0,1)")));
+        jw.printOne(Tool.entityToJSON(XtQuanxianService.select("WHERE xt_quanxian_keshi IN(1) AND xt_quanxian_jibie IN(1)")));
     }
 }

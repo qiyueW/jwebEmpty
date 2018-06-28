@@ -3,6 +3,7 @@ package wx.web.service;
 import configuration.mvc.BaseService;
 import configuration.DBO;
 import configuration.MsgVO;
+import configuration.Tool;
 import java.util.List;
 import java.util.Date;
 import wx.web.bean.Zhiwei;
@@ -40,6 +41,16 @@ final public class ZhiweiService {
     public static Zhiwei selectOne(String id) {
         return DBO.service.S.selectOneByID(Zhiwei.class, id);
     }
+//---------------------------------------隔离标识管理--------------------------------------
+    public static boolean isErrorGelibiaoshiVast(String ids, String gelibiaoshi) {
+        List<Zhiwei> list = DBO.service.S.selectByCondition(Zhiwei.class, "WHERE zhiwei_zj IN(" + Tool.replaceDToDDD(ids) + ")");
+        return BaseService.isErrorGelibiaoshiVast(list, "zhiwei_gelibiaoshi", gelibiaoshi);
+    }
+
+    public static boolean isErrorGelibiaoshiOne(String id, String gelibiaoshi) {
+        Zhiwei obj = DBO.service.S.selectOneByID(Zhiwei.class, id);
+        return BaseService.isErrorGelibiaoshiOne(obj, "zhiwei_gelibiaoshi", gelibiaoshi);
+    }    
 //---------------------------------------增删改--------------------------------------
 
     /**

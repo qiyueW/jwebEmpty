@@ -15,7 +15,7 @@ function dellRow() {
         $.messager.alert('异常', '单据锁定，无法删除');
         return;
     }
-    easyuiAjax("/xt/xtguanliyuan/remove.jw", {id: rows[0].xt_guanliyuan_zj}, "请确认删除操作", function () {
+    easyuiAjax("/xt/xtguanliyuan1/remove.jw", {id: rows[0].xt_guanliyuan_zj}, "请确认删除操作", function () {
         easyuiGridReload('dg')
     });
 }
@@ -29,7 +29,7 @@ function updateRow() {
         $.messager.alert('异常', '单据锁定，无法修改');
         return;
     }
-    easyuiLoadWindowByURL('showUpdatePage', '修改', '/xt/xtguanliyuan/update/select.jw?id=' + rows[0].xt_guanliyuan_zj);
+    easyuiLoadWindowByURL('showUpdatePage', '修改', '/xt/xtguanliyuan1/update/select.jw?id=' + rows[0].xt_guanliyuan_zj);
 }
 
 function seeRow() {
@@ -38,7 +38,7 @@ function seeRow() {
         $.messager.alert('提示', '请选择行');
         return;
     }
-    easyuiLoadWindowByURL('showSeeOnePage', '明细', '/xt/xtguanliyuan/select/selectOne.jw?id=' + rows[0].xt_guanliyuan_zj);
+    easyuiLoadWindowByURL('showSeeOnePage', '明细', '/xt/xtguanliyuan1/select/selectOne.jw?id=' + rows[0].xt_guanliyuan_zj);
 }
 
 //-------------------------单据状态管理-------------------------                
@@ -48,7 +48,7 @@ function update01() {//审核
         $.messager.alert('提示', '请选择行');
         return;
     }
-    easyuiAjax("/xt/xtguanliyuan/update/examine.jw", {ids: easyuiGetRowsID(rows, 'xt_guanliyuan_zj')}, "请确认审核操作", function () {
+    easyuiAjax("/xt/xtguanliyuan1/update/examine.jw", {ids: easyuiGetRowsID(rows, 'xt_guanliyuan_zj')}, "请确认审核操作", function () {
         easyuiGridReload('dg')
     });
 }
@@ -58,7 +58,7 @@ function update10() {//反审核
         $.messager.alert('提示', '请选择行');
         return;
     }
-    easyuiAjax("/xt/xtguanliyuan/update/unexamine.jw", {ids: easyuiGetRowsID(rows, 'xt_guanliyuan_zj')}, "请确认反审核操作", function () {
+    easyuiAjax("/xt/xtguanliyuan1/update/unexamine.jw", {ids: easyuiGetRowsID(rows, 'xt_guanliyuan_zj')}, "请确认反审核操作", function () {
         easyuiGridReload('dg')
     });
 }
@@ -68,7 +68,7 @@ function update04() {//作废
         $.messager.alert('提示', '请选择行');
         return;
     }
-    easyuiAjax("/xt/xtguanliyuan/update/void.jw", {ids: easyuiGetRowsID(rows, 'xt_guanliyuan_zj')}, "请确认作废操作", function () {
+    easyuiAjax("/xt/xtguanliyuan1/update/void.jw", {ids: easyuiGetRowsID(rows, 'xt_guanliyuan_zj')}, "请确认作废操作", function () {
         easyuiGridReload('dg')
     });
 }
@@ -78,7 +78,7 @@ function update40() {//反作废
         $.messager.alert('提示', '请选择行');
         return;
     }
-    easyuiAjax("/xt/xtguanliyuan/update/unvoid.jw", {ids: easyuiGetRowsID(rows, 'xt_guanliyuan_zj')}, "请确认反作废操作", function () {
+    easyuiAjax("/xt/xtguanliyuan1/update/unvoid.jw", {ids: easyuiGetRowsID(rows, 'xt_guanliyuan_zj')}, "请确认反作废操作", function () {
         easyuiGridReload('dg')
     });
 }

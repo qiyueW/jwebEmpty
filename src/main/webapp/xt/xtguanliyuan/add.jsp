@@ -80,7 +80,7 @@
                         <input type="text"  id="xt_guanliyuan_bz" name="xt_guanliyuan_bz" data-options="required:false" class="easyui-textbox"/>
                     </div>
                 </div>
-                 <div class="row-fluid">
+<!--                 <div class="row-fluid">
                     <div class="span12">
                         <span class="myname" >管理员权限集合</span>
                         <textarea rows=5  class="textarea easyui-validatebox" id="xt_guanliyuan_quanxian" name="xt_guanliyuan_quanxian" data-options="required:false"></textarea>
@@ -91,7 +91,7 @@
                         <span class="myname" >管理员部门集合</span>
                         <textarea rows=5  class="textarea easyui-validatebox" id="xt_guanliyuan_bm" name="xt_guanliyuan_bm" data-options="required:false"></textarea>
                     </div>
-                </div>
+                </div>-->
                  <div class="row-fluid">
                     <div class="span12">
                         <span class="myname" >隔离标识</span>

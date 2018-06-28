@@ -3,7 +3,7 @@ package wx.xt;
 import system.web.JWeb;
 import system.web.power.PDK;
 import wx.web.bean.RY;
-import wx.xt.bean.XtGuanliyuan;
+import wx.xt.bean.xtguanliyuan.XtGuanliyuan;
 
 /**
  *

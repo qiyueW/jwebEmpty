@@ -107,11 +107,13 @@
                     <div class="span12">
                         <span class="myname" >级别</span>
                         <select id="xt_quanxian_jibie">
-                            <option value="3">用户使用-3</option>
-                            <option value="2">管理员使用-2</option>
-                            <option value="1">超级管理专用-1</option>
-                            <option value="0">混合-所有管理员-0</option>
-                            <option value="4">混合-管理员与用户-4</option>
+                            <option value="4">4)业务员</option>
+                            <option value="3">3)普通管理员</option>
+                            <option value="2">2)总管</option>
+                            <option value="1">1)超级管理员</option>
+                            <option value="5">5)总管+普通管理员</option>
+                            <option value="9">9)总管+普通管理员+业务员</option>
+                            <option value="7">7)普通管理员+业务员</option>
                         </select>
                     </div>
                 </div>

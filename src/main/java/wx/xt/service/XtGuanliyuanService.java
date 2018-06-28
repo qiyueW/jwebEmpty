@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Date;
 import system.web.JWeb;
 import static wx.xt.Gelibiaoshi.getSessionXtGuanliyuan;
-import wx.xt.bean.XtGuanliyuan;
+import wx.xt.bean.xtguanliyuan.XtGuanliyuan;
 
 /**
  *

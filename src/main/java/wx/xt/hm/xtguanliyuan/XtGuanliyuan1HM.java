@@ -1,5 +1,6 @@
 package wx.xt.hm.xtguanliyuan;
 
+import configuration.MsgVO;
 import configuration.Page;
 import system.base.annotation.H;
 import system.base.annotation.M;
@@ -7,10 +8,10 @@ import system.base.annotation.Validate;
 import system.web.JWeb;
 import configuration.Tool;
 import plugins.easyui.EasyuiService;
-import wx.xt.bean.XtGuanliyuan;
+import wx.xt.bean.xtguanliyuan.XtGuanliyuan;
 import wx.xt.service.XtGuanliyuanService;
 
-@H("/xt/xtguanliyuan")
+@H("/xt/xtguanliyuan1")
 public class XtGuanliyuan1HM {
 
     JWeb jw;
@@ -25,7 +26,11 @@ public class XtGuanliyuan1HM {
     @Validate(wx.xt.validate.XtGuanliyuanValidate.class)
     public void add() {
         XtGuanliyuan obj = jw.getObject(XtGuanliyuan.class);
-        obj.setXt_guanliyuan_jibie(1);
+        obj.setXt_guanliyuan_jibie(2);
+        if (XtGuanliyuanService.selectCount("WHERE xt_guanliyuan_jibie=2 AND xt_guanliyuan_gelibiaoshi='" + obj.getXt_guanliyuan_gelibiaoshi() + "'") > 0) {
+            jw.printOne(MsgVO.setError("添加失败，已经存在标识为" + obj.getXt_guanliyuan_gelibiaoshi() + "的总管"));
+            return;
+        }
         jw.printOne(XtGuanliyuanService.addOne(obj));
     }
 //===================删除操作=============================    
@@ -77,6 +82,7 @@ public class XtGuanliyuan1HM {
         jw.request.setAttribute("XtGuanliyuan", obj);
         jw.forward("/xt/xtguanliyuan/one.jsp");
     }
+
     //@system.web.power.ann.SQ("xtguanliyuanS") 
     @M("/select/selectOne/json")//查询权限
     public void selectOneByJson() {
@@ -87,6 +93,7 @@ public class XtGuanliyuan1HM {
         }
         jw.printOne(obj.toString());
     }
+
     //@system.web.power.ann.SQ("xtguanliyuanS")
     @M("/select/json")//针对表头的查询-返回json数据
     public static void selectJSON(JWeb jw) {

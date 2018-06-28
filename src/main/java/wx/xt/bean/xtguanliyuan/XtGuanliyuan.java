@@ -1,4 +1,4 @@
-package wx.xt.bean;
+package wx.xt.bean.xtguanliyuan;
 
 import configuration.Tool;
 import java.util.Date;

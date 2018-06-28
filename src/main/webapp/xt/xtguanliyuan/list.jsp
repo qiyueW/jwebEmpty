@@ -26,7 +26,7 @@
                singleSelect:true,
                showFooter:true,
                toolbar:'#tb',
-               url:'${path_home}/xt/xtguanliyuan/select/grid.jw',
+               url:'${path_home}/xt/xtguanliyuan1/select/grid.jw',
                onRowContextMenu:f_gridMenu
                ">
             <thead>
@@ -37,11 +37,10 @@
                     <th data-options="field:'xt_guanliyuan_zhanghao',width:90"><div>管理员账号</div></th>
                     <th data-options="field:'xt_guanliyuan_mima',width:90"><div>管理员密码</div></th>
                     <th data-options="field:'xt_guanliyuan_youxiang',width:90"><div>管理员邮箱</div></th>
+                    <th data-options="field:'xt_guanliyuan_gelibiaoshi',width:90"><div>隔离标识</div></th>
+                    <th data-options="field:'xt_guanliyuan_jibie',width:90"><div>管理员级别</div></th>
                     <th data-options="field:'xt_guanliyuan_zt',width:60,formatter:f_common_style"><div>管理员状态</div></th>
                     <th data-options="field:'xt_guanliyuan_bz',width:90"><div>管理员备注</div></th>
-<!--                    <th data-options="field:'xt_guanliyuan_quanxian',width:90"><div>管理员权限集合</div></th>
-                    <th data-options="field:'xt_guanliyuan_bm',width:90"><div>管理员部门集合</div></th>-->
-                    <th data-options="field:'xt_guanliyuan_gelibiaoshi',width:90"><div>隔离标识</div></th>
                     <th data-options="field:'xt_guanliyuan_zhidanshijian',width:130"><div>制单时间</div></th>
                 </tr>
             </thead>

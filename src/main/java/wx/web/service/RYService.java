@@ -58,7 +58,7 @@ final public class RYService {
     }
 //---------------------------------------隔离标识管理--------------------------------------
     public static boolean isErrorGelibiaoshiVast(String ids, String gelibiaoshi) {
-        List<RY> list = DBO.service.S.selectByCondition(RY.class, "WHERE ry_gelibiaoshi IN(" + Tool.replaceDToDDD(ids) + ")");
+        List<RY> list = DBO.service.S.selectByCondition(RY.class, "WHERE ry_zj IN(" + Tool.replaceDToDDD(ids) + ")");
         return BaseService.isErrorGelibiaoshiVast(list, "ry_gelibiaoshi", gelibiaoshi);
     }
 

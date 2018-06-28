@@ -11,7 +11,7 @@ import system.web.JWeb;
 import system.web.power.PDK;
 import wx.web.bean.RY;
 import wx.web.service.RYService;
-import wx.xt.bean.XtGuanliyuan;
+import wx.xt.bean.xtguanliyuan.XtGuanliyuan;
 import wx.xt.hm.vo.LoginVO;
 import wx.xt.service.XtGuanliyuanService;
 

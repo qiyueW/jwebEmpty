@@ -1,9 +1,7 @@
 //页面文档加载完后-调用此函数。
 //需要初始化的，统一放到此函数来
 function inidoAdd() {
-    toCreateTree("divID_Tree_menu_XtQuanxian", "xt_quanxian_zj", "xt_quanxian_fzj", "xt_quanxian_mc", "/xt/power/superadmin.jw", true, function (event, id, treeNode) {
-        $("#xt_quanxian_fzj").val(treeNode.xt_quanxian_zj)
-        $("#xt_quanxian_fzj_mc").textbox('setValue', treeNode.xt_quanxian_mc);
+    toCreateTreeByChkboxType("divID_Tree_menu_XtQuanxian", "xt_juese_zj", "xt_juese_fzj", "xt_juese_mc", "/xt/xtjuese/select/json.jw", true, 0, function (event, id, treeNode) {
     }, true);
 }
 function f_gridMenu(e, row) {         //右击事件
@@ -15,7 +13,7 @@ function f_gridMenu(e, row) {         //右击事件
     e.preventDefault();         //阻止浏览器自带的右键菜单弹出
 }
 function seeRowPower() {
-    var rows = $('#dg').treegrid('getSelections');
+    var rows = $('#dg').datagrid('getSelections');
     if (!rows[0]) {
         $.messager.alert('提示', '请选择管理员');
         return;
@@ -23,13 +21,14 @@ function seeRowPower() {
     //取消权限树所有原有选择。
     var treeObj = $.fn.zTree.getZTreeObj("divID_Tree_menu_XtQuanxian");
     treeObj.checkAllNodes(false);
-    $.post(path_home + "xt/xtguanliyuan1/quanxian/select/selectOne/json.jw", {id: f_getGuanliyuanGrid_zj(rows)}, function (d) {
+                        
+    $.post(path_home + "xt/xtguanliyuanjuese/select/json.jw", {id: f_getGuanliyuanGrid_zj(rows)}, function (d) {
         //重装上权限
         treeObj.expandAll(false);
-        var rsdata =d.xt_guanliyuan_quanxian.split(",");
+        var rsdata = d.xt_juese_zj.split(",");
         var mynode;
         for (var i = 0; i < rsdata.length; i++) {
-            mynode = treeObj.getNodeByParam("xt_quanxian_dm", rsdata[i], null);//通过代码列，检出节点
+            mynode = treeObj.getNodeByParam("xt_juese_zj", rsdata[i], null);//通过代码列，检出节点
             if (null != mynode) {//节点不为空，把节点设置为勾选状态
                 treeObj.checkNode(mynode, true, false);
             }
@@ -51,15 +50,14 @@ function f_getGuanliyuanGrid_zj(rows) {
 }
 
 function setPower() {
-    var rows = $('#dg').treegrid('getSelections');
+    var rows = $('#dg').datagrid('getSelections');
     if (!rows[0]) {
-        $.messager.alert('提示', '请选择角色');
+        $.messager.alert('提示', '请选择需要绑定角色的管理员');
         return;
     }
-    var quanxian = ztree_getNodesValues("divID_Tree_menu_XtQuanxian", "xt_quanxian_dm", 1);
+    var xt_juese_zj = ztree_getNodesValues("divID_Tree_menu_XtQuanxian", "xt_juese_zj", 1);
     var xt_guanliyuan_zj = f_getGuanliyuanGrid_zj(rows);
-
-    easyuiAjax("/xt/xtguanliyuan1/quanxian/xiugan/quanxian.jw", {xt_guanliyuan_quanxian: quanxian, xt_guanliyuan_zj: xt_guanliyuan_zj}, "请确认权限设置操作", function () {
+    easyuiAjax("/xt/xtguanliyuanjuese/adu.jw", {xt_juese_zj: xt_juese_zj, xt_guanliyuan_zj: xt_guanliyuan_zj}, "请确认权限设置操作", function () {
     });
 }
 
@@ -78,6 +76,6 @@ function f_closeCondition() {
 function f_queryByCondition(jsonData) {
     $('#showConditionPage').panel('close');
     var queryParams = $('#dg').datagrid('options').queryParams;
-    queryParams.key =jsonData;
+    queryParams.key = jsonData;
     $('#dg').datagrid('reload');
 }

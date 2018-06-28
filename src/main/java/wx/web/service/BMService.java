@@ -71,7 +71,7 @@ final public class BMService {
     }
 //---------------------------------------隔离标识管理--------------------------------------
     public static boolean isErrorGelibiaoshiVast(String ids, String gelibiaoshi) {
-        List<BM> list = DBO.service.S.selectByCondition(BM.class, "WHERE bm_gelibiaoshi IN(" + Tool.replaceDToDDD(ids) + ")");
+        List<BM> list = DBO.service.S.selectByCondition(BM.class, "WHERE bm_zj IN(" + Tool.replaceDToDDD(ids) + ")");
         return BaseService.isErrorGelibiaoshiVast(list, "bm_gelibiaoshi", gelibiaoshi);
     }
 

@@ -10,7 +10,7 @@ import configuration.Tool;
 import plugins.easyui.EasyuiService;
 import system.web.power.PDK;
 import wx.xt.Gelibiaoshi;
-import wx.xt.bean.XtGuanliyuan;
+import wx.xt.bean.xtguanliyuan.XtGuanliyuan;
 import wx.xt.service.XtGuanliyuanService;
 
 /**

@@ -4,8 +4,8 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>管理员管理范围</title>
-        <script type="text/javascript" src="${path_home}/xt/js/xtguanliyuan/quanxianfanwei.js?id=<%=new Date()%>"></script>
+        <title>管理员与角色绑定</title>
+        <script type="text/javascript" src="${path_home}/xt/js/xtguanliyuan/guanliyuanjuese.js?id=<%=new Date()%>"></script>
         <%@include file="/WEB-INF/jspf/easyuiLocal.jspf"%>
         <%@include file="/WEB-INF/jspf/artDialog.jspf"%>
         <%@include file="/WEB-INF/jspf/ztree.jspf"%>
@@ -18,7 +18,7 @@
         </script>
     </head>
     <body class="easyui-layout">
-        <div data-options="region:'east',split:true,title:'可管理的部门'" style="width:450px;padding:10px;">
+        <div data-options="region:'east',split:true,title:'进行绑定的角色集合'" style="width:450px;padding:10px;">
             <div id="divID_Tree_menu_XtQuanxian" class="ztree">bean</div>
         </div>
         <div data-options="region:'center'" id='centerMain'>
@@ -54,13 +54,20 @@
                     <a href="javascript:void(0)" iconCls="icon-tip" class="easyui-linkbutton" plain="true" onclick="seeRowPower()">展示权限</a>
                     <a href="javascript:void(0)" iconCls="icon-tip" class="easyui-linkbutton" plain="true" onclick="f_condition()">过滤条件</a>
                 </div>
+                <!--                <div>
+                                    <select onchange="$('#dg').treegrid({singleSelect: (this.value == 0)});
+                                            pageCN('dg', 100)">
+                                        <option value="0">单行选择</option>
+                                        <option value="1">多行选择</option>
+                                    </select>
+                                </div>-->
             </div>
         </div>
 
 
         <div id="showConditionPage" class="easyui-window" style="overflow: hidden" fit="true" 
              data-options="closable:false,closed:true,modal:true,maximized:true">
-        </div>
+        </div> 
         <div id="gridShowIMG"></div>
         <div id="menu" class="easyui-menu" style="width:150px;">
             <div onclick="seeRowPower()">展示权限</div>

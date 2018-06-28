@@ -23,7 +23,7 @@ function seeRowPower() {
     //取消权限树所有原有选择。
     var treeObj = $.fn.zTree.getZTreeObj("divID_Tree_menu_XtQuanxian");
     treeObj.checkAllNodes(false);
-    $.post(path_home + "xt/xtguanliyuan/quanxian/select/selectOne/json.jw", {id: f_getGuanliyuanGrid_zj(rows)}, function (d) {
+    $.post(path_home + "xt/xtguanliyuan2/quanxian/select/selectOne/json.jw", {id: f_getGuanliyuanGrid_zj(rows)}, function (d) {
         //重装上权限
         treeObj.expandAll(false);
         var rsdata =d.xt_guanliyuan_quanxian.split(",");
@@ -59,7 +59,7 @@ function setPower() {
     var quanxian = ztree_getNodesValues("divID_Tree_menu_XtQuanxian", "xt_quanxian_dm", 1);
     var xt_guanliyuan_zj = f_getGuanliyuanGrid_zj(rows);
 
-    easyuiAjax("/xt/xtguanliyuan/quanxian/xiugan/quanxian.jw", {xt_guanliyuan_quanxian: quanxian, xt_guanliyuan_zj: xt_guanliyuan_zj}, "请确认权限设置操作", function () {
+    easyuiAjax("/xt/xtguanliyuan2/quanxian/xiugan/quanxian.jw", {xt_guanliyuan_quanxian: quanxian, xt_guanliyuan_zj: xt_guanliyuan_zj}, "请确认权限设置操作", function () {
     });
 }
 

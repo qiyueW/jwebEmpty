@@ -11,7 +11,7 @@ import system.base.tree.vo.IdPidEnum;
 import configuration.Tool;
 import plugins.easyui.EasyuiService;
 import wx.xt.Gelibiaoshi;
-import wx.xt.bean.XtGuanliyuan;
+import wx.xt.bean.xtguanliyuan.XtGuanliyuan;
 import wx.xt.bean.xtjuese.XtJuese;
 import wx.xt.service.XtJueseService;
 
@@ -52,7 +52,7 @@ public class XtJueseHM {
         XtGuanliyuan admin = Gelibiaoshi.getSessionXtGuanliyuan(jw);
         obj.setXt_juese_zhidanren_zj(admin.getXt_guanliyuan_zj());
         obj.setXt_juese_zhidanren(admin.getXt_guanliyuan_mc());
-        obj.setXt_juese_gelibiaoshi(Gelibiaoshi.getGelibiaoshiAdmin(jw));
+        obj.setXt_juese_gelibiaoshi(admin.getXt_guanliyuan_gelibiaoshi());
         //其他一些预定值设置
         jw.printOne(XtJueseService.addOne(obj));
     }
