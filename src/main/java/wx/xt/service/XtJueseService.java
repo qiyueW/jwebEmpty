@@ -23,6 +23,7 @@ final public class XtJueseService {
     public static List<XtJuese> select() {
         return DBO.service.S.select(XtJuese.class);
     }
+
     /**
      * 检出树
      *
@@ -32,6 +33,7 @@ final public class XtJueseService {
     public static List<XtJuese> select(String condition) {
         return DBO.service.S.selectByCondition(XtJuese.class, condition);
     }
+
     /**
      * 检出一条记录
      *
@@ -41,6 +43,11 @@ final public class XtJueseService {
     public static XtJuese selectOne(String id) {
         return DBO.service.S.selectOneByID(XtJuese.class, id);
     }
+
+    public static XtJuese checkMySon(String id) {
+        return DBO.service.S.selectOneByID(XtJuese.class, id);
+    }
+
 //---------------------------------------隔离标识管理--------------------------------------
     public static boolean isErrorGelibiaoshiVast(String ids, String gelibiaoshi) {
         List<XtJuese> list = DBO.service.S.selectByCondition(XtJuese.class, "WHERE xt_juese_gelibiaoshi IN(" + Tool.replaceDToDDD(ids) + ")");
@@ -50,7 +57,7 @@ final public class XtJueseService {
     public static boolean isErrorGelibiaoshiOne(String id, String gelibiaoshi) {
         XtJuese obj = DBO.service.S.selectOneByID(XtJuese.class, id);
         return BaseService.isErrorGelibiaoshiOne(obj, "xt_juese_gelibiaoshi", gelibiaoshi);
-    }    
+    }
 //---------------------------------------增删改--------------------------------------
 
     /**
@@ -62,8 +69,8 @@ final public class XtJueseService {
     public static MsgVO addOne(XtJuese obj) {
         obj.setXt_juese_zt(0);
         obj.setXt_juese_zhidanshijian(new Date());
-        int i = DBO.service.A.addOne(obj,"xt_juese_mc","xt_juese_dm");
-        if(i==-1){
+        int i = DBO.service.A.addOne(obj, "xt_juese_mc", "xt_juese_dm");
+        if (i == -1) {
             return MsgVO.setError("添加异常：请检查这些字段(名称,代码)是否唯一");
         }
         return MsgVO.setAddRS(i);
@@ -77,7 +84,7 @@ final public class XtJueseService {
      */
     public static MsgVO dellOne(String id) {
         XtJuese cobj = selectOne(id);
-        if (null == cobj||null==cobj.getXt_juese_zj()||cobj.getXt_juese_zt() != BaseService.XINZENG) {
+        if (null == cobj || null == cobj.getXt_juese_zj() || cobj.getXt_juese_zt() != BaseService.XINZENG) {
             return MsgVO.setError("没找到该记录。请刷新后再尝试");
         }
         List<XtJuese> list = select();
@@ -105,7 +112,7 @@ final public class XtJueseService {
             return MsgVO.setError();
         }
         return MsgVO.setUpdateRS(DBO.service.U.updateSome_reject(obj,
-        //xt_juese_zt,制单时间
+                //xt_juese_zt,制单时间
                 "xt_juese_zt,xt_juese_zhidanshijian"));
     }
 //---------------------------------------单据状态管理---------------------------------------
