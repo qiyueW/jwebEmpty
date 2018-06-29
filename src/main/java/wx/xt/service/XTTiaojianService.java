@@ -179,7 +179,16 @@ final public class XTTiaojianService {
         }
         return MsgVO.setUpdateRS(i[0]);
     }
+//---------------------------------------隔离标识管理--------------------------------------
+    public static boolean isErrorGelibiaoshiVast(String ids, String gelibiaoshi) {
+        List<XTTiaojian> list = DBO.service.S.selectByCondition(XTTiaojian.class, "WHERE xt_tiaojian_zj IN(" + Tool.replaceDToDDD(ids) + ")");
+        return BaseService.isErrorGelibiaoshiVast(list, "xt_tiaojian_gelibiaoshi", gelibiaoshi);
+    }
 
+    public static boolean isErrorGelibiaoshiOne(String id, String gelibiaoshi) {
+        XTTiaojian obj = DBO.service.S.selectOneByID(XTTiaojian.class, id);
+        return BaseService.isErrorGelibiaoshiOne(obj, "xt_tiaojian_gelibiaoshi", gelibiaoshi);
+    }
 //---------------------------------------单据状态管理---------------------------------------
     /**
      * 审核

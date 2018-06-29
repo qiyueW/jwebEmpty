@@ -49,7 +49,7 @@ public class XtJueseHM {
         if (null == obj.getXt_juese_fzj() || obj.getXt_juese_fzj().isEmpty()) {
             obj.setXt_juese_fzj("0");
         }
-        XtGuanliyuan admin = Gelibiaoshi.getSessionXtGuanliyuan(jw);
+        XtGuanliyuan admin = Gelibiaoshi.getAdminInfoBySession(jw);
         obj.setXt_juese_zhidanren_zj(admin.getXt_guanliyuan_zj());
         obj.setXt_juese_zhidanren(admin.getXt_guanliyuan_mc());
         obj.setXt_juese_gelibiaoshi(admin.getXt_guanliyuan_gelibiaoshi());
@@ -137,7 +137,7 @@ public class XtJueseHM {
     //@system.web.power.ann.SQ("xtjueseS")
     @M("/select/json")
     public static void select(JWeb jw) {
-        XtGuanliyuan admin = Gelibiaoshi.getSessionXtGuanliyuan(jw);
+        XtGuanliyuan admin = Gelibiaoshi.getAdminInfoBySession(jw);
         String condition = wx.xt.service.XTTiaojianService.openConditionByReturnWhere_key(jw, "xt_juese_gelibiaoshi", admin.getXt_guanliyuan_gelibiaoshi());
         jw.printOne(Tool.entityToJSON(XtJueseService.select(condition)).replace("\n", "/n"));
     }
@@ -145,7 +145,7 @@ public class XtJueseHM {
 
     @M("/select/json2")
     public static void select2(JWeb jw) {
-        XtGuanliyuan admin = Gelibiaoshi.getSessionXtGuanliyuan(jw);
+        XtGuanliyuan admin = Gelibiaoshi.getAdminInfoBySession(jw);
         String condition = wx.xt.service.XTTiaojianService.openConditionByReturnWhere_key(jw, "xt_juese_gelibiaoshi", admin.getXt_guanliyuan_gelibiaoshi());
         jw.printOne(EasyuiService.formatTree(XtJueseService.select(condition), "xt_juese_zj", "xt_juese_fzj", "xt_juese_mc").replace("\n", "/n"));
     }
@@ -153,7 +153,7 @@ public class XtJueseHM {
     //@system.web.power.ann.SQ("xtjueseS")
     @M("/select/grid")
     public static void selectUI(JWeb jw) {//_UIGrid
-        XtGuanliyuan admin = Gelibiaoshi.getSessionXtGuanliyuan(jw);
+        XtGuanliyuan admin = Gelibiaoshi.getAdminInfoBySession(jw);
         String condition = wx.xt.service.XTTiaojianService.openConditionByReturnWhere_key(jw, "xt_juese_gelibiaoshi", admin.getXt_guanliyuan_gelibiaoshi());
         jw.printOne(EasyuiService.formatTreeGrid(XtJueseService.select(condition), "xt_juese_zj", "xt_juese_fzj", "xt_juese_mc").replace("\n", "/n"));
     }

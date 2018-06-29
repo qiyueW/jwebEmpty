@@ -8,8 +8,8 @@ import static configuration.mvc.BaseService.SHENHE;
 import java.util.List;
 import java.util.Date;
 import system.web.JWeb;
-import static wx.xt.Gelibiaoshi.getSessionXtGuanliyuan;
 import wx.xt.bean.xtguanliyuan.XtGuanliyuan;
+import static wx.xt.Gelibiaoshi.getAdminInfoBySession;
 
 /**
  *
@@ -175,11 +175,11 @@ final public class XtGuanliyuanService {
     }
     public static boolean isErrorGelibiaoshi(String zj, JWeb jw) {
         XtGuanliyuan obj = selectOne(zj);
-        XtGuanliyuan admin = getSessionXtGuanliyuan(jw);
+        XtGuanliyuan admin = getAdminInfoBySession(jw);
         return null == obj || null == obj.getXt_guanliyuan_zj() || !admin.getXt_guanliyuan_gelibiaoshi().equals(obj.getXt_guanliyuan_gelibiaoshi());
     }
     public static boolean isErrorGelibiaoshi(XtGuanliyuan obj, JWeb jw) {
-        XtGuanliyuan admin = getSessionXtGuanliyuan(jw);
+        XtGuanliyuan admin = getAdminInfoBySession(jw);
         return null == obj || null == obj.getXt_guanliyuan_zj() || !admin.getXt_guanliyuan_gelibiaoshi().equals(obj.getXt_guanliyuan_gelibiaoshi());
     }
 

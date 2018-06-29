@@ -11,8 +11,9 @@ import wx.xt.bean.xtguanliyuan.XtGuanliyuan;
  */
 public class Gelibiaoshi {
 
-    public static final String GELIBIAOSHI_ADMIN = "__GELIBIAOSHI__#";
-    public static final String GELIBIAOSHI_USER = "__GELIBIAOSHI2__#";
+    public static final String GELIBIAOSHI_SUPERADMIN = "__GELIBIAOSHI1__#";
+    public static final String GELIBIAOSHI_ADMIN = "__GELIBIAOSH23__#";
+    public static final String GELIBIAOSHI_USER = "__GELIBIAOSHI4__#";
 
 //----------------------------------------
     public static String getGelibiaoshiAdmin(JWeb jw) {
@@ -25,6 +26,10 @@ public class Gelibiaoshi {
             return obj.toString();
         }
         obj = jw.session.getAttribute(GELIBIAOSHI_USER);
+        if (null != obj) {
+            return obj.toString();
+        }
+        obj = jw.session.getAttribute(GELIBIAOSHI_SUPERADMIN);
         return obj.toString();
     }
 
@@ -33,8 +38,17 @@ public class Gelibiaoshi {
         return obj.toString();
     }
 //-------------------------系统管理员相关---------------
-    public static XtGuanliyuan getSessionXtGuanliyuan(JWeb jw) {
+
+    public static XtGuanliyuan getSuperAdminInfoBySession(JWeb jw) {
+        return system.web.power.session.Login.getUserInfo(XtGuanliyuan.class, jw, PDK.SESSION_SUPER_ADMIN_KEY);
+    }
+
+    public static XtGuanliyuan getAdminInfoBySession(JWeb jw) {
         return system.web.power.session.Login.getUserInfo(XtGuanliyuan.class, jw, PDK.SESSION_ADMIN_KEY);
+    }
+
+    public static RY getUserInfoBySession(JWeb jw) {
+        return system.web.power.session.Login.getUserInfo(RY.class, jw);
     }
 
     public static String getAdminOrUserID(JWeb jw) {
@@ -42,10 +56,29 @@ public class Gelibiaoshi {
         if (null != obj) {
             return obj.getRy_zj();
         }
-        XtGuanliyuan admin = getSessionXtGuanliyuan(jw);
-        return admin.getXt_guanliyuan_zj();
+        XtGuanliyuan admin = getAdminInfoBySession(jw);
+        if (null != admin) {
+            return admin.getXt_guanliyuan_zj();
+        }
+        return getSuperAdminInfoBySession(jw).getXt_guanliyuan_zj();
     }
+
+//    public static String getSuperadminORAdminOrUserID(JWeb jw) {
+//        RY obj = system.web.power.session.Login.getUserInfo(RY.class, jw, PDK.SESSION_DEFAULT_USER_KEY);
+//        if (null != obj) {
+//            return obj.getRy_zj();
+//        }
+//        XtGuanliyuan admin = getAdminInfoBySession(jw);
+//        if (null != admin) {
+//            return admin.getXt_guanliyuan_zj();
+//        }
+//        return getSuperAdminInfoBySession(jw).getXt_guanliyuan_zj();
+//    }
 //----------------------------------------
+
+    public static void setSessionSuperAdmin(JWeb jw, String gelibiaoshi) {
+        jw.session.setAttribute(GELIBIAOSHI_SUPERADMIN, gelibiaoshi);
+    }
 
     public static void setSessionAdmin(JWeb jw, String gelibiaoshi) {
         jw.session.setAttribute(GELIBIAOSHI_ADMIN, gelibiaoshi);

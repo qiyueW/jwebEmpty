@@ -76,11 +76,12 @@ public class Login {
         }
         //登陆成功
         sf.clearErrorCount();
-        Gelibiaoshi.setSessionAdmin(jw, obj.getXt_guanliyuan_gelibiaoshi());
         if (obj.getXt_guanliyuan_gelibiaoshi().equals(XtGuanliyuanService.GL_SUPERADMIN)) {
             system.web.power.session.Login.login(jw, obj, XtGuanliyuanService.myPower(obj), PDK.SESSION_SUPER_ADMIN_KEY);
+            Gelibiaoshi.setSessionSuperAdmin(jw, obj.getXt_guanliyuan_gelibiaoshi());
             jw.printOne(new MsgVO("2", "登陆成功，正在进入单据界面.."));
         } else {
+            Gelibiaoshi.setSessionAdmin(jw, obj.getXt_guanliyuan_gelibiaoshi());
             system.web.power.session.Login.login(jw, obj, XtGuanliyuanService.myPower(obj), PDK.SESSION_ADMIN_KEY);
             jw.printOne(MsgVO.setOK("登陆成功，正在进入单据界面.."));
         }

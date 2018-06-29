@@ -27,7 +27,7 @@ public class XtRYQuanxianHM {
     @Validate(wx.xt.validate.XtRYQuanxianValidate.class)
     public void adu() {
         XtRYQuanxian obj = jw.getObject(XtRYQuanxian.class);
-        XtGuanliyuan admin = Gelibiaoshi.getSessionXtGuanliyuan(jw);
+        XtGuanliyuan admin = Gelibiaoshi.getAdminInfoBySession(jw);
         //当前制单人的 进行绑定过的人员权限。
         XtRYQuanxian ryq = XtRYQuanxianService.selectOne(obj.getXt_ry_zj(), admin.getXt_guanliyuan_zj());
         if (null == ryq.getXt_ryquanxian_zj()) {//新增
@@ -75,7 +75,7 @@ public class XtRYQuanxianHM {
     //@system.web.power.ann.SQ("xtS")
     @M("/select/grid")//针对表头的查询-返回Grid数据
     public static void selectGrid(JWeb jw) {
-        XtGuanliyuan admin = Gelibiaoshi.getSessionXtGuanliyuan(jw);
+        XtGuanliyuan admin = Gelibiaoshi.getAdminInfoBySession(jw);
         String condition = wx.xt.service.XTTiaojianService.engineToSQLCondition(jw.getString("key"));
         if (condition.length() > 0) {
             condition = "AND (" + condition + ")";

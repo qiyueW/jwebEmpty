@@ -10,6 +10,8 @@ import system.base.tree.TreeService;
 import system.base.tree.vo.IdPidEnum;
 import configuration.Tool;
 import plugins.easyui.EasyuiService;
+import system.web.power.PDK;
+import system.web.power.ann.DL;
 import wx.xt.bean.XtQuanxian;
 import wx.xt.service.XtQuanxianService;
 
@@ -29,6 +31,7 @@ import wx.xt.service.XtQuanxianService;
  * 5.3作废请求路径 ：/xt/xtquanxian/update/void.jw <br>
  * 5.4反作废请求路径 ：/xt/xtquanxian/update/unvoid.jw <br>
  */
+@DL(PDK.SESSION_SUPER_ADMIN_KEY)
 @H("/xt/xtquanxian")
 public class XtQuanxianHM {
 

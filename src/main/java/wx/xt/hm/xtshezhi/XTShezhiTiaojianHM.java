@@ -1,4 +1,4 @@
-package wx.xt.hm;
+package wx.xt.hm.xtshezhi;
 
 import configuration.Page;
 import system.base.annotation.H;
@@ -9,6 +9,8 @@ import java.util.List;
 import configuration.WebConfigModel;
 import configuration.Tool;
 import plugins.easyui.EasyuiService;
+import system.web.power.PDK;
+import system.web.power.ann.DL;
 import wx.xt.bean.xtshezhitiaojian.XTShezhiTiaojian;
 import wx.xt.bean.xtshezhitiaojian.XTShezhiTiaojian1;
 import wx.xt.service.XTShezhiTiaojianService;
@@ -36,6 +38,7 @@ import wx.xt.service.XTShezhiTiaojianService;
  * 5.3作废请求路径 ：/xt/xtshezhitiaojian/update/void.jw <br>
  * 5.4反作废请求路径 ：/xt/xtshezhitiaojian/update/unvoid.jw <br>
  */
+@DL(PDK.SESSION_SUPER_ADMIN_KEY)
 @H("/xt/xtshezhitiaojian")
 public class XTShezhiTiaojianHM {
 

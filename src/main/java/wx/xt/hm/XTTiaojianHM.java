@@ -12,6 +12,8 @@ import configuration.WebConfigModel;
 import configuration.Tool;
 import configuration.mvc.BaseService;
 import plugins.easyui.EasyuiService;
+import wx.web.bean.RY;
+import wx.xt.bean.xtguanliyuan.XtGuanliyuan;
 import wx.xt.bean.xttiaojian.XTTiaojian;
 import wx.xt.bean.xttiaojian.XTTiaojian1;
 import wx.xt.service.XTTiaojianService;
@@ -38,6 +40,7 @@ import wx.xt.service.XTTiaojianService;
  * 5.3作废请求路径 ：/xt/xttiaojian/update/void.jw <br>
  * 5.4反作废请求路径 ：/xt/xttiaojian/update/unvoid.jw <br>
  */
+@system.web.power.ann.ZDY(zdy = configuration.zdy.DL_Admin123OrUser.class, value = "xttiaojian")
 @H("/xt/xttiaojian")
 public class XTTiaojianHM {
 
@@ -47,16 +50,29 @@ public class XTTiaojianHM {
         this.jw = jw;
     }
 //===================添加操作=============================    
-    //@system.web.power.ann.SQ("xttiaojianA")
+    //只要是登陆状态都可以。
 
+    @system.web.power.ann.ZDY(zdy = configuration.zdy.DL_Admin123OrUser.class, value = "xttiaojianA")
     @M("/save")
     @Validate({wx.xt.validate.xttiaojian.XTTiaojianValidate.class, wx.xt.validate.xttiaojian.XTTiaojian1Validate.class})
     public void add() {
         XTTiaojian obj = jw.getObject(XTTiaojian.class);
-        obj.setXt_tiaojian_gelibiaoshi(Gelibiaoshi.getGelibiaoshi(jw));//隔离标识，正常从人员的会话中提取
-        obj.setXt_tiaojian_zhidanren_zj(Gelibiaoshi.getAdminOrUserID(jw));//创建人。正常从人员的会话中提取。
-        obj.setXt_tiaojian_zhidanren("汪春滋");
         List<XTTiaojian1> obj2 = (List<XTTiaojian1>) jw.request.getAttribute(WebConfigModel.JSONKEY);
+        RY ry = Gelibiaoshi.getUserInfoBySession(jw);
+        if (null != ry) {
+            obj.setXt_tiaojian_gelibiaoshi(ry.getRy_gelibiaoshi());//隔离标识，正常从人员的会话中提取
+            obj.setXt_tiaojian_zhidanren(ry.getRy_mc());
+            obj.setXt_tiaojian_zhidanren_zj(ry.getRy_zj());//创建人。正常从人员的会话中提取。
+            jw.printOne(XTTiaojianService.addOne(obj, obj2));
+            return;
+        }
+        XtGuanliyuan admin = Gelibiaoshi.getAdminInfoBySession(jw);//管理员会话
+        if (null == admin) {
+            admin = Gelibiaoshi.getSuperAdminInfoBySession(jw);//超级管理员会话
+        }
+        obj.setXt_tiaojian_gelibiaoshi(admin.getXt_guanliyuan_gelibiaoshi());
+        obj.setXt_tiaojian_zhidanren(admin.getXt_guanliyuan_mc());
+        obj.setXt_tiaojian_zhidanren_zj(admin.getXt_guanliyuan_zj());
         jw.printOne(XTTiaojianService.addOne(obj, obj2));
     }
 //===================删除操作=============================    
@@ -66,6 +82,9 @@ public class XTTiaojianHM {
     public void dellOne() {
         String id = jw.getString("id");
         if (null == id || id.length() < 24) {
+            return;
+        }
+        if (XTTiaojianService.isErrorGelibiaoshiOne(id, Gelibiaoshi.getGelibiaoshi(jw))) {//存在别人家的隔离标识的单据
             return;
         }
         XTTiaojian obj = XTTiaojianService.selectOne(id);
@@ -82,6 +101,9 @@ public class XTTiaojianHM {
         if (null == id || id.length() < 24) {
             return;
         }
+        if (XTTiaojianService.isErrorGelibiaoshiVast(id, Gelibiaoshi.getGelibiaoshi(jw))) {//存在别人家的隔离标识的单据
+            return;
+        }
         jw.printOne(XTTiaojianService.dellVast(id));
     }
 //===================修改操作=============================    
@@ -96,9 +118,9 @@ public class XTTiaojianHM {
             return;
         }
         XTTiaojian sqlvo = XTTiaojianService.selectOne(obj.getXt_tiaojian_zj());
-//        if (!sqlvo.getXt_tiaojian_zhidanren_zj().equals("会话中拿出人员信息")||!sqlvo.getXt_tiaojian_gelibiaoshi().equals("会话中拿出人员信息中的隔离标识")) {
-//            return MsgVO.setError("无法删除别人的单据");
-//        }
+        if (XTTiaojianService.isErrorGelibiaoshiOne(sqlvo.getXt_tiaojian_zj(), Gelibiaoshi.getGelibiaoshi(jw))) {//存在别人家的隔离标识的单据
+            return;
+        }
         if (sqlvo.getXt_tiaojian_zt() == BaseService.SHENHE) {
             jw.printOne(MsgVO.setError("无法修改公共单据"));
             return;
@@ -114,6 +136,9 @@ public class XTTiaojianHM {
     @Validate({wx.xt.validate.xttiaojian.XTTiaojianValidate.class, wx.xt.validate.xttiaojian.XTTiaojian1Validate.class})
     public void update() {
         XTTiaojian obj = jw.getObject(XTTiaojian.class);
+        if (XTTiaojianService.isErrorGelibiaoshiOne(obj.getXt_tiaojian_zj(), Gelibiaoshi.getGelibiaoshi(jw))) {//存在别人家的隔离标识的单据
+            return;
+        }
         List<XTTiaojian1> obj2 = (List<XTTiaojian1>) jw.request.getAttribute(WebConfigModel.JSONKEY);
         for (XTTiaojian1 o2 : obj2) {
             o2.setXt_tiaojian_zj(obj.getXt_tiaojian_zj());//锁定表头主键
@@ -139,6 +164,9 @@ public class XTTiaojianHM {
     @M("/select/selectOne")//针对表头的查询-一条记录的明细
     public void selectOne() {
         String id = jw.getString("id");
+        if (XTTiaojianService.isErrorGelibiaoshiOne(id, Gelibiaoshi.getGelibiaoshi(jw))) {//存在别人家的隔离标识的单据
+            return;
+        }
         XTTiaojian obj = XTTiaojianService.selectOne(id);
         if (null == obj.getXt_tiaojian_zj()) {
             return;
@@ -147,28 +175,31 @@ public class XTTiaojianHM {
         jw.forward("/xt/xttiaojian/one.jsp");
     }
 
-    //@system.web.power.ann.SQ("xttiaojianS")
+    //只要是登陆状态都可以。
+    @system.web.power.ann.ZDY(zdy = configuration.zdy.DL_Admin123OrUser.class, value = "xttiaojianS")
     @M("/select/myself/json")//查询自己的或公共的方案
     public static void selectMyselfJSON(JWeb jw) {
         String condition = Gelibiaoshi.getAdminOrUserID(jw);
         jw.printOne(Tool.entityToJSON(XTTiaojianService.selectByRy(Gelibiaoshi.getGelibiaoshi(jw), condition, jw.getString("key"))));
     }
 
-    //@system.web.power.ann.SQ("xttiaojianS")
+    //只要是登陆状态都可以。
+    @system.web.power.ann.ZDY(zdy = configuration.zdy.DL_Admin123OrUser.class, value = "xttiaojianS")
     @M("/select/json")//针对表头的查询-返回json数据
     public static void selectJSON(JWeb jw) {
         String condition = "WHERE xt_tiaojian_gelibiaoshi='" + Gelibiaoshi.getGelibiaoshi(jw) + "'";
         Page page = EasyuiService.getPageAndOrderby(jw);
         jw.printOne(Tool.entityToJSON(XTTiaojianService.select(page.getPage(), page.getRows(), condition, page.getOrderBy())));
     }
-    //@system.web.power.ann.SQ("xttiaojianS")
 
+    //只要是登陆状态都可以。
+    @system.web.power.ann.ZDY(zdy = configuration.zdy.DL_Admin123OrUser.class, value = "xttiaojianS")
     @M("/select/grid")//针对表头的查询-返回Grid数据
     public static void selectGrid(JWeb jw) {
         String condition = "WHERE xt_tiaojian_gelibiaoshi='" + Gelibiaoshi.getGelibiaoshi(jw) + "'";
         String fl_zj = jw.getString("xt_shezhi_tiaojian_zj");
         if (!fl_zj.isEmpty()) {
-            condition =condition+ "AND xt_shezhi_tiaojian_zj='" + fl_zj + "'";
+            condition = condition + "AND xt_shezhi_tiaojian_zj='" + fl_zj + "'";
         }
         Page page = EasyuiService.getPageAndOrderby(jw);
         jw.printOne(EasyuiService.formatGrid(
@@ -181,6 +212,9 @@ public class XTTiaojianHM {
     @M("/select/selectOne/body")//针对表体的查询-一条记录的明细
     public void selectOneBody() {
         String id = jw.getString("id");
+        if (XTTiaojianService.isErrorGelibiaoshiOne(id, Gelibiaoshi.getGelibiaoshi(jw))) {//存在别人家的隔离标识的单据
+            return;
+        }
         XTTiaojian1 obj = XTTiaojianService.selectOne2(id);
         if (null == obj.getXt_tiaojian_zj()) {
             jw.printOne("{}");
@@ -208,22 +242,38 @@ public class XTTiaojianHM {
 //---------------------------------------单据状态管理---------------------------------------
     @M("/update/examine")//审核单据
     public void examine() {
-        jw.printOne(XTTiaojianService.updateStyle_examine(jw.getString("ids")));
+        String ids = jw.getString("ids");
+        if (XTTiaojianService.isErrorGelibiaoshiVast(ids, Gelibiaoshi.getGelibiaoshi(jw))) {//存在别人家的隔离标识的单据
+            return;
+        }
+        jw.printOne(XTTiaojianService.updateStyle_examine(ids));
     }
 
     @M("/update/unexamine")//反审核
     public void unexamine() {
-        jw.printOne(XTTiaojianService.updateStyle_unExamine(jw.getString("ids")));
+        String ids = jw.getString("ids");
+        if (XTTiaojianService.isErrorGelibiaoshiVast(ids, Gelibiaoshi.getGelibiaoshi(jw))) {//存在别人家的隔离标识的单据
+            return;
+        }
+        jw.printOne(XTTiaojianService.updateStyle_unExamine(ids));
     }
 
     @M("/update/void")//作废
     public void tovoid() {
-        jw.printOne(XTTiaojianService.updateStyle_void(jw.getString("ids")));
+        String ids = jw.getString("ids");
+        if (XTTiaojianService.isErrorGelibiaoshiVast(ids, Gelibiaoshi.getGelibiaoshi(jw))) {//存在别人家的隔离标识的单据
+            return;
+        }
+        jw.printOne(XTTiaojianService.updateStyle_void(ids));
     }
 
     @M("/update/unvoid")//反作废
     public void untovoid() {
-        jw.printOne(XTTiaojianService.updateStyle_unVoid(jw.getString("ids")));
+        String ids = jw.getString("ids");
+        if (XTTiaojianService.isErrorGelibiaoshiVast(ids, Gelibiaoshi.getGelibiaoshi(jw))) {//存在别人家的隔离标识的单据
+            return;
+        }
+        jw.printOne(XTTiaojianService.updateStyle_unVoid(ids));
     }
 
 }
