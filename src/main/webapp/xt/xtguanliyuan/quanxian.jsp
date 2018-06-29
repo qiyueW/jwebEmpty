@@ -42,6 +42,7 @@
                         <th data-options="field:'xt_guanliyuan_zhanghao',width:90"><div>管理员账号</div></th>
                         <th data-options="field:'xt_guanliyuan_mima',width:90"><div>管理员密码</div></th>
                         <th data-options="field:'xt_guanliyuan_youxiang',width:90"><div>管理员邮箱</div></th>
+                        <th data-options="field:'xt_guanliyuan_jibie',width:90,formatter:f_xtguanliyuan_jibie"><div>管理员级别</div></th>
                         <th data-options="field:'xt_guanliyuan_zt',width:60,formatter:f_common_style"><div>管理员状态</div></th>
                         <th data-options="field:'xt_guanliyuan_bz',width:90"><div>管理员备注</div></th>
                         <th data-options="field:'xt_guanliyuan_gelibiaoshi',width:90"><div>隔离标识</div></th>

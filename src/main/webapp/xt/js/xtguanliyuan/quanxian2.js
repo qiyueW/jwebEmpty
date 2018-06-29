@@ -6,6 +6,14 @@ function inidoAdd() {
         $("#xt_quanxian_fzj_mc").textbox('setValue', treeNode.xt_quanxian_mc);
     }, true);
 }
+function f_xtguanliyuan_jibie(value, row, index) {
+    switch (value) {
+        case '1':return "超级管理员"
+        case '2':return "总管"
+        case '3':return "普通管理员"
+    }
+    return value;
+}
 function f_gridMenu(e, row) {         //右击事件
     e.preventDefault(); //阻止浏览器捕获右键事件
     $('#menu').menu('show', {

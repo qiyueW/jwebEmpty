@@ -6,6 +6,14 @@ function inidoAdd() {
         $("#xt_quanxian_fzj_mc").textbox('setValue', treeNode.xt_quanxian_mc);
     }, true);
 }
+function f_xtguanliyuan_jibie(value, row, index) {
+    switch (value) {
+        case '1':return "超级管理员"
+        case '2':return "总管"
+        case '3':return "普通管理员"
+    }
+    return value;
+}
 function f_gridMenu(e, row) {         //右击事件
     e.preventDefault(); //阻止浏览器捕获右键事件
     $('#menu').menu('show', {
@@ -26,7 +34,7 @@ function seeRowPower() {
     $.post(path_home + "xt/xtguanliyuan1/quanxian/select/selectOne/json.jw", {id: f_getGuanliyuanGrid_zj(rows)}, function (d) {
         //重装上权限
         treeObj.expandAll(false);
-        var rsdata =d.xt_guanliyuan_quanxian.split(",");
+        var rsdata = d.xt_guanliyuan_quanxian.split(",");
         var mynode;
         for (var i = 0; i < rsdata.length; i++) {
             mynode = treeObj.getNodeByParam("xt_quanxian_dm", rsdata[i], null);//通过代码列，检出节点
@@ -78,6 +86,6 @@ function f_closeCondition() {
 function f_queryByCondition(jsonData) {
     $('#showConditionPage').panel('close');
     var queryParams = $('#dg').datagrid('options').queryParams;
-    queryParams.key =jsonData;
+    queryParams.key = jsonData;
     $('#dg').datagrid('reload');
 }

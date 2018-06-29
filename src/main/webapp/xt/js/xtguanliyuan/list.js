@@ -1,3 +1,11 @@
+function f_xtguanliyuan_jibie(value, row, index) {
+    switch (value) {
+        case '1':return "超级管理员"
+        case '2':return "总管"
+        case '3':return "普通管理员"
+    }
+    return value;
+}
 function f_gridMenu(e, rowIndex, rowData) {         //右击事件
     $('#menu').menu('show', {
         left: e.pageX, //弹出窗口的方位坐标
