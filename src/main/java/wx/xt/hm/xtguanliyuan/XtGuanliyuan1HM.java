@@ -8,9 +8,13 @@ import system.base.annotation.Validate;
 import system.web.JWeb;
 import configuration.Tool;
 import plugins.easyui.EasyuiService;
+import system.web.power.PDK;
+import system.web.power.ann.DL;
+import wx.xt.Gelibiaoshi;
 import wx.xt.bean.xtguanliyuan.XtGuanliyuan;
 import wx.xt.service.XtGuanliyuanService;
 
+@DL(PDK.SESSION_SUPER_ADMIN_KEY)
 @H("/xt/xtguanliyuan1")
 public class XtGuanliyuan1HM {
 
@@ -121,7 +125,13 @@ public class XtGuanliyuan1HM {
 
     @M("/update/unexamine")//反审核
     public void unexamine() {
-        jw.printOne(XtGuanliyuanService.updateStyle_unExamine(jw.getString("ids")));
+        String ids = jw.getString("ids");
+        XtGuanliyuan admin = Gelibiaoshi.getSuperAdminInfoBySession(jw);
+        if (ids.contains(admin.getXt_guanliyuan_zj())) {
+            jw.printOne(MsgVO.setError("无法自己反审自己。这会引起无法登陆的异常"));
+            return;
+        }
+        jw.printOne(XtGuanliyuanService.updateStyle_unExamine(ids));
     }
 
     @M("/update/void")//作废
