@@ -60,12 +60,12 @@
                             <textarea rows=5 readonly="true" class="textarea easyui-validatebox" id="gangwei_bz" name="gangwei_bz" data-options="required:false">${Gangwei.gangwei_bz}</textarea>
                     </div>
                 </div>                 
-                <div class="row-fluid">
+<!--                <div class="row-fluid">
                     <div class="span12">
                             <span class="myname" >隔离标识</span>
                             ${Gangwei.gangwei_gelibiaoshi}
                     </div>
-                </div>
+                </div>-->
         </div>
     </body>
 </html>

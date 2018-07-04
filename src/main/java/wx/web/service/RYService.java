@@ -41,7 +41,7 @@ final public class RYService {
      * @return RY
      */
     public static RY selectOne(String gelibiaoshi, String zh, String mm) {
-        return DBO.service.S.selectOneByCondition(RY.class, "WHERE ry_gelibiaoshi='" + gelibiaoshi + "' AND ry_zhanghao='" + zh + "' AND ry_mima='" + mm + "' AND ry_zt="+SHENHE);
+        return DBO.service.S.selectOneByCondition(RY.class, "WHERE ry_gelibiaoshi='" + gelibiaoshi + "' AND ry_zhanghao='" + zh + "' AND ry_mima='" + mm + "' AND ry_zt=" + SHENHE);
     }
 
     /**
@@ -57,6 +57,7 @@ final public class RYService {
         return DBO.service.S.selectVastByCondition(RY.class, page, size, null == where ? "" : where, null == ordery ? "" : ordery);
     }
 //---------------------------------------隔离标识管理--------------------------------------
+
     public static boolean isErrorGelibiaoshiVast(String ids, String gelibiaoshi) {
         List<RY> list = DBO.service.S.selectByCondition(RY.class, "WHERE ry_zj IN(" + Tool.replaceDToDDD(ids) + ")");
         return BaseService.isErrorGelibiaoshiVast(list, "ry_gelibiaoshi", gelibiaoshi);
@@ -67,6 +68,7 @@ final public class RYService {
         return BaseService.isErrorGelibiaoshiOne(obj, "ry_gelibiaoshi", gelibiaoshi);
     }
 //---------------------------------------统计区--------------------------------------
+
     /**
      * 统计表头数据(条件为null或为空时，表示统计整张表)
      *
@@ -86,7 +88,7 @@ final public class RYService {
      */
     public static MsgVO addOne(RY obj) {
         obj.setRy_zt(0);
-        int i = DBO.service.A.addOne(obj, "ry_zhanghao");
+        int i = DBO.service.A.addOneByCondition(obj, "WHERE ry_zhanghao='" + obj.getRy_zhanghao() + "' AND ry_gelibiaoshi='" + obj.getRy_gelibiaoshi() + "'");
         if (i == -1) {
             return MsgVO.setError("添加异常：请检查这些字段(账号)是否唯一");
         }

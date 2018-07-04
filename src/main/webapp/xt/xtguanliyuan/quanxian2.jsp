@@ -18,7 +18,7 @@
         </script>
     </head>
     <body class="easyui-layout">
-        <div data-options="region:'east',split:true,title:''" style="width:450px;padding:10px;">
+        <div data-options="region:'east',split:true,title:'辅管权限列表'" style="width:450px;padding:10px;">
             <div id="divID_Tree_menu_XtQuanxian" class="ztree">bean</div>
         </div>
         <div data-options="region:'center'" id='centerMain'>

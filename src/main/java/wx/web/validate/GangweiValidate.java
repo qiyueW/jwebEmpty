@@ -20,7 +20,7 @@ public class GangweiValidate extends ValidateModel {
                 .put("gangwei_mc","[\\w\\W]{1,20}", "名称:文本为空或长度超20字符", true)//名称
                 .put("gangwei_bz","[\\w\\W]{0,1000}", "备注:长度超1000字符", false)//备注
                 .put("gangwei_zt","[0|1|2|3|4]{1}", "状态:请输入正整数。位数在1-1位之间", true)//状态
-                .put("gangwei_gelibiaoshi","[\\w\\W]{1,20}", "隔离标识:文本为空或长度超20字符", true)//隔离标识
+                .put("gangwei_gelibiaoshi","[\\w\\W]{1,20}", "隔离标识:文本为空或长度超20字符", false)//隔离标识
 ;
     }
 

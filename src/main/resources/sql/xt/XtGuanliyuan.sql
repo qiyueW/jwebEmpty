@@ -10,7 +10,7 @@ CREATE TABLE `XtGuanliyuan` (
 	`xt_guanliyuan_bm` TEXT NULL DEFAULT NULL COMMENT '管理员部门集合',
 	`xt_guanliyuan_gelibiaoshi` VARCHAR(20) NOT NULL COMMENT '隔离标识',
 	`xt_guanliyuan_zhidanshijian` DATETIME NOT NULL COMMENT '制单时间',
-	`xt_guanliyuan_jibie` INT(1) UNSIGNED NOT NULL DEFAULT '',
+	`xt_guanliyuan_jibie` INT(1) UNSIGNED NOT NULL,
 	PRIMARY KEY (`xt_guanliyuan_zj`),
 	INDEX `xt_guanliyuan_zhanghao` (`xt_guanliyuan_zhanghao`),
 	INDEX `xt_guanliyuan_zt` (`xt_guanliyuan_zt`),

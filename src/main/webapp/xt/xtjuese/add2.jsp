@@ -4,7 +4,7 @@
 <html>
     <head>
         <title>添加系统角色</title>
-        <script type="text/javascript" src="${path_home}/xt/js/xtjuese/add.js"></script>
+        <script type="text/javascript" src="${path_home}/xt/js/xtjuese/add2.js"></script>
         <%@include file="/WEB-INF/jspf/easyuiLocal.jspf"%>
         <%@include file="/WEB-INF/jspf/boostrap.jspf"%>
         <%@include file="/WEB-INF/jspf/artDialog.jspf"%>
@@ -65,46 +65,19 @@
                 </div>
                 <div class="row-fluid">
                     <div class="span12">
-                        <span class="myname" >代码</span>
-                        <input type="text"  id="xt_juese_dm" name="xt_juese_dm" data-options="required:true" class="easyui-textbox"/>
+                        <span class="myname" >备注</span>
+                        <input type="text"  id="xt_juese_bz" name="xt_juese_bz" data-options="required:false" class="easyui-textbox"/>
                     </div>
                 </div>
                 <div class="row-fluid">
                     <div class="span12">
                         <span class="myname" >公私角色</span>
-                        <input type="text"  id="xt_juese_gongsi" name="xt_juese_gongsi" data-options="required:true" class="easyui-textbox"/>
+                        <select id="xt_juese_gongsi">
+                            <option value="1">1)公有（对所有辅管可见)</option>
+                            <option value="0">0)私有（仅对自己可见）</option>
+                        </select>
                     </div>
                 </div>
-                <div class="row-fluid">
-                    <div class="span12">
-                        <span class="myname" >备注</span>
-                        <input type="text"  id="xt_juese_bz" name="xt_juese_bz" data-options="required:false" class="easyui-textbox"/>
-                    </div>
-                </div>
-                <!--                 <div class="row-fluid">
-                                    <div class="span12">
-                                        <span class="myname" >隔离标识</span>
-                                        <input type="text"  id="xt_juese_gelibiaoshi" name="xt_juese_gelibiaoshi" data-options="required:false" class="easyui-textbox"/>
-                                    </div>
-                                </div>
-                                 <div class="row-fluid">
-                                    <div class="span12">
-                                        <span class="myname" >制单人</span>
-                                        <input type="text"  id="xt_juese_zhidanren" name="xt_juese_zhidanren" data-options="required:true" class="easyui-textbox"/>
-                                    </div>
-                                </div>
-                                 <div class="row-fluid">
-                                    <div class="span12">
-                                        <span class="myname" >修改人</span>
-                                        <input type="text"  id="xt_juese_xiugairen" name="xt_juese_xiugairen" data-options="required:false" class="easyui-textbox"/>
-                                    </div>
-                                </div>
-                                 <div class="row-fluid">
-                                    <div class="span12">
-                                        <span class="myname" >修改时间</span>
-                                        <input class="easyui-datebox" type="text"  id="xt_juese_xiugaishijian" name="xt_juese_xiugaishijian" data-options="required:false,formatter:easyuidateformatter,parser:easyuidateparser"/>
-                                    </div>
-                                </div>-->
             </div>
         </div>
     </body>

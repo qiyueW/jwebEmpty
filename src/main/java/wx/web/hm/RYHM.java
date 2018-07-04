@@ -45,8 +45,8 @@ public class RYHM {
         this.jw = jw;
     }
 //===================添加操作=============================    
-    //@system.web.power.ann.SQ("BA")
 
+    @system.web.power.ann.ZDY(zdy = configuration.zdy.SQ_AdminOrUser.class, value = "ryA")
     @M("/save")
     @Validate(wx.web.validate.RYValidate.class)
     public void add() {
@@ -75,8 +75,8 @@ public class RYHM {
         return false;
     }
 //===================删除操作=============================    
-    //@system.web.power.ann.SQ("BD")
 
+    @system.web.power.ann.ZDY(zdy = configuration.zdy.SQ_AdminOrUser.class, value = "ryD")
     @M("/remove")
     public void dellVast() {
         String id = jw.getString("id");
@@ -91,6 +91,7 @@ public class RYHM {
 //===================修改操作=============================    
     //@system.web.power.ann.SQ("BU")
 
+    @system.web.power.ann.ZDY(zdy = configuration.zdy.SQ_AdminOrUser.class, value = "ryU")
     @M("/update")
     @Validate(wx.web.validate.RYValidate.class)
     public void update() {
@@ -107,7 +108,7 @@ public class RYHM {
         jw.printOne(RYService.update(obj));
     }
 
-    //@system.web.power.ann.SQ("BU")
+    @system.web.power.ann.ZDY(zdy = configuration.zdy.SQ_AdminOrUser.class, value = "ryU")
     @M("/update/select")
     public void updateSelect() {
         String id = jw.getString("id");
@@ -124,7 +125,7 @@ public class RYHM {
 //===================查询操作=============================
     //=========表头查询操作===========
 
-    //@system.web.power.ann.SQ("BS") 
+    @system.web.power.ann.ZDY(zdy = configuration.zdy.SQ_AdminOrUser.class, value = "ryS")
     @M("/select/selectOne")//针对表头的查询-一条记录的明细
     public void selectOne() {
         String id = jw.getString("id");
@@ -139,7 +140,7 @@ public class RYHM {
         jw.forward("/admin/base/ry/one.jsp");
     }
 
-    //@system.web.power.ann.SQ("BS")
+    @system.web.power.ann.ZDY(zdy = configuration.zdy.SQ_AdminOrUser.class, value = "ryS")
     @M("/select/json")//针对表头的查询-返回json数据
     public static void selectJSON(JWeb jw) {
         String condition = wx.xt.service.XTTiaojianService.openConditionByReturnWhere_key(jw, "ry_gelibiaoshi", Gelibiaoshi.getGelibiaoshi(jw));
@@ -147,7 +148,7 @@ public class RYHM {
         jw.printOne(Tool.entityToJSON(RYService.select(page.getPage(), page.getRows(), condition, page.getOrderBy())));
     }
 
-    //@system.web.power.ann.SQ("BS")
+    @system.web.power.ann.ZDY(zdy = configuration.zdy.SQ_AdminOrUser.class, value = "ryS")
     @M("/select/grid")//针对表头的查询-返回Grid数据
     public static void selectGrid(JWeb jw) {
         String condition = wx.xt.service.XTTiaojianService.openConditionByReturnWhere_key(jw, "ry_gelibiaoshi", Gelibiaoshi.getGelibiaoshi(jw));
@@ -159,6 +160,7 @@ public class RYHM {
     }
 //---------------------------------------单据状态管理---------------------------------------
 
+    @system.web.power.ann.ZDY(zdy = configuration.zdy.SQ_AdminOrUser.class, value = "ryE")
     @M("/update/examine")//审核单据
     public void examine() {
         String ids = jw.getString("ids");
@@ -168,6 +170,7 @@ public class RYHM {
         jw.printOne(RYService.updateStyle_examine(ids));
     }
 
+    @system.web.power.ann.ZDY(zdy = configuration.zdy.SQ_AdminOrUser.class, value = "ryUE")
     @M("/update/unexamine")//反审核
     public void unexamine() {
         String ids = jw.getString("ids");
@@ -177,6 +180,7 @@ public class RYHM {
         jw.printOne(RYService.updateStyle_unExamine(ids));
     }
 
+    @system.web.power.ann.ZDY(zdy = configuration.zdy.SQ_AdminOrUser.class, value = "ryV")
     @M("/update/void")//作废
     public void tovoid() {
         String ids = jw.getString("ids");
@@ -186,6 +190,7 @@ public class RYHM {
         jw.printOne(RYService.updateStyle_void(ids));
     }
 
+    @system.web.power.ann.ZDY(zdy = configuration.zdy.SQ_AdminOrUser.class, value = "ryUV")
     @M("/update/unvoid")//反作废
     public void untovoid() {
         String ids = jw.getString("ids");
@@ -196,7 +201,7 @@ public class RYHM {
     }
 //---------------------------------------文件图片管理---------------------------------------
     //@system.web.power.ann.SQ("BA")
-
+   @system.web.power.ann.ZDY(zdy = configuration.zdy.SQ_AdminOrUser.class, value = "ryA,ryU")
     @M("/up/file")//文件上传
     public void upfile() {
         jw.printOne(RYService.upOneFile(jw.request));

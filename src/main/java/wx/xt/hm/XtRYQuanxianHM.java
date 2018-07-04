@@ -28,6 +28,12 @@ public class XtRYQuanxianHM {
     public void adu() {
         XtRYQuanxian obj = jw.getObject(XtRYQuanxian.class);
         XtGuanliyuan admin = Gelibiaoshi.getAdminInfoBySession(jw);
+        if (null == obj.getXt_juese_zj()) {
+            obj.setXt_juese_zj("");
+        }
+        if (null == obj.getXt_quanxian()) {
+            obj.setXt_quanxian("");
+        }
         //当前制单人的 进行绑定过的人员权限。
         XtRYQuanxian ryq = XtRYQuanxianService.selectOne(obj.getXt_ry_zj(), admin.getXt_guanliyuan_zj());
         if (null == ryq.getXt_ryquanxian_zj()) {//新增

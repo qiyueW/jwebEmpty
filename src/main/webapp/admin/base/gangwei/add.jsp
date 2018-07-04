@@ -38,41 +38,41 @@
             <div id="divID_Tree_menu_Gangwei" class="ztree">bean</div>
         </div>
         <div data-options="region:'center'" id='centerMain'>
-                    <input type="hidden" id="gangwei_zj" name="gangwei_zj" value="">
-                    <input type="hidden" id="gangwei_zt" name="gangwei_zt" value="0">
+            <input type="hidden" id="gangwei_zj" name="gangwei_zj" value="">
+            <input type="hidden" id="gangwei_zt" name="gangwei_zt" value="0">
 
-<div class="container"  id="GangweiFormID">
-    <input type="hidden" id="gangwei_fzj" name="gangwei_fzj" value="">
+            <div class="container"  id="GangweiFormID">
+                <input type="hidden" id="gangwei_fzj" name="gangwei_fzj" value="">
                 <div class="row-fluid">
                     <div class="span12">
                         <a href="javascript:void(0)" class="btn btn-default btn-large" onclick="clearForm()">清空</a>
                         <a href="javascript:void(0)" class="btn btn-primary btn-large" onclick="submitForm('GangweiFormID')">保存</a>
                     </div>
                 </div>
-               <div class="row-fluid">
+                <div class="row-fluid">
                     <div class="span12">
                         <span class="myname" >上级</span>
                         <input type="text" id="gangwei_fzj_mc" name="gangwei_fzj_mc" readonly="true" class="easyui-textbox">
                     </div>
                 </div>
-                 <div class="row-fluid">
+                <div class="row-fluid">
                     <div class="span12">
                         <span class="myname" >名称</span>
                         <input type="text"  id="gangwei_mc" name="gangwei_mc" data-options="required:true" class="easyui-textbox"/>
                     </div>
                 </div>
-                 <div class="row-fluid">
+                <div class="row-fluid">
                     <div class="span12">
                         <span class="myname" >备注</span>
                         <textarea rows=5  class="textarea easyui-validatebox" id="gangwei_bz" name="gangwei_bz" data-options="required:false"></textarea>
                     </div>
                 </div>
-                 <div class="row-fluid">
-                    <div class="span12">
-                        <span class="myname" >隔离标识</span>
-                        <input type="text"  id="gangwei_gelibiaoshi" name="gangwei_gelibiaoshi" data-options="required:true" class="easyui-textbox"/>
-                    </div>
-                </div>
+                <!--                 <div class="row-fluid">
+                                    <div class="span12">
+                                        <span class="myname" >隔离标识</span>
+                                        <input type="text"  id="gangwei_gelibiaoshi" name="gangwei_gelibiaoshi" data-options="required:true" class="easyui-textbox"/>
+                                    </div>
+                                </div>-->
             </div>
         </div>
     </body>

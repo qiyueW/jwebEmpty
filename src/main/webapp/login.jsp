@@ -1,4 +1,20 @@
+<%@page import="wx.xt.bean.xtguanliyuan.XtGuanliyuan"%>
+<%@page import="wx.web.bean.RY"%>
+<%@page import="wx.xt.Gelibiaoshi"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    RY ry = Gelibiaoshi.getUserInfoBySession(session);
+    if (null != ry) {
+        response.sendRedirect(application.getAttribute("path_home").toString() + "/xt/indexUser.jsp");
+        return;
+    }
+    XtGuanliyuan admin = Gelibiaoshi.getSuperAdminInfoBySession(session);
+    if (null != admin) {
+        response.sendRedirect(application.getAttribute("path_home").toString()
+                + (admin.getXt_guanliyuan_jibie() == 1 ? "/xt/indexSuperAdmin.jsp" : "/xt/indexAdmin.jsp"));
+        return;
+    }
+%>
 <!--后台UI组件Start-->
 <!DOCTYPE html>
 <html>
@@ -8,6 +24,7 @@
         <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css" />
         <link rel="stylesheet" href="lib/bootstrap/css/bootstrap-theme.min.css" />
         <script src="lib/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="lib/jquery/cookie.js" type="text/javascript"></script>
         <script type="text/javascript" src="${path_home}/static/js/login.js"></script> 
         <%@include file="/WEB-INF/jspf/artDialog.jspf"%>
         <script>
@@ -16,40 +33,46 @@
                 f_inidoLogin();
             });
         </script>
+        <style>
+            .input-group{
+                margin-top:5px;
+            }
+        </style>
     </head>
-    <body style=" background-color: #cccfff">
-        <div class="container" style=" max-width:400px; margin:120px auto;">
+    <body>
+        <div class="container" style="width:400px; margin-top:65px; ">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="form-group">
-                        <label for="xt_gelibiaoshi">
-                            公司标识
-                        </label>
-                        <input class="form-control required" type="text" placeholder="公司标识" id="xt_gelibiaoshi" name="xt_gelibiaoshi" autofocus="autofocus" maxlength="20"/>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-xt_gelibiaoshi">标识</span>
+                        <input class="form-control" type="text" placeholder="公司标识" id="xt_gelibiaoshi" name="xt_gelibiaoshi" autofocus="autofocus"autocomplete="off" maxlength="20"/>
                     </div>
-                    <div class="form-group">
-                        <label for="account">
-                            账号
-                        </label>
-                        <input class="form-control required" type="text" placeholder="账号" id="account" name="account"  autocomplete="false" maxlength="32"/>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-account">账号</span>
+                        <input class="form-control" type="text" placeholder="账号" id="account" name="account"  autocomplete="off" maxlength="32"/>
                     </div>
-                    <div class="form-group">
-                        <label for="password">
-                            密码
-                        </label>
-                        <input class="form-control required" type="password" placeholder="密码" id="password" name="password" autocomplete="false" maxlength="32"/>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-password">密码</span>
+                        <input class="form-control" type="password" placeholder="密码" id="password" name="password" autocomplete="off" maxlength="32"/>
                     </div>
-                    <div class="form-group">
-                        <select id="sort" name="sort">
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-sort">方向</span>
+                        <select id="sort" name="sort"class="form-control">
                             <option value="user">业务操作</option>
-                            <option value="admin">管理员后台</option>
+                            <option value="admin">管理后台</option>
                         </select>
                     </div>
-                    <div class="form-group" hidden="true" id="show_xt_safecodeDivID">
-                        <label for="xt_safecode">
-                            验证码
-                        </label>
-                        <input class="form-control required" type="text" placeholder="放鼠标到框内显示验证码" id="xt_safecode" name="xt_safecode" autocomplete="false" maxlength="6"/>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-remember">记忆</span>
+                        <select id="remember" name="remember"class="form-control">
+                            <option value="0">不记住（安全）</option>
+                            <option value="1">记住除密码之外的（较安全）</option>
+                            <option value="2">记住所有（不安全）</option>
+                        </select>
+                    </div>
+                    <div hidden="true" id="show_xt_safecodeDivID">
+                        <span class="input-group-addon" id="basic-show_xt_safecodeDivID">验证码</span>
+                        <input class="form-control" type="text" placeholder="放鼠标到框内显示验证码" id="xt_safecode" name="xt_safecode" autocomplete="false" maxlength="6"/>
                         <div id="showsafecodeDivID" class="panel panel-default" hidden="true">
                             <div class="panel-body">
                                 <a href="javascript:void(0);" onclick="refreshsafecode();"><img id="safecodeImg"src=""/></a>
@@ -57,17 +80,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="remember">
-                            记住我
-                        </label>
-                        <input type="checkbox" name="remember" value="1"/>
-                    </div>
-                    <input type="button" id="submitBTID"class="btn btn-primary pull-right" name="submitBTID" value="登录"/>
-                    <div class="form-group">
-                        <div id="showmsgDivID" class="panel panel-default" hidden="true">
-                            <div class="panel-body" id="showmsgDivIDBody" style=" color: red">
-                            </div>
+                    <input type="button" id="submitBTID" class="btn btn-default form-control" name="submitBTID" value="登录" style=" margin-top:8px;"/>
+                    <div id="showmsgDivID" class="panel panel-default" hidden="true">
+                        <div class="panel-body" id="showmsgDivIDBody" style=" color: red">
                         </div>
                     </div>
                 </div>

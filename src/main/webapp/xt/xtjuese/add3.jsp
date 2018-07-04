@@ -3,8 +3,8 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>添加职位</title>
-        <script type="text/javascript" src="${path_home}/static/js/zhiwei/add.js"></script>
+        <title>辅管-添加角色</title>
+        <script type="text/javascript" src="${path_home}/xt/js/xtjuese/add3.js"></script>
         <%@include file="/WEB-INF/jspf/easyuiLocal.jspf"%>
         <%@include file="/WEB-INF/jspf/boostrap.jspf"%>
         <%@include file="/WEB-INF/jspf/artDialog.jspf"%>
@@ -35,35 +35,40 @@
     </head>
     <body class="easyui-layout">
         <div data-options="region:'west',split:true,title:''" style="width:250px;padding:10px;">
-            <div id="divID_Tree_menu_Zhiwei" class="ztree">bean</div>
+            <div id="divID_Tree_menu_XtJuese" class="ztree">bean</div>
         </div>
         <div data-options="region:'center'" id='centerMain'>
-            <div class="container"  id="ZhiweiFormID">
-                <input type="hidden" id="zhiwei_zj" name="zhiwei_zj" value="">
-                <input type="hidden" id="zhiwei_fzj" name="zhiwei_fzj" value="">
-                <input type="hidden" id="zhiwei_zt" name="zhiwei_zt" value="0">
+            <input type="hidden" id="xt_juese_zj" name="xt_juese_zj" value="">
+            <input type="hidden" id="xt_juese_fzj" name="xt_juese_fzj" value="">
+            <input type="hidden" id="xt_juese_zt" name="xt_juese_zt" value="0">
+            <input type="hidden" id="xt_juese_zhidanren_zj" name="xt_juese_zhidanren_zj" value="">
+            <input type="hidden" id="xt_juese_xiugairen_zj" name="xt_juese_xiugairen_zj" value="">
+            <!--辅管添加的角色，锁定私有-->
+            <input type="text"  id="xt_juese_gongsi" name="xt_juese_gongsi"  value="0"/>
+
+            <div class="container"  id="XtJueseFormID">
                 <div class="row-fluid">
                     <div class="span12">
                         <a href="javascript:void(0)" class="btn btn-default btn-large" onclick="clearForm()">清空</a>
-                        <a href="javascript:void(0)" class="btn btn-primary btn-large" onclick="submitForm('ZhiweiFormID')">保存</a>
+                        <a href="javascript:void(0)" class="btn btn-primary btn-large" onclick="submitForm('XtJueseFormID')">保存</a>
                     </div>
                 </div>
                 <div class="row-fluid">
                     <div class="span12">
                         <span class="myname" >上级</span>
-                        <input type="text" id="zhiwei_fzj_mc" name="zhiwei_fzj_mc" readonly="true" class="easyui-textbox">
+                        <input type="text" id="xt_juese_fzj_mc" name="xt_juese_fzj_mc" readonly="true" class="easyui-textbox">
                     </div>
                 </div>
                 <div class="row-fluid">
                     <div class="span12">
                         <span class="myname" >名称</span>
-                        <input type="text"  id="zhiwei_mc" name="zhiwei_mc" data-options="required:true" class="easyui-textbox"/>
+                        <input type="text"  id="xt_juese_mc" name="xt_juese_mc" data-options="required:true" class="easyui-textbox"/>
                     </div>
                 </div>
                 <div class="row-fluid">
                     <div class="span12">
                         <span class="myname" >备注</span>
-                        <textarea rows=5  class="textarea easyui-validatebox" id="zhiwei_bz" name="zhiwei_bz" data-options="required:false"></textarea>
+                        <input type="text"  id="xt_juese_bz" name="xt_juese_bz" data-options="required:false" class="easyui-textbox"/>
                     </div>
                 </div>
             </div>

@@ -2,7 +2,7 @@
 //需要初始化的，统一放到此函数来
 //初始化
 function inido() {
-    toCreateTree("divID_Tree_menu_XtJuese", "xt_juese_zj", "xt_juese_fzj", "xt_juese_mc", "/xt/xtjuese/select/json.jw", false,onclickdo,true);
+    toCreateTree("divID_Tree_menu_XtJuese", "xt_juese_zj", "xt_juese_fzj", "xt_juese_mc", "/xt/xtjuese3/select/json.jw", false,onclickdo,true);
     function onclickdo(event, id, treeNode) {
         $.messager.confirm('更换上级', '请确认是否改变他的上级?', function (r) {
             if (r) {
@@ -44,7 +44,7 @@ function submitForm(formid) {
                 data.xt_juese_xiugairen_zj =fzFormatZT($("#xt_juese_xiugairen_zj").val())//修改人主键
                 data.xt_juese_xiugairen =fzFormatZT($("#xt_juese_xiugairen").val())//修改人
                 data.xt_juese_xiugaishijian =fzFormatZT($("#xt_juese_xiugaishijian").val())//修改时间
-                easyuiAjax("/xt/xtjuese/update.jw", data, "请确认修改操作", function () {
+                easyuiAjax("/xt/xtjuese3/update.jw", data, "请确认修改操作", function () {
                     $.fn.zTree.getZTreeObj("divID_Tree_menu_XtJuese").reAsyncChildNodes(null, "refresh");
                 });
             }

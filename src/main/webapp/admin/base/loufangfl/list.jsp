@@ -1,4 +1,3 @@
-                                    
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!--后台UI组件Start-->
 <!DOCTYPE html>
@@ -11,9 +10,10 @@
         <%@include file="/WEB-INF/jspf/ztree.jspf"%>
         <%@include file="/WEB-INF/jspf/GG.jspf"%>
         <script>
-            $(function (){
+            $(function () {
                 $('#dg').treegrid('hideColumn', 'loufangfl_zj');
                 $('#dg').treegrid('hideColumn', 'loufangfl_fzj');
+                $('#dg').treegrid('hideColumn', 'loufangfl_gelibiaoshi');
             });
         </script>
     </head>
@@ -31,12 +31,14 @@
                ">
             <thead>
                 <tr>
-                    <th data-options="field:'ck',checkbox:true"></th>                       <th data-options="field:'loufangfl_px',width:90"><div>排序</div></th>
+                    <th data-options="field:'ck',checkbox:true"></th>
+                    <th data-options="field:'loufangfl_px',width:90"><div>排序</div></th>
                     <th data-options="field:'loufangfl_zj'">主键</th>
                     <th data-options="field:'loufangfl_fzj'">父主键</th>
                     <th data-options="field:'loufangfl_mc',width:360"><div>名称</div></th>
-                       <th data-options="field:'loufangfl_bz',width:90"><div>备注</div></th>
+                    <th data-options="field:'loufangfl_bz',width:90"><div>备注</div></th>
                     <th data-options="field:'loufangfl_zt',width:60,formatter:f_common_style"><div>状态</div></th>
+                    <th data-options="field:'loufangfl_gelibiaoshi'">隔离标识</th>
                 </tr>
             </thead>
         </table>
@@ -49,8 +51,7 @@
                 <a href="javascript:void(0)" iconCls="icon-tip" class="easyui-linkbutton" plain="true" onclick="f_condition()">过滤条件</a>
             </div>
             <div>
-                <select onchange="$('#dg').treegrid({singleSelect: (this.value == 0)});
-                        pageCN('dg', 100)">
+                <select onchange="$('#dg').treegrid({singleSelect: (this.value == 0)});">
                     <option value="0">单行选择</option>
                     <option value="1">多行选择</option>
                 </select>

@@ -8,7 +8,6 @@ import system.base.annotation.Validate;
 import system.web.JWeb;
 import configuration.Tool;
 import plugins.easyui.EasyuiService;
-import system.web.power.PDK;
 import wx.xt.Gelibiaoshi;
 import wx.xt.bean.xtguanliyuan.XtGuanliyuan;
 import wx.xt.service.XtGuanliyuanService;
@@ -16,7 +15,7 @@ import wx.xt.service.XtGuanliyuanService;
 /**
  * 总管专用通道
  */
-@system.web.power.ann.SQ(value = "xtguanliyuan2", scope = PDK.SESSION_ADMIN_KEY)
+@system.web.power.ann.ZDY(zdy = configuration.zdy.SQ_Admin2.class, value = "")
 @H("/xt/xtguanliyuan2")
 public class XtGuanliyuan2HM {
 
@@ -27,7 +26,7 @@ public class XtGuanliyuan2HM {
     }
 //===================添加操作=============================    
 
-    @system.web.power.ann.SQ(value = "xtguanliyuan2A", scope = PDK.SESSION_ADMIN_KEY)
+    @system.web.power.ann.ZDY(zdy = configuration.zdy.SQ_Admin2.class, value = "xtguanliyuan2A")
     @M("/save")
     @Validate(wx.xt.validate.XtGuanliyuanValidate.class)
     public void add() {
@@ -39,7 +38,7 @@ public class XtGuanliyuan2HM {
     }
 //===================删除操作=============================    
 
-    @system.web.power.ann.SQ(value = "xtguanliyuan2D", scope = PDK.SESSION_ADMIN_KEY)
+    @system.web.power.ann.ZDY(zdy = configuration.zdy.SQ_Admin2.class, value = "xtguanliyuan2D")
     @M("/remove")
     public void dellVast() {
         String id = jw.getString("id");
@@ -53,7 +52,7 @@ public class XtGuanliyuan2HM {
     }
 //===================修改操作=============================    
 
-    @system.web.power.ann.SQ(value = "xtguanliyuan2U", scope = PDK.SESSION_ADMIN_KEY)
+    @system.web.power.ann.ZDY(zdy = configuration.zdy.SQ_Admin2.class, value = "xtguanliyuan2U")
     @M("/update")
     @Validate(wx.xt.validate.XtGuanliyuanValidate.class)
     public void update() {
@@ -64,7 +63,7 @@ public class XtGuanliyuan2HM {
         jw.printOne(XtGuanliyuanService.update(obj));
     }
 
-    @system.web.power.ann.SQ(value = "xtguanliyuan2U", scope = PDK.SESSION_ADMIN_KEY)
+    @system.web.power.ann.ZDY(zdy = configuration.zdy.SQ_Admin2.class, value = "xtguanliyuan2U")
     @M("/update/select")
     public void updateSelect() {
         String id = jw.getString("id");
@@ -78,7 +77,7 @@ public class XtGuanliyuan2HM {
 //===================查询操作=============================
     //=========表头查询操作===========
 
-    @system.web.power.ann.SQ(value = "xtguanliyuan2S", scope = PDK.SESSION_ADMIN_KEY)
+    @system.web.power.ann.ZDY(zdy = configuration.zdy.SQ_Admin2.class, value = "xtguanliyuan2S")
     @M("/select/selectOne")//针对表头的查询-一条记录的明细
     public void selectOne() {
         String id = jw.getString("id");
@@ -90,7 +89,7 @@ public class XtGuanliyuan2HM {
         jw.forward("/xt/xtguanliyuan/one.jsp");
     }
 
-    @system.web.power.ann.SQ(value = "xtguanliyuan2S", scope = PDK.SESSION_ADMIN_KEY)
+    @system.web.power.ann.ZDY(zdy = configuration.zdy.SQ_Admin2.class, value = "xtguanliyuan2S")
     @M("/select/selectOne/json")//查询权限
     public void selectOneByJson() {
         String id = jw.getString("id");
@@ -101,7 +100,7 @@ public class XtGuanliyuan2HM {
         jw.printOne(obj.toString());
     }
 
-    @system.web.power.ann.SQ(value = "xtguanliyuan2S", scope = PDK.SESSION_ADMIN_KEY)
+    @system.web.power.ann.ZDY(zdy = configuration.zdy.SQ_Admin2.class, value = "xtguanliyuan2S")
     @M("/select/json")//针对表头的查询-返回json数据
     public static void selectJSON(JWeb jw) {
         XtGuanliyuan admin = Gelibiaoshi.getAdminInfoBySession(jw);
@@ -110,7 +109,7 @@ public class XtGuanliyuan2HM {
         jw.printOne(Tool.entityToJSON(XtGuanliyuanService.select(page.getPage(), page.getRows(), condition, page.getOrderBy())));
     }
 
-    @system.web.power.ann.SQ(value = "xtguanliyuan2S", scope = PDK.SESSION_ADMIN_KEY)
+    @system.web.power.ann.ZDY(zdy = configuration.zdy.SQ_Admin2.class, value = "xtguanliyuan2S")
     @M("/select/grid")//针对表头的查询-返回Grid数据
     public static void selectGrid(JWeb jw) {
         XtGuanliyuan admin = Gelibiaoshi.getAdminInfoBySession(jw);
@@ -123,7 +122,7 @@ public class XtGuanliyuan2HM {
     }
 //---------------------------------------单据状态管理---------------------------------------
 
-    @system.web.power.ann.SQ(value = "xtguanliyuan2E", scope = PDK.SESSION_ADMIN_KEY)
+    @system.web.power.ann.ZDY(zdy = configuration.zdy.SQ_Admin2.class, value = "xtguanliyuan2E")
     @M("/update/examine")//审核单据
     public void examine() {
         String ids = jw.getString("ids", "");
@@ -134,12 +133,12 @@ public class XtGuanliyuan2HM {
         jw.printOne(XtGuanliyuanService.updateStyle_examine(ids));
     }
 
-    @system.web.power.ann.SQ(value = "xtguanliyuan2UE", scope = PDK.SESSION_ADMIN_KEY)
+    @system.web.power.ann.ZDY(zdy = configuration.zdy.SQ_Admin2.class, value = "xtguanliyuan2UE")
     @M("/update/unexamine")//反审核
     public void unexamine() {
         String ids = jw.getString("ids", "");
         XtGuanliyuan admin = Gelibiaoshi.getAdminInfoBySession(jw);
-        if(ids.contains(admin.getXt_guanliyuan_zj())){
+        if (ids.contains(admin.getXt_guanliyuan_zj())) {
             jw.printOne(MsgVO.setError("无法自己反审自己。这会引起无法登陆的异常"));
             return;
         }
@@ -149,7 +148,7 @@ public class XtGuanliyuan2HM {
         jw.printOne(XtGuanliyuanService.updateStyle_unExamine(ids));
     }
 
-    @system.web.power.ann.SQ(value = "xtguanliyuan2V", scope = PDK.SESSION_ADMIN_KEY)
+    @system.web.power.ann.ZDY(zdy = configuration.zdy.SQ_Admin2.class, value = "xtguanliyuan2V")
     @M("/update/void")//作废
     public void tovoid() {
         String ids = jw.getString("ids", "");
@@ -160,7 +159,7 @@ public class XtGuanliyuan2HM {
         jw.printOne(XtGuanliyuanService.updateStyle_void(ids));
     }
 
-    @system.web.power.ann.SQ(value = "xtguanliyuan2UV", scope = PDK.SESSION_ADMIN_KEY)
+    @system.web.power.ann.ZDY(zdy = configuration.zdy.SQ_Admin2.class, value = "xtguanliyuan2UV")
     @M("/update/unvoid")//反作废
     public void untovoid() {
         String ids = jw.getString("ids", "");

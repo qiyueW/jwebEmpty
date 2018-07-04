@@ -11,7 +11,7 @@
         <%@include file="/WEB-INF/jspf/ztree.jspf"%>
         <%@include file="/WEB-INF/jspf/GG.jspf"%>
         <script>
-            $(function (){
+            $(function () {
                 $('#dg').treegrid('hideColumn', 'gangwei_zj');
                 $('#dg').treegrid('hideColumn', 'gangwei_fzj');
             });
@@ -35,9 +35,9 @@
                     <th data-options="field:'gangwei_fzj'">父键</th>
                     <th data-options="field:'gangwei_mc',width:360"><div>名称</div></th>
                     <th data-options="field:'gangwei_zhidanshijian',width:130"><div>制单时间</div></th>
-                       <th data-options="field:'gangwei_bz',width:90"><div>备注</div></th>
+                    <th data-options="field:'gangwei_bz',width:90"><div>备注</div></th>
                     <th data-options="field:'gangwei_zt',width:60,formatter:f_common_style"><div>状态</div></th>
-                       <th data-options="field:'gangwei_gelibiaoshi',width:90"><div>隔离标识</div></th>
+                    <!--<th data-options="field:'gangwei_gelibiaoshi',width:90"><div>隔离标识</div></th>-->
                 </tr>
             </thead>
         </table>

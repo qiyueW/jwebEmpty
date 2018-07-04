@@ -12,6 +12,11 @@ import wx.web.bean.LoufangFL;
  * @author wo
  */
 final public class LoufangFLService {
+
+    private static final String TABLE1 = "LoufangFL";
+    private static final String PK1 = "loufangfl_zj";
+    private static final String STYLE1 = "loufangfl_zt";
+    private static final String GE_LI_BIAO_SHI = "loufangfl_gelibiaoshi";
 //---------------------------------------查询---------------------------------------
 
     /**
@@ -22,6 +27,7 @@ final public class LoufangFLService {
     public static List<LoufangFL> select() {
         return DBO.service.S.select(LoufangFL.class);
     }
+
     /**
      * 检出树
      *
@@ -31,6 +37,7 @@ final public class LoufangFLService {
     public static List<LoufangFL> select(String condition) {
         return DBO.service.S.selectByCondition(LoufangFL.class, condition);
     }
+
     /**
      * 检出一条记录
      *
@@ -62,7 +69,7 @@ final public class LoufangFLService {
      */
     public static MsgVO dellOne(String id) {
         LoufangFL cobj = selectOne(id);
-        if (null == cobj||null==cobj.getloufangfl_zj()||cobj.getLoufangfl_zt() != BaseService.XINZENG) {
+        if (null == cobj || null == cobj.getloufangfl_zj() || cobj.getLoufangfl_zt() != BaseService.XINZENG) {
             return MsgVO.setError("没找到该记录。请刷新后再尝试");
         }
         List<LoufangFL> list = select();
@@ -90,8 +97,8 @@ final public class LoufangFLService {
             return MsgVO.setError();
         }
         return MsgVO.setUpdateRS(DBO.service.U.updateSome_reject(obj,
-        //loufangfl_zt
-                "loufangfl_zt"));
+                //loufangfl_zt,隔离标识
+                "loufangfl_zt,loufangfl_gelibiaoshi"));
     }
 //---------------------------------------单据状态管理---------------------------------------
 
@@ -102,7 +109,7 @@ final public class LoufangFLService {
      * @return
      */
     public static MsgVO updateStyle_examine(String ids) {
-        return BaseService.updateStyle_examine(ids, "LoufangFL", "loufangfl_zj", "loufangfl_zt");
+        return BaseService.updateStyle_examine(ids, TABLE1, PK1, STYLE1);
     }
 
     /**
@@ -112,7 +119,7 @@ final public class LoufangFLService {
      * @return
      */
     public static MsgVO updateStyle_unExamine(String ids) {
-        return BaseService.updateStyle_unExamine(ids, "LoufangFL", "loufangfl_zj", "loufangfl_zt");
+        return BaseService.updateStyle_unExamine(ids, TABLE1, PK1, STYLE1);
     }
 
     /**
@@ -122,7 +129,7 @@ final public class LoufangFLService {
      * @return
      */
     public static MsgVO updateStyle_void(String ids) {
-        return BaseService.updateStyle_void(ids, "LoufangFL", "loufangfl_zj", "loufangfl_zt");
+        return BaseService.updateStyle_void(ids, TABLE1, PK1, STYLE1);
     }
 
     /**
@@ -132,6 +139,26 @@ final public class LoufangFLService {
      * @return
      */
     public static MsgVO updateStyle_unVoid(String ids) {
-        return BaseService.updateStyle_unVoid(ids, "LoufangFL", "loufangfl_zj", "loufangfl_zt");
+        return BaseService.updateStyle_unVoid(ids, TABLE1, PK1, STYLE1);
     }
+
+//---------------------------------------隔离标识管理--------------------------------------
+    public static boolean isErrorGelibiaoshiVast(String ids, String gelibiaoshi) {
+        List<LoufangFL> list = DBO.service.S.selectByCondition(LoufangFL.class, "WHERE loufangfl_zj IN(" + configuration.Tool.replaceDToDDD(ids) + ")");
+        return BaseService.isErrorGelibiaoshiVast(list, GE_LI_BIAO_SHI, gelibiaoshi);
+    }
+
+    public static boolean isErrorGelibiaoshiVast(List<LoufangFL> list, String gelibiaoshi) {
+        return BaseService.isErrorGelibiaoshiVast(list, GE_LI_BIAO_SHI, gelibiaoshi);
+    }
+
+    public static boolean isErrorGelibiaoshiOne(String id, String gelibiaoshi) {
+        LoufangFL obj = DBO.service.S.selectOneByID(LoufangFL.class, id);
+        return BaseService.isErrorGelibiaoshiOne(obj, GE_LI_BIAO_SHI, gelibiaoshi);
+    }
+
+    public static boolean isErrorGelibiaoshiOne(LoufangFL obj, String gelibiaoshi) {
+        return BaseService.isErrorGelibiaoshiOne(obj, GE_LI_BIAO_SHI, gelibiaoshi);
+    }
+
 }

@@ -34,16 +34,15 @@
             }
         </style>  
     </head>
-    <body class="easyui-layout">
+<body class="easyui-layout">
         <div data-options="region:'west',split:true,title:'导航栏'" style="width:250px;padding:10px;">            <div id="divID_Tree_menu_LoufangFL" class="ztree">bean</div>
         </div>
-        <input type="hidden" id="loufangfl_zt" name="loufangfl_zt" value="${LoufangFL.loufangfl_zt}">
-        <div data-options="region:'center'" id='centerMain'> 
-            <input type="hidden" id="loufangfl_zj" name="loufangfl_zj" value="${LoufangFL.loufangfl_zj}">
-            <input type="hidden" id="loufangfl_fzj" name="loufangfl_fzj" value="${LoufangFL.loufangfl_fzj}">
-            <input type="hidden" id="loufangfl_zt" name="loufangfl_zt" value="${LoufangFL.loufangfl_zt}">
+        <div data-options="region:'center'" id='centerMain'>                    <input type="hidden" id="loufangfl_zj" name="loufangfl_zj" value="${LoufangFL.loufangfl_zj}">
+                    <input type="hidden" id="loufangfl_fzj" name="loufangfl_fzj" value="${LoufangFL.loufangfl_fzj}">
+                    <input type="hidden" id="loufangfl_zt" name="loufangfl_zt" value="${LoufangFL.loufangfl_zt}">
+                    <input type="hidden" id="loufangfl_gelibiaoshi" name="loufangfl_gelibiaoshi" value="${LoufangFL.loufangfl_gelibiaoshi}">
 
-            <div class="container"  id="LoufangFLFormID">
+<div class="container"  id="LoufangFLFormID">
                 <div class="row-fluid">
                     <div class="span12">
                         <a href="javascript:void(0)" class="btn btn-default btn-large" onclick="clearFather()">清空上级</a>
@@ -51,12 +50,12 @@
                         <a href="javascript:void(0)" class="btn btn-default btn-large" onclick="closeMySelf()">关闭</a>
                     </div>
                 </div>
-                <div class="row-fluid">
+               <div class="row-fluid">
                     <div class="span12">
                         <span class="myname">上级</span>
                         <input type="text" id="loufangfl_fzj_mc" name="loufangfl_fzj_mc" value="${fl_P.loufangfl_mc}" readonly="true" class="easyui-textbox">
                     </div>
-                </div>                            
+                </div>
                 <div class="row-fluid">
                     <div class="span12">
                         <span class="myname" >排序</span>
@@ -75,10 +74,8 @@
                         <input type="text"  value="${LoufangFL.loufangfl_bz}" id="loufangfl_bz" name="loufangfl_bz" data-options="required:false" class="easyui-textbox"/>
                     </div>
                 </div>
-                </form>
             </div>
         </div>
-    </div>
-</body>
+    </body>
 </html>
 

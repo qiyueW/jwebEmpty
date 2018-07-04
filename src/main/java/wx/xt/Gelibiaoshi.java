@@ -1,5 +1,6 @@
 package wx.xt;
 
+import javax.servlet.http.HttpSession;
 import system.web.JWeb;
 import system.web.power.PDK;
 import wx.web.bean.RY;
@@ -51,6 +52,18 @@ public class Gelibiaoshi {
         return system.web.power.session.Login.getUserInfo(RY.class, jw);
     }
 
+    public static XtGuanliyuan getSuperAdminInfoBySession(HttpSession session) {
+        return system.web.power.session.Login.getUserInfo(XtGuanliyuan.class, session, PDK.SESSION_SUPER_ADMIN_KEY);
+    }
+
+    public static XtGuanliyuan getAdminInfoBySession(HttpSession session) {
+        return system.web.power.session.Login.getUserInfo(XtGuanliyuan.class, session, PDK.SESSION_ADMIN_KEY);
+    }
+
+    public static RY getUserInfoBySession(HttpSession session) {
+        return system.web.power.session.Login.getUserInfo(RY.class, session);
+    }
+
     public static String getAdminOrUserID(JWeb jw) {
         RY obj = system.web.power.session.Login.getUserInfo(RY.class, jw, PDK.SESSION_DEFAULT_USER_KEY);
         if (null != obj) {
@@ -75,7 +88,6 @@ public class Gelibiaoshi {
 //        return getSuperAdminInfoBySession(jw).getXt_guanliyuan_zj();
 //    }
 //----------------------------------------
-
     public static void setSessionSuperAdmin(JWeb jw, String gelibiaoshi) {
         jw.session.setAttribute(GELIBIAOSHI_SUPERADMIN, gelibiaoshi);
     }
@@ -88,9 +100,15 @@ public class Gelibiaoshi {
         jw.session.setAttribute(GELIBIAOSHI_USER, gelibiaoshi);
     }
 
-    public static void out(JWeb jw) {
-        jw.session.removeAttribute(GELIBIAOSHI_ADMIN);
-        jw.session.removeAttribute(GELIBIAOSHI_USER);
+    public static void outSuperAdmin(JWeb jw) {
+        jw.session.removeAttribute(GELIBIAOSHI_SUPERADMIN);
     }
 
+    public static void outAdmin(JWeb jw) {
+        jw.session.removeAttribute(GELIBIAOSHI_ADMIN);
+    }
+
+    public static void outUser(JWeb jw) {
+        jw.session.removeAttribute(GELIBIAOSHI_USER);
+    }
 }

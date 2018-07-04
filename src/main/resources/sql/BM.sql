@@ -1,4 +1,3 @@
-drop table BM;
 CREATE TABLE IF NOT EXISTS `BM`(
     `bm_zj` CHAR(24) NOT NULL  COMMENT '主键'
     ,`bm_fzj` CHAR(24) NOT NULL COMMENT '父键'

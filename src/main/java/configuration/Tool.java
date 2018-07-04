@@ -22,7 +22,12 @@ final public class Tool {
      * @return String
      */
     public static final String replaceDToDDD(String s) {
-        return null == s || s.isEmpty() ? "''" : "'" + s.replace(",", "','") + "'";
+        if (null == s || s.isEmpty()) {
+            return "''";
+        } else if (s.contains("'")) {
+            return s;
+        }
+        return "'" + s.replace(",", "','") + "'";
     }
 
     /**

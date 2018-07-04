@@ -5,8 +5,10 @@ import configuration.MsgVO;
 import configuration.Tool;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 import wx.xt.bean.ViewRYQuanxian;
 import wx.xt.bean.XtRYQuanxian;
+import wx.xt.bean.xtjuese.XtJuese;
 
 /**
  *
@@ -56,6 +58,80 @@ final public class XtRYQuanxianService {
      */
     public static List<XtRYQuanxian> selectOneByRy(String xt_ry_zj) {
         return DBO.service.S.selectByCondition(XtRYQuanxian.class, "WHERE xt_ry_zj ='" + xt_ry_zj + "'");
+    }
+    private static final String[] EMPTY_POWER = new String[]{};
+
+    public static String[] getPower(List<XtRYQuanxian> list) {
+        StringBuilder jueseZJ = new StringBuilder();
+        StringBuilder powerCode = new StringBuilder();
+        for (XtRYQuanxian pobj : list) {
+            if (null != pobj.getXt_juese_zj() && pobj.getXt_juese_zj().length() > 1) {
+                jueseZJ.append(",").append(pobj.getXt_juese_zj());
+            }
+            if (null != pobj.getXt_quanxian() && pobj.getXt_quanxian().length() > 1) {
+                powerCode.append(",").append(pobj.getXt_quanxian());
+            }
+        }
+        boolean jueseEmpty = jueseZJ.length() == 0;
+        boolean powerCodeEmpty = powerCode.length() == 0;
+        if (jueseEmpty && powerCodeEmpty) {//不存在角色、直接权限时
+            return EMPTY_POWER;
+        } else if (jueseEmpty) {//不存在角色时，直接返回用户的直接权限
+            return powerCode.substring(1).split(",");
+        }
+        //找出所拥有的角色
+        List<XtJuese> jueseJH = XtJueseService.selectByIDs(jueseZJ.substring(1));
+        //没有记录时，或其他问题异常数据库查询异常，直接返回直接权限。
+        if (null == jueseJH || jueseJH.isEmpty()) {
+            return powerCode.substring(1).split(",");
+        }
+        //准备拼接字符的容器，并开始拼接角色主键
+        StringBuilder sb = new StringBuilder();
+        for (XtJuese xtjuese : jueseJH) {
+            sb.append(",'").append(xtjuese.getXt_juese_zj()).append("'");
+        }
+        //找出角色的权限集合。
+        Set<String> power = XTJueseQuanxianService.selectByJuese(sb.substring(1));
+        //同时存在直接权限时
+        if (!powerCodeEmpty) {
+            //合并业务员直接权限。
+            for (String mystr : powerCode.substring(1).split(",")) {
+                power.add(mystr);
+            }
+        }
+        String[] realPower = new String[power.size()];
+        power.toArray(realPower);
+        return realPower;
+    }
+
+    public static String[] getPower(XtRYQuanxian obj) {
+        boolean bjs = null == obj.getXt_juese_zj() || obj.getXt_juese_zj().isEmpty();
+        boolean bqx = null == obj.getXt_quanxian() || obj.getXt_quanxian().isEmpty();
+        if (bjs && bqx) {
+            return EMPTY_POWER;
+        } else if (bjs) {
+            return obj.getXt_quanxian().split(",");
+        }
+        //找出所拥有的角色
+        List<XtJuese> jueseJH = XtJueseService.selectByIDs(obj.getXt_juese_zj());
+        //没有记录时，或其他问题异常数据库查询异常，直接返回直接权限。
+        if (null == jueseJH || jueseJH.isEmpty()) {
+            return obj.getXt_quanxian().split(",");
+        }
+        //准备拼接字符的容器，并开始拼接角色主键
+        StringBuilder sb = new StringBuilder();
+        for (XtJuese xtjuese : jueseJH) {
+            sb.append(",'").append(xtjuese.getXt_juese_zj()).append("'");
+        }
+        //找出角色的权限集合。
+        Set<String> power = XTJueseQuanxianService.selectByJuese(sb.substring(1));
+        //合并业务员直接权限。
+        for (String mystr : obj.getXt_quanxian().split(",")) {
+            power.add(mystr);
+        }
+        String[] realPower = new String[power.size()];
+        power.toArray(realPower);
+        return realPower;
     }
 
     /**

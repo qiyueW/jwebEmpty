@@ -4,6 +4,7 @@ import configuration.mvc.BaseService;
 import configuration.DBO;
 import configuration.MsgVO;
 import configuration.Tool;
+import static configuration.mvc.BaseService.SHENHE;
 import java.util.List;
 import java.util.Date;
 import wx.xt.bean.xtjuese.XtJuese;
@@ -35,6 +36,16 @@ final public class XtJueseService {
     }
 
     /**
+     * 检出树
+     *
+     * @param zjs 角色权限集合。
+     * @return List
+     */
+    public static List<XtJuese> selectByIDs(String zjs) {
+        return DBO.service.S.selectByCondition(XtJuese.class, "WHERE xt_juese_zt=" + SHENHE + " AND xt_juese_zj IN(" + Tool.replaceDToDDD(zjs) + ")");
+    }
+
+    /**
      * 检出一条记录
      *
      * @param id
@@ -58,18 +69,27 @@ final public class XtJueseService {
         XtJuese obj = DBO.service.S.selectOneByID(XtJuese.class, id);
         return BaseService.isErrorGelibiaoshiOne(obj, "xt_juese_gelibiaoshi", gelibiaoshi);
     }
+    public static boolean isErrorGelibiaoshiOne(XtJuese obj, String gelibiaoshi) {
+        return BaseService.isErrorGelibiaoshiOne(obj, "xt_juese_gelibiaoshi", gelibiaoshi);
+    }
 //---------------------------------------增删改--------------------------------------
 
     /**
-     * 添加数据
+     * 辅管-添加数据
      *
      * @param obj
      * @return
      */
     public static MsgVO addOne(XtJuese obj) {
+        int i = DBO.service.S.selectCountByCondition(XtJuese.class,
+                "WHERE xt_juese_gelibiaoshi='" + obj.getXt_juese_gelibiaoshi()
+                + "' AND xt_juese_mc='" + obj.getXt_juese_mc() + "' AND (xt_juese_zhidanren_zj='" + obj.getXt_juese_zhidanren_zj() + "' OR xt_juese_gongsi='1')");
+        if (i > 0) {
+            return MsgVO.setError("角色名重复，容易引起误会。请换个角色名");
+        }
         obj.setXt_juese_zt(0);
         obj.setXt_juese_zhidanshijian(new Date());
-        int i = DBO.service.A.addOne(obj, "xt_juese_mc", "xt_juese_dm");
+        i = DBO.service.A.addOne(obj);
         if (i == -1) {
             return MsgVO.setError("添加异常：请检查这些字段(名称,代码)是否唯一");
         }
@@ -112,8 +132,8 @@ final public class XtJueseService {
             return MsgVO.setError();
         }
         return MsgVO.setUpdateRS(DBO.service.U.updateSome_reject(obj,
-                //xt_juese_zt,制单时间
-                "xt_juese_zt,xt_juese_zhidanshijian"));
+                //xt_juese_zt,制单时间,隔离标识
+                "xt_juese_zt,xt_juese_zhidanshijian,xt_juese_gelibiaoshi"));
     }
 //---------------------------------------单据状态管理---------------------------------------
 

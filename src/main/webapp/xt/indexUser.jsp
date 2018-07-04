@@ -1,16 +1,16 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@include file="/WEB-INF/jspf/power/userPower.jspf"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">  
 <html xmlns="http://www.w3.org/1999/xhtml">  
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <meta name=Keywords content="JWeb JWeb框架 JWeb官网 框架 mvc框架 jweb 框架 java">
-        <meta name=Description content="JWeb框架 高效、创新、小巧且强健">
-        <meta name=renderer content=webkit>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <meta name=Keywords content="JWeb JWeb框架 JWeb官网 框架 mvc框架 jweb 框架 java"/>
+        <meta name=Description content="JWeb框架 高效、创新、小巧且强健"/>
+        <meta name=renderer content=webkit/>
         <%@include file="/WEB-INF/jspf/easyuiLocal.jspf"%>
         <%@include file="/WEB-INF/jspf/GG.jspf"%>
-        <%@include file="/WEB-INF/jspf/artDialog.jspf"%>
         <%@include file="/WEB-INF/jspf/ztree.jspf"%>
-        <script src="${path_home}/xt/js/index.js" type="text/javascript"></script>
+        <script src="${path_home}/xt/js/indexUser.js" type="text/javascript"></script>
 
         <title>您好，欢迎您进入管理员后台</title>
         <script type="text/javascript">
@@ -27,17 +27,6 @@
                     }
                 });
             })
-            //刷新当前标签Tabs
-            function RefreshTab(currentTab) {
-                var url = $(currentTab.panel('options')).attr('href');
-                $('#tabs').tabs('update', {
-                    tab: currentTab,
-                    options: {
-                        href: url
-                    }
-                });
-                currentTab.panel('refresh');
-            }
         </script>
     </head>
     <body class="easyui-layout"style="margin:0;">
@@ -50,55 +39,18 @@
                 <!--<div title="个人中心" data-options="href:'${path_home}/admin/iniView.jsp'"></div>-->
             </div>
         </div>
-
-
-
+        <div data-options="region:'south',split:true" style="height:30px;overflow: hidden;text-align:center;">
+            <%=hyy%> 
+            <a href="javascript:void(0)" >修改密码</a>
+            &nbsp;&nbsp;&nbsp;
+            <a href="${path_home}/xt/loginmanager/out/user.jw">退出登陆</a>
+        </div>
+        <!-- 以下为tabs右击事件 -->  
+        <div id="indexMainTabRClickMenu" class="easyui-menu" style="width:120px;">
+            <div onclick="javascript:index_main_tab_close1()">闭关当前页面</div>
+            <div onclick="javascript:index_main_tab_close_other()">关闭其他页面</div>
+            <div onclick="javascript:index_main_tab_close()">关闭全部页面</div>
+            <div onclick="javascript:index_main_tab_reflash()">刷新</div>
+        </div>
     </body>
-    <!-- 以下为tabs右击事件 -->  
-    <div id="indexMainTabRClickMenu" class="easyui-menu" style="width:120px;">
-        <div onclick="javascript:index_main_tab_close1()">闭关当前页面</div>
-        <div onclick="javascript:index_main_tab_close_other()">关闭其他页面</div>
-        <div onclick="javascript:index_main_tab_close()">关闭全部页面</div>
-        <div onclick="javascript:index_main_tab_reflash()">刷新</div>
-    </div>  
-
-    <script>
-        function index_main_tab_close1() {
-//            $('#tt').tabs('close', $("#tabsRClickDoSaveValueID").val());
-            var tabTitle;
-            $(".tabs li").each(function (index, obj) {
-                tabTitle = $(".tabs-closable", this).text();
-                if (tabTitle == $("#tabsRClickDoSaveValueID").val()) {
-                    $("#tt").tabs("close", tabTitle);
-                    return;
-                }
-            });
-
-        }
-        function index_main_tab_close() {
-            $(".tabs li").each(function (index, obj) {
-                var tab = $(".tabs-closable", this).text();
-                $(".easyui-tabs").tabs('close', tab);
-            });
-        }
-        function index_main_tab_close_other() {
-            $(".tabs li").each(function (index, obj) {
-                var tabTitle = $(".tabs-closable", this).text();
-                if (tabTitle != $("#tabsRClickDoSaveValueID").val()) {
-                    $("#tt").tabs("close", tabTitle);
-                }
-            });
-        }
-        function index_main_tab_reflash() {
-            var currentTab = $('#tt').tabs('getSelected');
-            var url = $(currentTab.panel('options')).attr('href');
-            $('#tt').tabs('update', {
-                tab: currentTab,
-                options: {
-                    href: url
-                }
-            });
-            currentTab.panel('refresh');
-        }
-    </script>
 </html>

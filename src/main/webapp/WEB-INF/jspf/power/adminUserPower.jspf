@@ -1,13 +1,11 @@
-<%@page import="system.web.power.session.Login"%>
-<%@page import="power.JSPCheck"%>
-<%@ page pageEncoding="UTF-8" %>
+<%@page import="wx.xt.bean.xtguanliyuan.XtGuanliyuan"%>
+<%@page import="wx.web.bean.RY"%>
+<%@page import="wx.xt.Gelibiaoshi"%>
+<%@ page pageEncoding="UTF-8" %>    
 <%
-    JSPCheck pck = new JSPCheck(session);
-    if (pck.isNotLoginByAdmin()&&pck.isNotLoginByUser()) {
-//        response.sendRedirect(application.getAttribute("path_home").toString()+"/loginByAdmin.jsp");
+    RY ry = Gelibiaoshi.getUserInfoBySession(session);
+    XtGuanliyuan admin = Gelibiaoshi.getAdminInfoBySession(session);
+    if (null == ry && null == admin) {
         return;
     }
-//    AdminUser ry = Login.getUserInfo(AdminUser.class, session,PDK.SESSION_ADMIN_KEY);
-//    String hyy = "您好,欢迎使用JWeb框架. 致 " + ry.getUser_name()+ " 管理员";
 %>
-

@@ -36,6 +36,7 @@
             <input type="hidden" id="loufangfl_zj" name="loufangfl_zj" value="${LoufangFL.loufangfl_zj}">
             <input type="hidden" id="loufangfl_fzj" name="loufangfl_fzj" value="${LoufangFL.loufangfl_fzj}">
             <input type="hidden" id="loufangfl_zt" name="loufangfl_zt" value="${LoufangFL.loufangfl_zt}">
+            <input type="hidden" id="loufangfl_gelibiaoshi" name="loufangfl_gelibiaoshi" value="${LoufangFL.loufangfl_gelibiaoshi}">
 <div class="container"  style="height:100%;overflow-y: scroll">
                 <div class="row-fluid">
                     <div class="span12">

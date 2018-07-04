@@ -1,8 +1,9 @@
+DROP TABLE `XtJuese`;
 CREATE TABLE IF NOT EXISTS `XtJuese`(
     `xt_juese_zj` CHAR(24) NOT NULL  COMMENT '主键'
     ,`xt_juese_fzj` CHAR(24) NOT NULL COMMENT '父键'
     ,`xt_juese_mc` VARCHAR(200) NOT NULL COMMENT '名称'
-    ,`xt_juese_dm` VARCHAR(20) NOT NULL COMMENT '代码'
+    ,`xt_juese_dm` VARCHAR(20) NULL COMMENT '代码'
     ,`xt_juese_gongsi` INT NOT NULL COMMENT '公私角色'
     ,`xt_juese_bz` VARCHAR(200) NULL COMMENT '备注'
     ,`xt_juese_zt` INT NOT NULL COMMENT '状态'
@@ -16,8 +17,7 @@ CREATE TABLE IF NOT EXISTS `XtJuese`(
 
     ,PRIMARY KEY (`xt_juese_zj`)
    ,KEY `xt_juese_fzj` (`xt_juese_fzj`)
-   ,UNIQUE INDEX `xt_juese_mc` (`xt_juese_mc`)
-   ,UNIQUE INDEX `xt_juese_dm` (`xt_juese_dm`)
+   ,KEY  `xt_juese_mc` (`xt_juese_mc`)
    ,KEY `xt_juese_gongsi` (`xt_juese_gongsi`)
    ,KEY `xt_juese_zt` (`xt_juese_zt`)
    ,KEY `xt_juese_zhidanren_zj` (`xt_juese_zhidanren_zj`)

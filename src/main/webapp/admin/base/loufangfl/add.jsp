@@ -37,12 +37,12 @@
         <div data-options="region:'west',split:true,title:''" style="width:250px;padding:10px;">
             <div id="divID_Tree_menu_LoufangFL" class="ztree">bean</div>
         </div>
-        <input type="hidden" id="loufangfl_zt" name="loufangfl_zt" value="0">
         <div data-options="region:'center'" id='centerMain'>
             <div class="container"  id="LoufangFLFormID">
                 <input type="hidden" id="loufangfl_zj" name="loufangfl_zj" value="">
                 <input type="hidden" id="loufangfl_fzj" name="loufangfl_fzj" value="">
-
+                <input type="hidden" id="loufangfl_zt" name="loufangfl_zt" value="0">
+                <input type="hidden" id="loufangfl_gelibiaoshi" name="loufangfl_gelibiaoshi" value="">
                 <div class="row-fluid">
                     <div class="span12">
                         <a href="javascript:void(0)" class="btn btn-default btn-large" onclick="clearForm()">清空</a>

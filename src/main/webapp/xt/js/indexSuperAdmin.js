@@ -2,7 +2,7 @@ function loadUserMainTree(divID) {
     //检出包结构  /*               
     var setting0 = {
         treeId: "xt_quanxian_zj",
-        async: {enable: true, type: "post", url: path_home + "xt/menu/user.jw"},
+        async: {enable: true, type: "post", url: path_home + "xt/menu/superadmin.jw"},
         data: {simpleData: {enable: true, idKey: "xt_quanxian_zj", pIdKey: "xt_quanxian_fzj", rootPId: "0"}, key: {name: "xt_quanxian_mc"}},
         callback: {
             onClick: function (event, id, treeNode) {

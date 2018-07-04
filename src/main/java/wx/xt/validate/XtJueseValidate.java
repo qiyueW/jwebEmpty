@@ -18,7 +18,7 @@ public class XtJueseValidate extends ValidateModel {
                 .put("xt_juese_zj","[1-9]{1}[0-9]{23}", "主键丢失", false)//主键
                 .put("xt_juese_fzj","(0{1})|([1-9]{1}[0-9]{23})", "父键丢失", false)//父键
                 .put("xt_juese_mc","[\\w\\W]{1,200}", "名称:文本为空或长度超200字符", true)//名称
-                .put("xt_juese_dm","[\\w\\W]{1,20}", "代码:文本为空或长度超20字符", true)//代码
+                .put("xt_juese_dm","[\\w\\W]{1,20}", "代码:文本为空或长度超20字符", false)//代码
                 .put("xt_juese_gongsi","[0|1|2|3|4]{1}", "公私角色:请输入正整数。位数在1-1位之间", true)//公私角色
                 .put("xt_juese_bz","[\\w\\W]{0,200}", "备注:长度超200字符", false)//备注
                 .put("xt_juese_zt","[0|1|2|3|4]{1}", "状态:请输入正整数。位数在1-1位之间", false)//状态

@@ -1,0 +1,18 @@
+<%@page import="wx.xt.bean.xtguanliyuan.XtGuanliyuan"%>
+<%@page import="wx.xt.Gelibiaoshi"%>
+<%@page import="system.web.power.PDK"%>
+<%@ page pageEncoding="UTF-8" %>
+<div data-options="region:'north',split:true" style="height:40px;overflow: hidden;">
+    <%
+//
+//        XtGuanliyuan admin = Gelibiaoshi.getAdminInfoBySession(session);
+//        if (null == admin) {
+//            admin = Gelibiaoshi.getSuperAdminInfoBySession(session);
+//        }
+//        if (null == admin) {
+//            return;
+//        }
+        String hyy = "您好,欢迎使用JWeb框架. 致 " + admin.getXt_guanliyuan_mc();
+        out.print(hyy);
+    %>
+</div>

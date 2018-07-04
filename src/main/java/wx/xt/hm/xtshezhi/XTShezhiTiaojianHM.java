@@ -137,7 +137,7 @@ public class XTShezhiTiaojianHM {
         jw.printOne(obj);
     }
 
-    //@system.web.power.ann.SQ("xtshezhitiaojianU")
+    @system.web.power.ann.ZDY(zdy = configuration.zdy.DL_Admin123OrUser.class, value = "xtshezhitiaojianS")
     @M("/select/selectOne/bodyJSON")
     public void selectOneBodyJSON() {//针对表体的查询
         String key = jw.getString("key");

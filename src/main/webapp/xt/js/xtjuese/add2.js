@@ -1,7 +1,7 @@
 //页面文档加载完后-调用此函数。
 //需要初始化的，统一放到此函数来
 function inidoAdd() {
-    toCreateTree("divID_Tree_menu_XtJuese", "xt_juese_zj", "xt_juese_fzj", "xt_juese_mc", "/xt/xtjuese/select/json.jw", false, function (event, id, treeNode) {
+    toCreateTree("divID_Tree_menu_XtJuese", "xt_juese_zj", "xt_juese_fzj", "xt_juese_mc", "/xt/xtjuese2/select/json.jw", false, function (event, id, treeNode) {
         $("#xt_juese_fzj").val(treeNode.xt_juese_zj)
         $("#xt_juese_fzj_mc").textbox('setValue',treeNode.xt_juese_mc);        
     }, true);
@@ -25,7 +25,7 @@ function submitForm(formid) {
                 data.xt_juese_xiugairen_zj = fzFormatZT($("#xt_juese_xiugairen_zj").val())//修改人主键
                 data.xt_juese_xiugairen = fzFormatZT($("#xt_juese_xiugairen").val())//修改人
                 data.xt_juese_xiugaishijian = fzFormatZT($("#xt_juese_xiugaishijian").val())//修改时间
-                easyuiAjax("/xt/xtjuese/save.jw", data, "请确认保存操作", function () {
+                easyuiAjax("/xt/xtjuese2/save.jw", data, "请确认保存操作", function () {
                     $.fn.zTree.getZTreeObj("divID_Tree_menu_XtJuese").reAsyncChildNodes(null, "refresh");
                 });
             }

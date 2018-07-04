@@ -12,6 +12,7 @@ public class LoufangFL {
     private  String loufangfl_mc ;// 名称 
     private  String loufangfl_bz ;// 备注 
     private  Integer loufangfl_zt ;// 状态 
+    private  String loufangfl_gelibiaoshi ;// 隔离标识 
 
     @Override
     public String toString() {
@@ -21,7 +22,8 @@ public class LoufangFL {
                 .append(",\"loufangfl_fzj\":\"").append(loufangfl_fzj).append("\"")
                 .append(",\"loufangfl_mc\":\"").append(loufangfl_mc).append("\"")
                 .append(",\"loufangfl_bz\":\"").append(loufangfl_bz).append("\"")
-                .append(",\"loufangfl_zt\":\"").append(loufangfl_zt).append("\"}")
+                .append(",\"loufangfl_zt\":\"").append(loufangfl_zt).append("\"")
+                .append(",\"loufangfl_gelibiaoshi\":\"").append(loufangfl_gelibiaoshi).append("\"}")
                 ;
         return sb.toString();
     }
@@ -127,5 +129,22 @@ public class LoufangFL {
      */
     public Integer getLoufangfl_zt() {
         return this.loufangfl_zt;
+    }
+    /**
+     * 设置 隔离标识
+     *
+     * @param loufangfl_gelibiaoshi String
+     */
+    public void setLoufangfl_gelibiaoshi(String loufangfl_gelibiaoshi) {
+        this.loufangfl_gelibiaoshi=loufangfl_gelibiaoshi;
+    }
+
+    /**
+     * 取得 隔离标识
+     *
+     * @return String
+     */
+    public String getLoufangfl_gelibiaoshi() {
+        return this.loufangfl_gelibiaoshi;
     }
 }

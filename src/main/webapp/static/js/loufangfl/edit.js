@@ -36,6 +36,7 @@ function submitForm(formid) {
                 data.loufangfl_mc =fzFormatZT($("#loufangfl_mc").val())//名称
                 data.loufangfl_bz =fzFormatZT($("#loufangfl_bz").val())//备注
                 data.loufangfl_zt =fzFormatZT($("#loufangfl_zt").val())//状态
+                data.loufangfl_gelibiaoshi =fzFormatZT($("#loufangfl_gelibiaoshi").val())//隔离标识
                 easyuiAjax("/base/loufangfl/update.jw", data, "请确认修改操作", function () {
                     $.fn.zTree.getZTreeObj("divID_Tree_menu_LoufangFL").reAsyncChildNodes(null, "refresh");
                 });

@@ -1,3 +1,12 @@
+function f_grid_xt_juese_gongsi(value, row, index) {
+    if (value == "1") {
+        return "公有"
+    }
+    if (value == "0") {
+        return "私有"
+    }
+    return value;
+}
 function f_gridMenu(e, row) {         //右击事件
     e.preventDefault(); //阻止浏览器捕获右键事件
     $('#menu').menu('show', {
@@ -25,7 +34,7 @@ function dellRow() {
         $.messager.alert('异常', '单据锁定，无法删除');
         return;
     }
-    easyuiAjax("/xt/xtjuese/remove.jw", {id: rows[0].xt_juese_zj}, "请确认删除操作", function () {
+    easyuiAjax("/xt/xtjuese3/remove.jw", {id: rows[0].xt_juese_zj}, "请确认删除操作", function () {
         easyuiTreeGridReload('dg')
     });
 }
@@ -39,7 +48,7 @@ function updateRow() {
         $.messager.alert('异常', '单据锁定，无法修改');
         return;
     }
-    easyuiLoadWindowByURL('showUpdatePage', '修改', '/xt/xtjuese/update/select.jw?id=' + rows[0].xt_juese_zj);
+    easyuiLoadWindowByURL('showUpdatePage', '修改', '/xt/xtjuese3/update/select.jw?id=' + rows[0].xt_juese_zj);
 }
 
 function seeRow() {
@@ -48,7 +57,7 @@ function seeRow() {
         $.messager.alert('提示', '请选择行');
         return;
     }
-    easyuiLoadWindowByURL('showSeeOnePage', '明细', '/xt/xtjuese/select/selectOne.jw?id=' + rows[0].xt_juese_zj);
+    easyuiLoadWindowByURL('showSeeOnePage', '明细', '/xt/xtjuese3/select/selectOne.jw?id=' + rows[0].xt_juese_zj);
 }
 
 //-------------------------单据状态管理-------------------------                
@@ -58,7 +67,7 @@ function update01() {//审核
         $.messager.alert('提示', '请选择行');
         return;
     }
-    easyuiAjax("/xt/xtjuese/update/examine.jw", {ids: easyuiGetRowsID(rows, 'xt_juese_zj')}, "请确认审核操作", function () {
+    easyuiAjax("/xt/xtjuese3/update/examine.jw", {ids: easyuiGetRowsID(rows, 'xt_juese_zj')}, "请确认审核操作", function () {
         easyuiTreeGridReload('dg')
     });
 }
@@ -68,7 +77,7 @@ function update10() {//反审核
         $.messager.alert('提示', '请选择行');
         return;
     }
-    easyuiAjax("/xt/xtjuese/update/unexamine.jw", {ids: easyuiGetRowsID(rows, 'xt_juese_zj')}, "请确认反审核操作", function () {
+    easyuiAjax("/xt/xtjuese3/update/unexamine.jw", {ids: easyuiGetRowsID(rows, 'xt_juese_zj')}, "请确认反审核操作", function () {
         easyuiTreeGridReload('dg')
     });
 }
@@ -78,7 +87,7 @@ function update04() {//作废
         $.messager.alert('提示', '请选择行');
         return;
     }
-    easyuiAjax("/xt/xtjuese/update/void.jw", {ids: easyuiGetRowsID(rows, 'xt_juese_zj')}, "请确认作废操作", function () {
+    easyuiAjax("/xt/xtjuese3/update/void.jw", {ids: easyuiGetRowsID(rows, 'xt_juese_zj')}, "请确认作废操作", function () {
         easyuiTreeGridReload('dg')
     });
 }
@@ -88,7 +97,7 @@ function update40() {//反作废
         $.messager.alert('提示', '请选择行');
         return;
     }
-    easyuiAjax("/xt/xtjuese/update/unvoid.jw", {ids: easyuiGetRowsID(rows, 'xt_juese_zj')}, "请确认反作废操作", function () {
+    easyuiAjax("/xt/xtjuese3/update/unvoid.jw", {ids: easyuiGetRowsID(rows, 'xt_juese_zj')}, "请确认反作废操作", function () {
         easyuiTreeGridReload('dg')
     });
 }

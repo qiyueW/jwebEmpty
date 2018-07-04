@@ -11,7 +11,7 @@ import wx.xt.service.XtGuanliyuanService;
  *
  * @author wo
  */
-@system.web.power.ann.ZDY(zdy = configuration.zdy.SQ_Admin2.class, value = "xtguanliyuanquanxian2")
+@system.web.power.ann.ZDY(zdy = configuration.zdy.SQ_Admin2.class, value = "")
 @H("/xt/xtguanliyuan2/quanxian")
 public class XtGuanliyuanQuanxian2HM {
 
@@ -21,6 +21,7 @@ public class XtGuanliyuanQuanxian2HM {
         this.jw = jw;
     }
 
+    @system.web.power.ann.ZDY(zdy = configuration.zdy.SQ_Admin2.class, value = "xtguanliyuanquanxian2_xiuganquanxian")
     @M("/xiugan/quanxian")
     public void update() {
         XtGuanliyuan obj = jw.getObject(XtGuanliyuan.class);
@@ -31,6 +32,7 @@ public class XtGuanliyuanQuanxian2HM {
         jw.printOne(XtGuanliyuanService.update_quanxian(obj));
     }
 
+    @system.web.power.ann.ZDY(zdy = configuration.zdy.SQ_Admin2.class, value = "xtguanliyuanquanxian2_xiuganbm")
     @M("/xiugan/bm")
     public void updateBM() {
         XtGuanliyuan obj = jw.getObject(XtGuanliyuan.class);
@@ -48,6 +50,8 @@ public class XtGuanliyuanQuanxian2HM {
         if (null == obj.getXt_guanliyuan_zj()) {
             return;
         }
+        obj.setXt_guanliyuan_mima("不要这样啦");
         jw.printOne(obj.toString());
     }
+
 }
