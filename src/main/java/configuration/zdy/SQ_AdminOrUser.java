@@ -1,5 +1,6 @@
 package configuration.zdy;
 
+import configuration.MyPowerCheck;
 import system.web.JWeb;
 import system.web.power.PDK;
 import system.web.power.interfaces.IZDY;
@@ -19,6 +20,7 @@ public class SQ_AdminOrUser implements IZDY {
         Object obj = jw.session.getAttribute(PDK.SESSION_DEFAULT_USER_KEY);
         Object admin = jw.session.getAttribute(PDK.SESSION_ADMIN_KEY);
         if (null == obj && null == admin) {//未登录
+            jw.printOne(MyPowerCheck.DL_ERROR);
             return true;
         }
         PISD pobj = null == obj ? (PISD) admin : (PISD) obj;
@@ -31,6 +33,10 @@ public class SQ_AdminOrUser implements IZDY {
             }
             return true;
         }
-        return Login.isNoThisPower(pobj, urlCode);
+        if (Login.isNoThisPower(pobj, urlCode)) {
+            jw.printOne(MyPowerCheck.SQ_ERROR);
+            return true;
+        }
+        return false;
     }
 }

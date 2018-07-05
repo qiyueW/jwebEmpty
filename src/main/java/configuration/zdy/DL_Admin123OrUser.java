@@ -1,5 +1,6 @@
 package configuration.zdy;
 
+import configuration.MyPowerCheck;
 import system.web.JWeb;
 import system.web.power.PDK;
 import system.web.power.interfaces.IZDY;
@@ -23,6 +24,10 @@ public class DL_Admin123OrUser implements IZDY {
             return false;
         }
         obj = jw.session.getAttribute(PDK.SESSION_SUPER_ADMIN_KEY);
-        return null == obj;
+        if (null == obj) {
+            jw.printOne(MyPowerCheck.DL_ERROR);
+            return true;
+        }
+        return false;
     }
 }

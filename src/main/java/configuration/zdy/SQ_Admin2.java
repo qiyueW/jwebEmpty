@@ -1,6 +1,7 @@
 package configuration.zdy;
 
 import configuration.MsgVO;
+import configuration.MyPowerCheck;
 import system.web.JWeb;
 import system.web.power.PDK;
 import system.web.power.interfaces.IZDY;
@@ -25,7 +26,7 @@ public class SQ_Admin2 implements IZDY {
             return true;
         }
         if (urlCode.isEmpty()) {
-            System.out.println("检验成功，总管已经登陆。");
+//            System.out.println("检验成功，总管已经登陆。");
             return false;
         }
         PISD pobj = (PISD) admin;
@@ -43,6 +44,10 @@ public class SQ_Admin2 implements IZDY {
             }
             return true;
         }
-        return Login.isNoThisPower(pobj, urlCode);
+        if (Login.isNoThisPower(pobj, urlCode)) {
+            jw.printOne(MyPowerCheck.SQ_ERROR);
+            return true;
+        }
+        return false;
     }
 }

@@ -4,7 +4,7 @@ function inidoAdd() {
     toCreateTreeByChkboxType("divID_Tree_menu_XtJuese", "xt_juese_zj", "xt_juese_fzj", "xt_juese_mc", "/xt/xtjuese2/select/json.jw", true, 0, function (event, id, treeNode) {
     }, true);
 //yhQC
-    toCreateTree("divID_Tree_menu_XtQuanxian", "xt_quanxian_zj", "xt_quanxian_fzj", "xt_quanxian_mc", "/xt/power/admin.jw?key=yhQC", true, function (event, id, treeNode) {
+    toCreateTree("divID_Tree_menu_XtQuanxian", "xt_quanxian_zj", "xt_quanxian_fzj", "xt_quanxian_mc", "/xt/power/admin.jw?key=yhQX", true, function (event, id, treeNode) {
     }, true);
 }
 function f_gridMenu(e, row) {         //右击事件
