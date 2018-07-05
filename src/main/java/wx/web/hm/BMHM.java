@@ -9,7 +9,6 @@ import java.util.List;
 import system.base.tree.TreeService;
 import system.base.tree.vo.IdPidEnum;
 import configuration.Tool;
-import configuration.mvc.BaseService;
 import plugins.easyui.EasyuiService;
 import wx.web.bean.BM;
 import wx.web.service.BMService;
