@@ -59,7 +59,6 @@ public class Tree<T> {
         boolean fist = true;
         for (T t : this.allList) {
             if (this.treeField.getPID(t).equals(this.treeField.getID(tobj))) {
-//            if (getPID(t).equals(getID(tobj))) {
                 this.mysaon.add(t);
                 json = t.toString();
                 if (fist) {
@@ -78,15 +77,15 @@ public class Tree<T> {
     }
 
     private void iniTopFather() {
-        String id;
+        String pid;
         next:
         for (T t : this.allList) {
-            id = this.treeField.getPID(t);// getFieldValue(fpid, t);//拿出自己的父键。
-            if (null == id || id.isEmpty() || id.equals("0")) {
+            pid = this.treeField.getPID(t);// getFieldValue(fpid, t);//拿出自己的父键。
+            if (null == pid || pid.isEmpty() || pid.equals("0")) {
                 this.topList.add(t);//表示顶层。
             } else {
                 for (T t2 : this.allList) {
-                    if (id.equals(this.treeField.getPID(t2))) {//getFieldValue(fid, t2)如果自己的父键，是别人的主键。表示此节点不是顶节点。
+                    if (pid.equals(this.treeField.getID(t2))) {//getFieldValue(fid, t2)如果自己的父键，是别人的主键。表示此节点不是顶节点。
                         continue next;//结束查询。
                     }
                 }

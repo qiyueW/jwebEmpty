@@ -19,8 +19,12 @@ final public class XTJueseQuanxianService {
 
     private static final String TABLE1 = "XTJueseQuanxian";
     private static final String PK1 = "xt_juesequanxian_zj";
-//---------------------------------------查询---------------------------------------
+    private static final String CHECK_SHENHE_JUESE_QUANXIAN = "SELECT MY.*"
+            + " FROM (SELECT * FROM XTJueseQuanxian WHERE xt_juese_zj IN(?1))MY"
+            + " LEFT JOIN XtJuese ON MY.xt_juese_zj=XtJuese.xt_juese_zj"
+            + " WHERE XtJuese.xt_juese_zt=1";
 
+//---------------------------------------查询---------------------------------------
     /**
      * 通过角色ID查询 权限集合
      *
@@ -42,6 +46,19 @@ final public class XTJueseQuanxianService {
     public static Set<String> selectByJuese(final String juese_zjs, final String ry_zj) {
         String wheresql = "WHERE xt_juese_zj IN(" + Tool.replaceDToDDD(juese_zjs) + ") AND xt_zhidanren_zj='" + ry_zj + "'";
         return toObjectPower(select(wheresql));
+    }
+
+    /**
+     * 检出指定角色（审核的）的权限集合。
+     *
+     * @param juese_zjs
+     * @return
+     */
+    public static Set<String> selectByJuese_shenhe(final String juese_zjs) {
+        List<XTJueseQuanxian> quanxian = DBO.service.ADUS.executeQueryVast(XTJueseQuanxian.class,
+                CHECK_SHENHE_JUESE_QUANXIAN.replace("?1", Tool.replaceDToDDD(juese_zjs))
+        );
+        return toObjectPower(quanxian);
     }
 
     public static List<XTJueseQuanxian> select(final String where) {
@@ -74,7 +91,8 @@ final public class XTJueseQuanxianService {
         return null == where || where.isEmpty() ? DBO.service.S.selectCount(XTJueseQuanxian.class) : DBO.service.S.selectCountByCondition(XTJueseQuanxian.class, where);
     }
 //---------------------------------------增删改--------------------------------------
-   /**
+
+    /**
      * 设置权限-公有
      *
      * @param list
@@ -96,7 +114,7 @@ final public class XTJueseQuanxianService {
         );
         return null == is || is[0] + is[1] == 0 ? MsgVO.setNotOK("权限设置异常") : MsgVO.setOK("设置成功");
     }
-    
+
     /**
      * 设置权限-私有
      *
@@ -109,7 +127,7 @@ final public class XTJueseQuanxianService {
     public static MsgVO setPower(List<XtJuese> list, String juese_zjs, String quanxian_dm, String zhidanren_zj) {
         int i;
         if (null == quanxian_dm || quanxian_dm.isEmpty()) {
-            i = DBO.service.ADUS.executeUpdate("DELETE  FROM " + TABLE1 + "  WHERE xt_zhidanren_zj='"+zhidanren_zj+"' AND xt_juese_zj IN(" + Tool.replaceDToDDD(juese_zjs) + ") ");
+            i = DBO.service.ADUS.executeUpdate("DELETE  FROM " + TABLE1 + "  WHERE xt_zhidanren_zj='" + zhidanren_zj + "' AND xt_juese_zj IN(" + Tool.replaceDToDDD(juese_zjs) + ") ");
             return i > 0 ? MsgVO.setOK("设置成功") : MsgVO.setNotOK("操作失败或没有可操作的单据");
         }
         List<XTJueseQuanxian> xx = toObject(list, quanxian_dm, zhidanren_zj);
@@ -120,6 +138,7 @@ final public class XTJueseQuanxianService {
         );
         return null == is || is[0] + is[1] == 0 ? MsgVO.setNotOK("权限设置异常") : MsgVO.setOK("设置成功");
     }
+
     private static List<XTJueseQuanxian> toObject(List<XtJuese> jlist, String quanxian) {
         List<XTJueseQuanxian> list = new ArrayList<>();
         XTJueseQuanxian obj;
@@ -132,6 +151,7 @@ final public class XTJueseQuanxianService {
         }
         return list;
     }
+
     private static List<XTJueseQuanxian> toObject(List<XtJuese> jlist, String quanxian, String zhidanren_zj) {
         List<XTJueseQuanxian> list = new ArrayList<>();
         XTJueseQuanxian obj;

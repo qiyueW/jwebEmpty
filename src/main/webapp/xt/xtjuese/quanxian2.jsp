@@ -4,8 +4,8 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>维护系统角色权限</title>
-        <script type="text/javascript" src="${path_home}/xt/js/xtquanxianjuese/list.js?id=<%=new Date()%>"></script>
+        <title>绑定辅管员-角色权限</title>
+        <script type="text/javascript" src="${path_home}/xt/js/xtjuese/quanxian2.js"></script>
         <%@include file="/WEB-INF/jspf/easyuiLocal.jspf"%>
         <%@include file="/WEB-INF/jspf/artDialog.jspf"%>
         <%@include file="/WEB-INF/jspf/ztree.jspf"%>
@@ -20,7 +20,7 @@
         </script>
     </head>
     <body class="easyui-layout">
-        <div data-options="region:'east',split:true,title:''" style="width:450px;padding:10px;">
+        <div data-options="region:'east',split:true,title:'角色可代表的权限'" style="width:450px;padding:10px;">
             <div id="divID_Tree_menu_XtQuanxian" class="ztree">bean</div>
         </div>
         <div data-options="region:'center'" id='centerMain'>
@@ -32,7 +32,7 @@
                    singleSelect:true,
                    showFooter:true,
                    toolbar:'#tb',
-                   url:'${path_home}/xt/xtjuese/select/grid.jw',
+                   url:'${path_home}/xt/xtjuese2/select/grid.jw',
                    onContextMenu:f_gridMenu
                    ">
                 <thead>
@@ -41,11 +41,11 @@
                         <th data-options="field:'xt_juese_zj'">主键</th>
                         <th data-options="field:'xt_juese_fzj'">父键</th>
                         <th data-options="field:'xt_juese_mc',width:360"><div>名称</div></th>
-                        <th data-options="field:'xt_juese_dm',width:90"><div>代码</div></th>
-                        <th data-options="field:'xt_juese_gongsi',width:90"><div>公私角色</div></th>
+                        <!--<th data-options="field:'xt_juese_dm',width:90"><div>代码</div></th>-->
+                        <!--<th data-options="field:'xt_juese_gongsi',width:90"><div>公私角色</div></th>-->
                         <th data-options="field:'xt_juese_bz',width:90"><div>备注</div></th>
                         <th data-options="field:'xt_juese_zt',width:60,formatter:f_common_style"><div>状态</div></th>
-                        <th data-options="field:'xt_juese_gelibiaoshi',width:90"><div>隔离标识</div></th>
+                        <!--<th data-options="field:'xt_juese_gelibiaoshi',width:90"><div>隔离标识</div></th>-->
                         <th data-options="field:'xt_juese_zhidanren_zj'">制单人主键</th>
                         <th data-options="field:'xt_juese_zhidanren',width:90"><div>制单人</div></th>
                         <th data-options="field:'xt_juese_zhidanshijian',width:130"><div>制单时间</div></th>

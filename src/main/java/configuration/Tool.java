@@ -30,6 +30,17 @@ final public class Tool {
         return "'" + s.replace(",", "','") + "'";
     }
 
+    public static final String replaceDToDDD(String[] s) {
+        if (null == s || s.length == 0) {
+            return "''";
+        }
+        StringBuilder sb = new StringBuilder();
+        for (String str : s) {
+            sb.append(",'").append(str).append("'");
+        }
+        return sb.substring(1);
+    }
+
     /**
      * 将对象转成json格式的字符串
      *

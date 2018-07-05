@@ -64,12 +64,6 @@
                 </div>
                 <div class="row-fluid">
                     <div class="span12">
-                            <span class="myname" >公私角色</span>
-                            ${XtJuese.xt_juese_gongsi}
-                    </div>
-                </div>
-                <div class="row-fluid">
-                    <div class="span12">
                             <span class="myname" >备注</span>
                             ${XtJuese.xt_juese_bz}
                     </div>

@@ -38,7 +38,7 @@
                     <th data-options="field:'xt_juese_fzj'">父键</th>
                     <th data-options="field:'xt_juese_mc',width:360"><div>名称</div></th>
                     <!--<th data-options="field:'xt_juese_dm',width:90"><div>代码</div></th>-->
-                    <th data-options="field:'xt_juese_gongsi',width:90,formatter:f_grid_xt_juese_gongsi"><div>公私角色</div></th>
+                    <!--<th data-options="field:'xt_juese_gongsi',width:90,formatter:f_grid_xt_juese_gongsi"><div>公私角色</div></th>-->
                     <th data-options="field:'xt_juese_bz',width:90"><div>备注</div></th>
                     <th data-options="field:'xt_juese_zt',width:60,formatter:f_common_style"><div>状态</div></th>
                     <!--<th data-options="field:'xt_juese_gelibiaoshi',width:90"><div>隔离标识</div></th>-->

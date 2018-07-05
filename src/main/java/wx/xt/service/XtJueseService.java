@@ -69,6 +69,7 @@ final public class XtJueseService {
         XtJuese obj = DBO.service.S.selectOneByID(XtJuese.class, id);
         return BaseService.isErrorGelibiaoshiOne(obj, "xt_juese_gelibiaoshi", gelibiaoshi);
     }
+
     public static boolean isErrorGelibiaoshiOne(XtJuese obj, String gelibiaoshi) {
         return BaseService.isErrorGelibiaoshiOne(obj, "xt_juese_gelibiaoshi", gelibiaoshi);
     }
@@ -82,8 +83,8 @@ final public class XtJueseService {
      */
     public static MsgVO addOne(XtJuese obj) {
         int i = DBO.service.S.selectCountByCondition(XtJuese.class,
-                "WHERE xt_juese_gelibiaoshi='" + obj.getXt_juese_gelibiaoshi()
-                + "' AND xt_juese_mc='" + obj.getXt_juese_mc() + "' AND (xt_juese_zhidanren_zj='" + obj.getXt_juese_zhidanren_zj() + "' OR xt_juese_gongsi='1')");
+                            "WHERE xt_juese_gelibiaoshi='" + obj.getXt_juese_gelibiaoshi()
+                + "' AND xt_juese_mc='" + obj.getXt_juese_mc() + "' AND xt_juese_zhidanren_zj='" + obj.getXt_juese_zhidanren_zj() + "'");
         if (i > 0) {
             return MsgVO.setError("角色名重复，容易引起误会。请换个角色名");
         }
@@ -131,9 +132,15 @@ final public class XtJueseService {
         if (selectOne(obj.getXt_juese_zj()).getXt_juese_zt() != BaseService.XINZENG) {
             return MsgVO.setError();
         }
+        int i = DBO.service.S.selectCountByCondition(XtJuese.class,
+                "WHERE xt_juese_gelibiaoshi='" + obj.getXt_juese_gelibiaoshi()
+                + "' AND xt_juese_mc='" + obj.getXt_juese_mc() + "' AND xt_juese_zhidanren_zj='" + obj.getXt_juese_zhidanren_zj() + "' AND xt_juese_zj!='"+obj.getXt_juese_zj()+"'");
+        if (i > 0) {
+            return MsgVO.setError("角色名重复，容易引起误会。请换个角色名");
+        }
         return MsgVO.setUpdateRS(DBO.service.U.updateSome_reject(obj,
                 //xt_juese_zt,制单时间,隔离标识
-                "xt_juese_zt,xt_juese_zhidanshijian,xt_juese_gelibiaoshi"));
+                "xt_juese_zt,xt_juese_zhidanshijian,xt_juese_gelibiaoshi,xt_juese_zhidanren_zj,xt_juese_zhidanren"));
     }
 //---------------------------------------单据状态管理---------------------------------------
 

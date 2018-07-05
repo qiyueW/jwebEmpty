@@ -39,14 +39,14 @@
         </div>
         <div data-options="region:'center'" id='centerMain'>
             <input type="hidden" id="xt_juese_zj" name="xt_juese_zj" value="">
-            <input type="hidden" id="xt_juese_fzj" name="xt_juese_fzj" value="">
+            
             <input type="hidden" id="xt_juese_zt" name="xt_juese_zt" value="0">
             <input type="hidden" id="xt_juese_zhidanren_zj" name="xt_juese_zhidanren_zj" value="">
             <input type="hidden" id="xt_juese_xiugairen_zj" name="xt_juese_xiugairen_zj" value="">
-            <!--辅管添加的角色，锁定私有-->
-            <input type="text"  id="xt_juese_gongsi" name="xt_juese_gongsi"  value="0"/>
+            <input type="hidden"  id="xt_juese_gongsi" name="xt_juese_gongsi"  value="0"/>
 
             <div class="container"  id="XtJueseFormID">
+                <input type="hidden" id="xt_juese_fzj" name="xt_juese_fzj" value="">
                 <div class="row-fluid">
                     <div class="span12">
                         <a href="javascript:void(0)" class="btn btn-default btn-large" onclick="clearForm()">清空</a>

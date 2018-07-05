@@ -21,7 +21,7 @@ public class XtJueseValidate extends ValidateModel {
                 .put("xt_juese_dm","[\\w\\W]{1,20}", "代码:文本为空或长度超20字符", false)//代码
                 .put("xt_juese_gongsi","[0|1|2|3|4]{1}", "公私角色:请输入正整数。位数在1-1位之间", true)//公私角色
                 .put("xt_juese_bz","[\\w\\W]{0,200}", "备注:长度超200字符", false)//备注
-                .put("xt_juese_zt","[0|1|2|3|4]{1}", "状态:请输入正整数。位数在1-1位之间", false)//状态
+                .put("xt_juese_zt","[0|1|2|3|4]{0,1}", "状态:请输入正整数。位数在1-1位之间", false)//状态
 //                .put("xt_juese_gelibiaoshi","[\\w\\W]{0,20}", "隔离标识:长度超20字符", false)//隔离标识
 //                .put("xt_juese_zhidanren_zj","[1-9]{1}[0-9]{23}", "制单人主键丢失", true)//制单人主键
 //                .put("xt_juese_zhidanren","[\\w\\W]{1,20}", "制单人:文本为空或长度超20字符", true)//制单人

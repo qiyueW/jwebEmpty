@@ -6,6 +6,8 @@ import system.web.JWeb;
 import configuration.Tool;
 import java.util.List;
 import java.util.Set;
+import wx.xt.Gelibiaoshi;
+import wx.xt.bean.xtguanliyuan.XtGuanliyuan;
 import wx.xt.bean.xtjuese.XtJuese;
 import wx.xt.service.XTJueseQuanxianService;
 import wx.xt.service.XtJueseService;
@@ -25,13 +27,13 @@ public class XtJueseQuanxianHM {
     public void add() {
         String juese_zjs = jw.getString("juese_zj", "");
         String quanxian = jw.getString("quanxian", "");
-        String zhidanren = "wangchunzi";
+        XtGuanliyuan admin = Gelibiaoshi.getAdminInfoBySession(jw);
         if (juese_zjs.trim().isEmpty()) {
             return;
         }
         List<XtJuese> list = XtJueseService.select("WHERE xt_juese_zj IN(" + Tool.replaceDToDDD(juese_zjs) + ")");
         //其他一些预定值设置
-        jw.printOne(XTJueseQuanxianService.setPower(list, juese_zjs, quanxian, zhidanren));
+        jw.printOne(XTJueseQuanxianService.setPower(list, juese_zjs, quanxian, admin.getXt_guanliyuan_zj()));
     }
 
 //===================查询操作============================= 

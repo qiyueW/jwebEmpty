@@ -7,9 +7,11 @@ import configuration.Tool;
 import static configuration.mvc.BaseService.SHENHE;
 import java.util.List;
 import java.util.Date;
+import java.util.Set;
 import system.web.JWeb;
 import wx.xt.bean.xtguanliyuan.XtGuanliyuan;
 import static wx.xt.Gelibiaoshi.getAdminInfoBySession;
+import wx.xt.bean.xtguanliyuan.XtGuanliyuanJuese;
 
 /**
  *
@@ -53,7 +55,21 @@ final public class XtGuanliyuanService {
     }
 
     public static String[] myPower(final XtGuanliyuan obj) {
-        return null != obj.getXt_guanliyuan_quanxian() ? obj.getXt_guanliyuan_quanxian().split(",") : new String[]{};
+        //找到管理员绑定的角色。
+        XtGuanliyuanJuese juese = XtGuanliyuanJueseService.selectOneByGuanliyuanZJ(obj.getXt_guanliyuan_zj());
+        if (null == juese || null == juese.getXt_guanliyuanjuese_zj()) {
+            return null != obj.getXt_guanliyuan_quanxian() ? obj.getXt_guanliyuan_quanxian().split(",") : new String[]{};
+        }
+//        Set<String> power = XTJueseQuanxianService.selectByJuese(juese.getXt_juese_zj());
+         Set<String> power = XTJueseQuanxianService.selectByJuese_shenhe(juese.getXt_juese_zj());
+        if (null != obj.getXt_guanliyuan_quanxian()) {
+            for (String str : obj.getXt_guanliyuan_quanxian().split(",")) {
+                power.add(str);
+            }
+        }
+        String[] mypower = new String[power.size()];
+        power.toArray(mypower);
+        return mypower;
     }
 
     /**
@@ -164,6 +180,7 @@ final public class XtGuanliyuanService {
         return MsgVO.setUpdateRS(DBO.service.U.updateSome_alloy(obj, "xt_guanliyuan_quanxian"));
     }
 //---------------------------------------隔离标识管理---------------------------------------
+
     public static boolean isErrorGelibiaoshi(String ids, String gelibiaoshi) {
         List<XtGuanliyuan> list = DBO.service.S.selectByCondition(XtGuanliyuan.class, "WHERE xt_guanliyuan_zj IN(" + Tool.replaceDToDDD(ids) + ")");
         for (XtGuanliyuan obj : list) {
@@ -173,11 +190,13 @@ final public class XtGuanliyuanService {
         }
         return false;
     }
+
     public static boolean isErrorGelibiaoshi(String zj, JWeb jw) {
         XtGuanliyuan obj = selectOne(zj);
         XtGuanliyuan admin = getAdminInfoBySession(jw);
         return null == obj || null == obj.getXt_guanliyuan_zj() || !admin.getXt_guanliyuan_gelibiaoshi().equals(obj.getXt_guanliyuan_gelibiaoshi());
     }
+
     public static boolean isErrorGelibiaoshi(XtGuanliyuan obj, JWeb jw) {
         XtGuanliyuan admin = getAdminInfoBySession(jw);
         return null == obj || null == obj.getXt_guanliyuan_zj() || !admin.getXt_guanliyuan_gelibiaoshi().equals(obj.getXt_guanliyuan_gelibiaoshi());

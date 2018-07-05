@@ -1,4 +1,4 @@
-package wx.xt.hm;
+package wx.xt.hm.xtryquanxian;
 
 import system.base.annotation.H;
 import system.base.annotation.M;
@@ -12,12 +12,12 @@ import wx.xt.service.XtRYQuanxianService;
 
 /**
  */
-@H("/xt/xtryquanxian")
-public class XtRYQuanxianHM {
+@H("/xt/xtryquanxian2")
+public class XtRYQuanxianHM2 {
 
     JWeb jw;
 
-    public XtRYQuanxianHM(JWeb jw) {
+    public XtRYQuanxianHM2(JWeb jw) {
         this.jw = jw;
     }
 //===================添加操作=============================    

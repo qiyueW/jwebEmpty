@@ -35,14 +35,17 @@
         </style>  
     </head>
     <body class="easyui-layout">
-        <div data-options="region:'west',split:true,title:'导航栏'" style="width:250px;padding:10px;">            <div id="divID_Tree_menu_XtJuese" class="ztree">bean</div>
+        <div data-options="region:'west',split:true,title:'导航栏'" style="width:250px;padding:10px;">
+            <div id="divID_Tree_menu_XtJuese" class="ztree">bean</div>
         </div>
-        <div data-options="region:'center'" id='centerMain'>                    <input type="hidden" id="xt_juese_zj" name="xt_juese_zj" value="${XtJuese.xt_juese_zj}">
-            <input type="hidden" id="xt_juese_fzj" name="xt_juese_fzj" value="${XtJuese.xt_juese_fzj}">
-            <input type="hidden" id="xt_juese_zt" name="xt_juese_zt" value="${XtJuese.xt_juese_zt}">
-            <input type="hidden" id="xt_juese_zhidanren_zj" name="xt_juese_zhidanren_zj" value="${XtJuese.xt_juese_zhidanren_zj}">
-            <input type="hidden" id="xt_juese_xiugairen_zj" name="xt_juese_xiugairen_zj" value="${XtJuese.xt_juese_xiugairen_zj}">
-
+        <div data-options="region:'center'" id='centerMain'>
+            <input type="hidden" id="xt_juese_zj" name="xt_juese_zj" value="${XtJuese.xt_juese_zj}"/>
+            <input type="hidden" id="xt_juese_fzj" name="xt_juese_fzj" value="${XtJuese.xt_juese_fzj}"/>
+            <input type="hidden" id="xt_juese_zt" name="xt_juese_zt" value="${XtJuese.xt_juese_zt}"/>
+            <input type="hidden" id="xt_juese_zhidanren_zj" name="xt_juese_zhidanren_zj" value="${XtJuese.xt_juese_zhidanren_zj}"/>
+            <input type="hidden" id="xt_juese_xiugairen_zj" name="xt_juese_xiugairen_zj" value="${XtJuese.xt_juese_xiugairen_zj}"/>
+            <input type="hidden"  id="xt_juese_gongsi" name="xt_juese_gongsi"  value="0"/>
+            
             <div class="container"  id="XtJueseFormID">
                 <div class="row-fluid">
                     <div class="span12">

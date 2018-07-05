@@ -25,19 +25,20 @@ public class Power {
     public static void power_admin(JWeb jw) {
         String key = jw.getString("key");
         XtGuanliyuan obj = system.web.power.session.Login.getUserInfo(XtGuanliyuan.class, jw, PDK.SESSION_ADMIN_KEY);
-        if (null == obj.getXt_guanliyuan_quanxian() || obj.getXt_guanliyuan_quanxian().isEmpty()) {
+        String[] userPower = system.web.power.session.Login.getUserPower(jw, PDK.SESSION_ADMIN_KEY);
+        if (null == userPower || userPower.length == 0) {
             return;
         }
-        if (null != key && key.equals("yhQC")) {//管理员给用户的权限 1。用户权限，角色权限（整合用户权限成为一个角色）
+        if (null != key && key.equals("yhQX")) {//管理员给用户的权限 1。用户权限，角色权限（整合用户权限成为一个角色）
             jw.printOne(Tool.entityToJSON(
                     XtQuanxianService.select(
-                            "WHERE xt_quanxian_jibie IN(4,7,9) AND xt_quanxian_dm IN(" + Tool.replaceDToDDD(obj.getXt_guanliyuan_quanxian()) + ")"
+                            "WHERE xt_quanxian_jibie IN(4,7,9) AND xt_quanxian_dm IN(" + Tool.replaceDToDDD(userPower) + ")"
                     )
             ));
         } else if (null != key && key.equals("glyQX")) {//总管给普通管理员附值的权限
             jw.printOne(Tool.entityToJSON(
                     XtQuanxianService.select(
-                            "WHERE xt_quanxian_jibie IN(3,4,5,7,9) AND xt_quanxian_dm IN(" + Tool.replaceDToDDD(obj.getXt_guanliyuan_quanxian()) + ")"
+                            "WHERE xt_quanxian_jibie IN(3,4,5,7,9) AND xt_quanxian_dm IN(" + Tool.replaceDToDDD(userPower) + ")"
                     )
             ));
         }

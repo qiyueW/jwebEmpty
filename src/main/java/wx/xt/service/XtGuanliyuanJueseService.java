@@ -69,7 +69,7 @@ final public class XtGuanliyuanJueseService {
      */
     public static MsgVO addOne(XtGuanliyuanJuese obj) {
         int i = DBO.service.A.addOne(obj);
-        return MsgVO.setAddRS(i);
+        return i<1?MsgVO.setError("绑定失败，请稍后再试。"): MsgVO.setOK("绑定成功");
     }
 
     /**
@@ -94,7 +94,7 @@ final public class XtGuanliyuanJueseService {
      * @return
      */
     public static MsgVO update(XtGuanliyuanJuese obj) {
-
-        return MsgVO.setUpdateRS(DBO.service.U.updateSome_alloy(obj,"xt_juese_zj"));
+        return DBO.service.U.updateSome_alloy(obj,"xt_juese_zj")<1?
+                MsgVO.setError("绑定失败，请稍后再试。"): MsgVO.setOK("绑定成功");
     }
 }

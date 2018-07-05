@@ -13,7 +13,7 @@ import wx.xt.service.XtGuanliyuanJueseService;
  * <br>
  * 总管专用
  */
-@H("/xt/xtguanliyuanjuese")
+@H("/xt/xtguanliyuan2/juese")
 public class XtGuanliyuanJueseHM {
 
     JWeb jw;
@@ -31,8 +31,8 @@ public class XtGuanliyuanJueseHM {
         if (null == obj.getXt_guanliyuan_zj() || obj.getXt_guanliyuan_zj().length() != 24) {
             return;
         }
-        XtGuanliyuanJuese gj = XtGuanliyuanJueseService.selectOneByGuanliyuanZJ(obj.getXt_guanliyuan_zj());
-        if (null == gj || null == gj.getXt_guanliyuan_zj()) {//后台还没有记录，执行添加操作。
+        XtGuanliyuanJuese admin = XtGuanliyuanJueseService.selectOneByGuanliyuanZJ(obj.getXt_guanliyuan_zj());
+        if (null == admin || null == admin.getXt_guanliyuan_zj()) {//后台还没有记录，执行添加操作。
             if (null == obj.getXt_juese_zj() || obj.getXt_juese_zj().isEmpty()) {
                 jw.printOne(MsgVO.setNotOK("此管理员没有可取消的角色。"));
                 return;
@@ -43,7 +43,7 @@ public class XtGuanliyuanJueseHM {
             jw.printOne(XtGuanliyuanJueseService.addOne(obj));
             return;
         }
-        obj.setXt_guanliyuanjuese_zj(gj.getXt_guanliyuanjuese_zj());
+        obj.setXt_guanliyuanjuese_zj(admin.getXt_guanliyuanjuese_zj());
         //已经存在记录，执行修改操作。
         jw.printOne(XtGuanliyuanJueseService.update(obj));
     }

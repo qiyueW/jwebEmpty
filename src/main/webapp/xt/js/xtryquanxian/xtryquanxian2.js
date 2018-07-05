@@ -1,7 +1,7 @@
 //页面文档加载完后-调用此函数。
 //需要初始化的，统一放到此函数来
 function inidoAdd() {
-    toCreateTreeByChkboxType("divID_Tree_menu_XtJuese", "xt_juese_zj", "xt_juese_fzj", "xt_juese_mc", "/xt/xtjuese/select/json.jw", true, 0, function (event, id, treeNode) {
+    toCreateTreeByChkboxType("divID_Tree_menu_XtJuese", "xt_juese_zj", "xt_juese_fzj", "xt_juese_mc", "/xt/xtjuese2/select/json.jw", true, 0, function (event, id, treeNode) {
     }, true);
 //yhQC
     toCreateTree("divID_Tree_menu_XtQuanxian", "xt_quanxian_zj", "xt_quanxian_fzj", "xt_quanxian_mc", "/xt/power/admin.jw?key=yhQC", true, function (event, id, treeNode) {
@@ -26,7 +26,7 @@ function seeRowPower() {
     var quanxianObj = $.fn.zTree.getZTreeObj("divID_Tree_menu_XtQuanxian");
     jueseObj.checkAllNodes(false);
     quanxianObj.checkAllNodes(false);
-    $.post(path_home + "xt/xtryquanxian/select/selectOne.jw", {id: rows[0].xt_ryquanxian_zj}, function (d) {
+    $.post(path_home + "xt/xtryquanxian2/select/selectOne.jw", {id: rows[0].xt_ryquanxian_zj}, function (d) {
         //重装上权限
         jueseObj.expandAll(false);
         quanxianObj.expandAll(false);
@@ -69,7 +69,7 @@ function setPower() {
         xt_quanxian="";
     }
     var ry_zj = rows[0].ry_zj;
-    easyuiAjax("/xt/xtryquanxian/adu.jw", {xt_juese_zj: xt_juese_zj, xt_quanxian: xt_quanxian, xt_ry_zj: ry_zj}, "请确认权限设置操作", function () {
+    easyuiAjax("/xt/xtryquanxian2/adu.jw", {xt_juese_zj: xt_juese_zj, xt_quanxian: xt_quanxian, xt_ry_zj: ry_zj}, "请确认权限设置操作", function () {
         $('#dg').datagrid('reload');
     });
 }

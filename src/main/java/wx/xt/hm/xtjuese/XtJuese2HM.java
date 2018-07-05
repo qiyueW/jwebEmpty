@@ -20,6 +20,7 @@ import wx.xt.service.XtJueseService;
  *
  * @author wangchunzi
  */
+@system.web.power.ann.ZDY(zdy = configuration.zdy.SQ_Admin2.class, value = "xtjuese2")
 @H("/xt/xtjuese2")
 public class XtJuese2HM {
 
@@ -76,7 +77,8 @@ public class XtJuese2HM {
         if (XtJueseService.isErrorGelibiaoshiOne(obj.getXt_juese_zj(), admin.getXt_guanliyuan_gelibiaoshi())) {//存在别人家的隔离标识的单据
             return;
         }
-        List<XtJuese> list = XtJueseService.select();
+        String condition = wx.xt.service.XTTiaojianService.openConditionByReturnWhere_key(jw, "xt_juese_gelibiaoshi", admin.getXt_guanliyuan_gelibiaoshi());
+        List<XtJuese> list = XtJueseService.select(condition);
         int tkey = TreeService.CHECK.getError_FatherIsSon(list, "xt_juese_zj", "xt_juese_fzj", obj.getXt_juese_zj(), obj.getXt_juese_fzj()).key;
 
         if (tkey == IdPidEnum.ERROR_FatherIsYourSelft.key) {
@@ -132,7 +134,7 @@ public class XtJuese2HM {
     public static void select(JWeb jw) {
         XtGuanliyuan admin = Gelibiaoshi.getAdminInfoBySession(jw);
         String condition = wx.xt.service.XTTiaojianService.openConditionByReturnWhere_key(jw, "xt_juese_gelibiaoshi", admin.getXt_guanliyuan_gelibiaoshi());
-        jw.printOne(Tool.entityToJSON(XtJueseService.select(condition)).replace("\n", "/n"));
+        jw.printOne(Tool.entityToJSON(XtJueseService.select(condition + " AND xt_juese_zhidanren_zj='" + admin.getXt_guanliyuan_zj() + "'")).replace("\n", "/n"));
     }
 
     @system.web.power.ann.ZDY(zdy = configuration.zdy.SQ_Admin2.class, value = "xtjuese2S")
@@ -140,7 +142,7 @@ public class XtJuese2HM {
     public static void select2(JWeb jw) {
         XtGuanliyuan admin = Gelibiaoshi.getAdminInfoBySession(jw);
         String condition = wx.xt.service.XTTiaojianService.openConditionByReturnWhere_key(jw, "xt_juese_gelibiaoshi", admin.getXt_guanliyuan_gelibiaoshi());
-        jw.printOne(EasyuiService.formatTree(XtJueseService.select(condition), "xt_juese_zj", "xt_juese_fzj", "xt_juese_mc").replace("\n", "/n"));
+        jw.printOne(EasyuiService.formatTree(XtJueseService.select(condition + " AND xt_juese_zhidanren_zj='" + admin.getXt_guanliyuan_zj() + "'"), "xt_juese_zj", "xt_juese_fzj", "xt_juese_mc").replace("\n", "/n"));
     }
 
     @system.web.power.ann.ZDY(zdy = configuration.zdy.SQ_Admin2.class, value = "xtjuese2S")
@@ -148,7 +150,7 @@ public class XtJuese2HM {
     public static void selectUI(JWeb jw) {//_UIGrid
         XtGuanliyuan admin = Gelibiaoshi.getAdminInfoBySession(jw);
         String condition = wx.xt.service.XTTiaojianService.openConditionByReturnWhere_key(jw, "xt_juese_gelibiaoshi", admin.getXt_guanliyuan_gelibiaoshi());
-        jw.printOne(EasyuiService.formatTreeGrid(XtJueseService.select(condition), "xt_juese_zj", "xt_juese_fzj", "xt_juese_mc").replace("\n", "/n"));
+        jw.printOne(EasyuiService.formatTreeGrid(XtJueseService.select(condition + " AND xt_juese_zhidanren_zj='" + admin.getXt_guanliyuan_zj() + "'"), "xt_juese_zj", "xt_juese_fzj", "xt_juese_mc").replace("\n", "/n"));
     }
 //---------------------------------------单据状态管理---------------------------------------
 

@@ -1,7 +1,7 @@
 //页面文档加载完后-调用此函数。
 //需要初始化的，统一放到此函数来
 function inidoAdd() {
-    toCreateTreeByChkboxType("divID_Tree_menu_XtQuanxian", "xt_juese_zj", "xt_juese_fzj", "xt_juese_mc", "/xt/xtjuese/select/json.jw", true, 0, function (event, id, treeNode) {
+    toCreateTreeByChkboxType("divID_Tree_menu_XtQuanxian", "xt_juese_zj", "xt_juese_fzj", "xt_juese_mc", "/xt/xtjuese2/select/json.jw", true, 0, function (event, id, treeNode) {
     }, true);
 }
 function f_gridMenu(e, row) {         //右击事件
@@ -22,7 +22,7 @@ function seeRowPower() {
     var treeObj = $.fn.zTree.getZTreeObj("divID_Tree_menu_XtQuanxian");
     treeObj.checkAllNodes(false);
                         
-    $.post(path_home + "xt/xtguanliyuanjuese/select/json.jw", {id: f_getGuanliyuanGrid_zj(rows)}, function (d) {
+    $.post(path_home + "xt/xtguanliyuan2/juese/select/json.jw", {id: f_getGuanliyuanGrid_zj(rows)}, function (d) {
         //重装上权限
         treeObj.expandAll(false);
         var rsdata = d.xt_juese_zj.split(",");
@@ -57,7 +57,7 @@ function setPower() {
     }
     var xt_juese_zj = ztree_getNodesValues("divID_Tree_menu_XtQuanxian", "xt_juese_zj", 1);
     var xt_guanliyuan_zj = f_getGuanliyuanGrid_zj(rows);
-    easyuiAjax("/xt/xtguanliyuanjuese/adu.jw", {xt_juese_zj: xt_juese_zj, xt_guanliyuan_zj: xt_guanliyuan_zj}, "请确认权限设置操作", function () {
+    easyuiAjax("/xt/xtguanliyuan2/juese/adu.jw", {xt_juese_zj: xt_juese_zj, xt_guanliyuan_zj: xt_guanliyuan_zj}, "请确认权限设置操作", function () {
     });
 }
 

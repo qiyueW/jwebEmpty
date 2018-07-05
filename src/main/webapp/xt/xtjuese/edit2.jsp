@@ -44,6 +44,7 @@
             <input type="hidden" id="xt_juese_zt" name="xt_juese_zt" value="${XtJuese.xt_juese_zt}">
             <input type="hidden" id="xt_juese_zhidanren_zj" name="xt_juese_zhidanren_zj" value="${XtJuese.xt_juese_zhidanren_zj}">
             <input type="hidden" id="xt_juese_xiugairen_zj" name="xt_juese_xiugairen_zj" value="${XtJuese.xt_juese_xiugairen_zj}">
+            <input type="hidden" id="xt_juese_gongsi" name="xt_juese_gongsi" value="${XtJuese.xt_juese_gongsi}">
 
             <div class="container"  id="XtJueseFormID">
                 <div class="row-fluid">
@@ -63,15 +64,6 @@
                     <div class="span12">
                         <span class="myname" >名称</span>
                         <input type="text"  value="${XtJuese.xt_juese_mc}" id="xt_juese_mc" name="xt_juese_mc" data-options="required:true" class="easyui-textbox"/>
-                    </div>
-                </div>
-                <div class="row-fluid">
-                    <div class="span12">
-                        <span class="myname" >公私角色</span>
-                        <select id="xt_juese_gongsi">
-                            <option value="1" ${XtJuese.xt_juese_gongsi eq "1"?"selected":""}>1)公有（对所有辅管可见)</option>
-                            <option value="0" ${XtJuese.xt_juese_gongsi eq "0"?"selected":""}>0)私有（仅对自己可见）</option>
-                        </select>
                     </div>
                 </div>
                 <div class="row-fluid">
