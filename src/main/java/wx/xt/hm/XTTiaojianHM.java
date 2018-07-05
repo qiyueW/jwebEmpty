@@ -57,7 +57,8 @@ public class XTTiaojianHM {
     @Validate({wx.xt.validate.xttiaojian.XTTiaojianValidate.class, wx.xt.validate.xttiaojian.XTTiaojian1Validate.class})
     public void add() {
         XTTiaojian obj = jw.getObject(XTTiaojian.class);
-        List<XTTiaojian1> obj2 = (List<XTTiaojian1>) jw.request.getAttribute(WebConfigModel.JSONKEY);
+        @SuppressWarnings("unchecked")
+		List<XTTiaojian1> obj2 = (List<XTTiaojian1>) jw.request.getAttribute(WebConfigModel.JSONKEY);
         RY ry = Gelibiaoshi.getUserInfoBySession(jw);
         if (null != ry) {
             obj.setXt_tiaojian_gelibiaoshi(ry.getRy_gelibiaoshi());//隔离标识，正常从人员的会话中提取
@@ -125,7 +126,8 @@ public class XTTiaojianHM {
             jw.printOne(MsgVO.setError("无法修改公共单据"));
             return;
         }
-        List<XTTiaojian1> obj2 = (List<XTTiaojian1>) jw.request.getAttribute(WebConfigModel.JSONKEY);
+        @SuppressWarnings("unchecked")
+		List<XTTiaojian1> obj2 = (List<XTTiaojian1>) jw.request.getAttribute(WebConfigModel.JSONKEY);
         for (XTTiaojian1 o2 : obj2) {
             o2.setXt_tiaojian_zj(obj.getXt_tiaojian_zj());//锁定表头主键
         }
@@ -139,7 +141,8 @@ public class XTTiaojianHM {
         if (XTTiaojianService.isErrorGelibiaoshiOne(obj.getXt_tiaojian_zj(), Gelibiaoshi.getGelibiaoshi(jw))) {//存在别人家的隔离标识的单据
             return;
         }
-        List<XTTiaojian1> obj2 = (List<XTTiaojian1>) jw.request.getAttribute(WebConfigModel.JSONKEY);
+        @SuppressWarnings("unchecked")
+		List<XTTiaojian1> obj2 = (List<XTTiaojian1>) jw.request.getAttribute(WebConfigModel.JSONKEY);
         for (XTTiaojian1 o2 : obj2) {
             o2.setXt_tiaojian_zj(obj.getXt_tiaojian_zj());//锁定表头主键
         }

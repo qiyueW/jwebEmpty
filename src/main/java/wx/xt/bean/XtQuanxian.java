@@ -1,7 +1,5 @@
 package wx.xt.bean;
 
-import configuration.Tool;
-
 @system.base.annotation.Table
 public class XtQuanxian {
 

@@ -13,7 +13,7 @@ public class TreeField {
     private Field nameField;
     public final Field[] fields;
 
-    public TreeField(Class c, String id, String pid, String name){
+    public TreeField(Class<?> c, String id, String pid, String name){
         this.fields = c.getDeclaredFields();
         for (Field f : fields) {
             f.setAccessible(true);

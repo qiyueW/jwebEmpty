@@ -24,7 +24,8 @@ public class Power {
     @M("/admin")
     public static void power_admin(JWeb jw) {
         String key = jw.getString("key");
-        XtGuanliyuan obj = system.web.power.session.Login.getUserInfo(XtGuanliyuan.class, jw, PDK.SESSION_ADMIN_KEY);
+        @SuppressWarnings("unused")
+		XtGuanliyuan obj = system.web.power.session.Login.getUserInfo(XtGuanliyuan.class, jw, PDK.SESSION_ADMIN_KEY);
         String[] userPower = system.web.power.session.Login.getUserPower(jw, PDK.SESSION_ADMIN_KEY);
         if (null == userPower || userPower.length == 0) {
             return;

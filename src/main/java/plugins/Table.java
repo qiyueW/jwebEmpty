@@ -64,7 +64,7 @@ public class Table<T> {
 //        list.add(new TT());
         
         
-        Table<TT> t = new Table(list);
+        Table<TT> t = new Table<TT>(list);
         System.out.println(t.isUnique("i"));
     }
 

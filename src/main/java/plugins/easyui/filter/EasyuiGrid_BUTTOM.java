@@ -22,7 +22,7 @@ public class EasyuiGrid_BUTTOM extends FilterModel {
         Object list, total;
         list = jw.request.getAttribute(EasyuiService.KEY_GRID_LIST);
         if (null != list) {
-            List listData = (List) list;
+            List<?> listData = (List<?>) list;
             jw.request.removeAttribute(EasyuiService.KEY_GRID_LIST);
             total = jw.request.getAttribute(EasyuiService.KEY_GRID_COUNT);
             if (null != total) {

@@ -50,7 +50,8 @@ public class XTShezhiTiaojianHM {
 //===================添加操作=============================    
     //@system.web.power.ann.SQ("xtshezhitiaojianA")
 
-    @M("/save")
+    @SuppressWarnings("unchecked")
+	@M("/save")
     @Validate({wx.xt.validate.xtshezhitiaojian.XTShezhiTiaojianValidate.class, wx.xt.validate.xtshezhitiaojian.XTShezhiTiaojian1Validate.class})
     public void add() {
         XTShezhiTiaojian obj = jw.getObject(XTShezhiTiaojian.class);
@@ -70,7 +71,7 @@ public class XTShezhiTiaojianHM {
     }
 //===================修改操作=============================    
     //@system.web.power.ann.SQ("xtshezhitiaojianU")
-
+    @SuppressWarnings("unchecked")
     @M("/update")
     @Validate({wx.xt.validate.xtshezhitiaojian.XTShezhiTiaojianValidate.class, wx.xt.validate.xtshezhitiaojian.XTShezhiTiaojian1Validate.class})
     public void update() {

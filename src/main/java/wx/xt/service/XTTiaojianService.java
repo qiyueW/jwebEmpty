@@ -117,7 +117,8 @@ final public class XTTiaojianService {
         obj.setXt_shezhi_tiaojian_mc(hobj.getXt_shezhi_tiaojian_mc());
         obj.setXt_tiaojian_zt(0);
 
-        int[] i = DBO.service.A.add_OM(obj, list);
+        @SuppressWarnings("unchecked")
+		int[] i = DBO.service.A.add_OM(obj, list);
         if (null == i) {
             return MsgVO.setError("添加异常,请通知管理检查后台数据库连接是否异常。");
         }

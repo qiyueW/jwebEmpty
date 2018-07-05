@@ -209,9 +209,9 @@ public class BaseService {
     }
 
 //-------------------隔离标识管理    
-    private static final Map<Class, Field> GET_GELIBIAOSHI_FIELD = new HashMap();
+	private static final Map<Class<?>, Field> GET_GELIBIAOSHI_FIELD = new HashMap<>();
 
-    private static Field getGelibiaoshiField(final Class c, final String fieldName) {
+    private static Field getGelibiaoshiField(final Class<?> c, final String fieldName) {
         Field f = GET_GELIBIAOSHI_FIELD.get(c);
         if (null != f) {
             return f;

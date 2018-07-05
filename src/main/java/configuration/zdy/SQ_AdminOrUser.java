@@ -23,7 +23,8 @@ public class SQ_AdminOrUser implements IZDY {
             jw.printOne(MyPowerCheck.DL_ERROR);
             return true;
         }
-        PISD pobj = null == obj ? (PISD) admin : (PISD) obj;
+        @SuppressWarnings("rawtypes")
+		PISD pobj = null == obj ? (PISD) admin : (PISD) obj;
         if (urlCode.contains(",")) {//如果是包含某一种授权时，都可通过时，进行分割检查。
             String[] uc = urlCode.split(",");
             for (int i = 0; i < uc.length; i++) {

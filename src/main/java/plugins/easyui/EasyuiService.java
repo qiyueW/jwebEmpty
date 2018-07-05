@@ -28,7 +28,7 @@ final public class EasyuiService {
         if (null == rsList || rsList.isEmpty()) {
             return EMPTYDATA;
         }
-        Tree tree = new Tree<>(rsList, id, pid, name);
+        Tree<?> tree = new Tree<>(rsList, id, pid, name);
         return "{\"total\": \"" + rsList.size() + "\",\"rows\":" + tree.toTree() + "}";
 
     }
@@ -37,7 +37,7 @@ final public class EasyuiService {
         if (null == rsList || rsList.isEmpty()) {
             return "[]";
         }
-        Tree tree = new Tree<>(rsList, id, pid, name);
+        Tree<?> tree = new Tree<>(rsList, id, pid, name);
         return tree.toTree().replace(id, "id").replace(name, "text");
 
     }

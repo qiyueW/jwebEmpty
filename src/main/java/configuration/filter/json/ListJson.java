@@ -20,7 +20,7 @@ public class ListJson extends FilterModel {
         Object list;
         list= jw.request.getAttribute("ListJson");
         if (null != list) {
-            List str = (List)list;
+            List<?> str = (List<?>)list;
             jw.request.removeAttribute("ListJson");
             jw.printOne(JCJSON.toSimpleJSON(str));
 //            System.out.println("in the there:"+JCJSON.toSimpleJSON(str));

@@ -114,7 +114,7 @@ final public class XTShezhiTiaojianService {
      * @return MsgVO
      */
     public static MsgVO addOne(XTShezhiTiaojian obj, List<XTShezhiTiaojian1> list) {
-        plugins.Table<XTShezhiTiaojian1> table = new plugins.Table(list);
+        plugins.Table<XTShezhiTiaojian1> table = new plugins.Table<XTShezhiTiaojian1>(list);
         if (!table.isUnique("xt_shezhi_tiaojian1_mc")) {
             return MsgVO.setError("添加异常,表体条件名不唯一，请调整后再试");
         }
@@ -126,7 +126,8 @@ final public class XTShezhiTiaojianService {
         }
         obj.setXt_shezhi_tiaojian_zt(0);
 
-        int[] i = DBO.service.A.add_OM(obj, list);
+        @SuppressWarnings("unchecked")
+		int[] i = DBO.service.A.add_OM(obj, list);
         if (null == i) {
             return MsgVO.setError("添加异常,请通知管理检查后台数据库连接是否异常。");
         }
@@ -159,7 +160,7 @@ final public class XTShezhiTiaojianService {
         if (null == obj.getXt_shezhi_tiaojian_zj() || obj.getXt_shezhi_tiaojian_zj().length() != 24) {
             return MsgVO.setError("修改异常,表头信息丢失，请退出修改界面后，重新操作");
         }
-        plugins.Table<XTShezhiTiaojian1> table = new plugins.Table(list);
+        plugins.Table<XTShezhiTiaojian1> table = new plugins.Table<XTShezhiTiaojian1>(list);
         if (!table.isUnique("xt_shezhi_tiaojian1_mc")) {
             return MsgVO.setError("修改异常,表体条件名不唯一，请调整后再试");
         }

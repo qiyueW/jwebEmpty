@@ -23,7 +23,7 @@ public class ObjectJSON_BUTTOM extends FilterModel {
         Object list,total;
         list= jw.request.getAttribute(LigeruiKey.ligerui_grid.key);
         if (null != list) {
-            List str = (List)list;
+            List<?> str = (List<?>)list;
             jw.request.removeAttribute(LigeruiKey.ligerui_grid.key);
             String count="}";
             total=jw.request.getAttribute(LigeruiKey.ligerui_grid_count.key);

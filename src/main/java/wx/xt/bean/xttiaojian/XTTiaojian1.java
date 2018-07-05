@@ -1,7 +1,5 @@
 package wx.xt.bean.xttiaojian;
 
-import configuration.Tool;
-
 @system.base.annotation.Table
 public class XTTiaojian1 {
 

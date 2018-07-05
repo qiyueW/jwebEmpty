@@ -7,7 +7,6 @@ import configuration.Tool;
 import java.util.List;
 import java.util.Date;
 import wx.web.bean.Gangwei;
-import wx.web.bean.Zhiwei;
 
 /**
  *

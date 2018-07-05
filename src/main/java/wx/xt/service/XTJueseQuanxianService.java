@@ -18,7 +18,6 @@ import wx.xt.bean.xtjuese.XtJuese;
 final public class XTJueseQuanxianService {
 
     private static final String TABLE1 = "XTJueseQuanxian";
-    private static final String PK1 = "xt_juesequanxian_zj";
     private static final String CHECK_SHENHE_JUESE_QUANXIAN = "SELECT MY.*"
             + " FROM (SELECT * FROM XTJueseQuanxian WHERE xt_juese_zj IN(?1))MY"
             + " LEFT JOIN XtJuese ON MY.xt_juese_zj=XtJuese.xt_juese_zj"
@@ -66,7 +65,7 @@ final public class XTJueseQuanxianService {
     }
 
     private static Set<String> toObjectPower(List<XTJueseQuanxian> list) {
-        Set<String> qc = new HashSet();
+        Set<String> qc = new HashSet<String>();
         if (null == list || list.isEmpty()) {
             return qc;
         }

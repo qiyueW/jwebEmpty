@@ -11,10 +11,6 @@ import wx.xt.bean.xtguanliyuan.XtGuanliyuanJuese;
  */
 final public class XtGuanliyuanJueseService {
 
-    private static final String TABLE1 = "XtGuanliyuanJuese";
-    private static final String PK1 = "xt_guanliyuanjuese_zj";
-    private static final String STYLE1 = "";
-
 //---------------------------------------查询---------------------------------------
     /**
      * 检出一条记录(表头)

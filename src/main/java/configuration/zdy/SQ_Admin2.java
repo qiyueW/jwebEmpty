@@ -29,7 +29,8 @@ public class SQ_Admin2 implements IZDY {
 //            System.out.println("检验成功，总管已经登陆。");
             return false;
         }
-        PISD pobj = (PISD) admin;
+        @SuppressWarnings("rawtypes")
+		PISD pobj = (PISD) admin;
         XtGuanliyuan xtadmin = (XtGuanliyuan) pobj.obj;
         if (xtadmin.getXt_guanliyuan_jibie() != 2) {//不是总管的，检验不合法。
             jw.printOne(MsgVO.setError("不是总管的，检验不合法"));

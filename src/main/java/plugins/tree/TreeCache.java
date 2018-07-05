@@ -9,9 +9,9 @@ import java.util.Map;
  */
 public class TreeCache {
 
-    private static final Map<Class, TreeField> TREE_CACHE = new HashMap();
+	private static final Map<Class<?>, TreeField> TREE_CACHE = new HashMap<>();
 
-    public static TreeField getTreeField(final Class c, final String id, final String pid, final String name) {
+    public static TreeField getTreeField(final Class<?> c, final String id, final String pid, final String name) {
         TreeField tf = TREE_CACHE.get(c);
         if (null == tf) {
             tf = new TreeField(c, id, pid, name);

@@ -20,7 +20,8 @@ public class BigFileDownload extends FilterModel {
 
     public static final int buff = 1024 * 1024 * 3;
 
-    @Override
+    @SuppressWarnings("resource")
+	@Override
     public void doFilter(JWeb jw) {
         Object attribute = jw.request.getAttribute("file");
         if (null != attribute) {

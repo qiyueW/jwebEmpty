@@ -36,11 +36,11 @@ final public class LigeruiService {
         return obj;
     }
 
-    final public static String toJson(List req) {
+    final public static String toJson(List<?> req) {
         return "{\"Rows\":" + JCJSON.toSimpleJSON(req) + ",\"" + LigeruiConfig.record + "\":\"" + req.size() + "\"}";
     }
 
-    final public static String toJson(List req, final int count) {
+    final public static String toJson(List<?> req, final int count) {
         return "{\"Rows\":" + JCJSON.toSimpleJSON(req) + ",\"" + LigeruiConfig.record + "\":\"" + count + "\"}";
     }
 
