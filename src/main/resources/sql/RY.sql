@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS `RY`(
 
     ,PRIMARY KEY (`ry_zj`)
    ,KEY `ry_bm_zj` (`ry_bm_zj`)
-   ,UNIQUE INDEX `ry_zhanghao` (`ry_zhanghao`)
+   ,UNIQUE INDEX `ry_zhanghao` (`ry_zhanghao`,`ry_gelibiaoshi`)
    ,KEY `ry_gangwei_zj` (`ry_gangwei_zj`)
    ,KEY `ry_zhiwei_zj` (`ry_zhiwei_zj`)
    ,KEY `ry_zhidanren_zj` (`ry_zhidanren_zj`)

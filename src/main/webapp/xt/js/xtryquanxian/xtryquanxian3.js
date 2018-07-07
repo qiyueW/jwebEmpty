@@ -1,7 +1,7 @@
 //页面文档加载完后-调用此函数。
 //需要初始化的，统一放到此函数来
 function inidoAdd() {
-	toCreateTreeByChkboxType("divID_Tree_menu_XtJuese", "xt_juese_zj", "xt_juese_fzj", "xt_juese_mc", "/xt/xtjuese2/select/json.jw", true, 0, function(event, id, treeNode) {
+	toCreateTreeByChkboxType("divID_Tree_menu_XtJuese", "xt_juese_zj", "xt_juese_fzj", "xt_juese_mc", "/xt/xtjuese3/select/json.jw", true, 0, function(event, id, treeNode) {
 	}, true);
 	// yhQC
 	toCreateTree("divID_Tree_menu_XtQuanxian", "xt_quanxian_zj", "xt_quanxian_fzj", "xt_quanxian_mc", "/xt/power/admin.jw?key=yhQX", true, function(event, id, treeNode) {
@@ -26,7 +26,7 @@ function seeRowPower() {
 	var quanxianObj = $.fn.zTree.getZTreeObj("divID_Tree_menu_XtQuanxian");
 	jueseObj.checkAllNodes(false);
 	quanxianObj.checkAllNodes(false);
-	$.post(path_home + "xt/xtryquanxian2/select/selectOne.jw", {
+	$.post(path_home + "xt/xtryquanxian3/select/selectOne.jw", {
 		id : rows[0].xt_ryquanxian_zj
 	}, function(d) {
 		// 重装上权限
@@ -60,13 +60,21 @@ function setPower() {
 	}
 	var xt_juese_zj = ztree_getNodesValues("divID_Tree_menu_XtJuese", "xt_juese_zj", 1);
 	var xt_quanxian = ztree_getNodesValues("divID_Tree_menu_XtQuanxian", "xt_quanxian_dm", 1);
+	var xt_ryquanxian_zj=rows[0].xt_ryquanxian_zj;
+	if (null==xt_ryquanxian_zj||xt_ryquanxian_zj=="null") {
+		xt_ryquanxian_zj = "";
+	}
+	if (!xt_juese_zj) {
+		xt_juese_zj = "";
+	}
 	if (!xt_quanxian) {
 		xt_quanxian = "";
 	}
 	var ry_zj = rows[0].ry_zj;
-	easyuiAjax("/xt/xtryquanxian2/adu.jw", {
+	easyuiAjax("/xt/xtryquanxian3/adu.jw", {
 		xt_juese_zj : xt_juese_zj,
 		xt_quanxian : xt_quanxian,
+		xt_ryquanxian_zj:xt_ryquanxian_zj,
 		xt_ry_zj : ry_zj
 	}, "请确认权限设置操作", function() {
 		$('#dg').datagrid('reload');
@@ -86,7 +94,7 @@ function removeRowPower() {
 		$.messager.alert('提示', '没有可操作的单据');
 		return;
 	}
-	easyuiAjax("/xt/xtryquanxian2/remove.jw", {
+	easyuiAjax("/xt/xtryquanxian3/remove.jw", {
 		ids : ids.substring(1)
 	}, "请确认权限设置操作", function() {
 		$('#dg').datagrid('reload');

@@ -1,23 +1,25 @@
 package wx.xt.hm.xtjuesequanxian;
 
+import java.util.List;
+import java.util.Set;
+
+import configuration.Tool;
 import system.base.annotation.H;
 import system.base.annotation.M;
 import system.web.JWeb;
-import configuration.Tool;
-import java.util.List;
-import java.util.Set;
+import system.web.power.ann.DL;
 import wx.xt.Gelibiaoshi;
 import wx.xt.bean.xtguanliyuan.XtGuanliyuan;
 import wx.xt.bean.xtjuese.XtJuese;
 import wx.xt.service.XTJueseQuanxianService;
 import wx.xt.service.XtJueseService;
-
-@H("/xt/xtjuesequanxian")
-public class XtJueseQuanxianHM {
+@system.web.power.ann.ZDY(zdy = configuration.zdy.SQ_Admin3.class, value = "")
+@H("/xt/xtjuesequanxian3")
+public class XtJueseQuanxian3HM {
 
     JWeb jw;
 
-    public XtJueseQuanxianHM(JWeb jw) {
+    public XtJueseQuanxian3HM(JWeb jw) {
         this.jw = jw;
     }
 //===================添加操作=============================    

@@ -97,6 +97,7 @@ public class Login {
             jw.printOne(MsgVO.setError("验证码异常"));
             return;
         }
+        
         LoginVO vo = new LoginVO(jw);
         if (vo.isErrorParam()) {
             outErrorMsg(jw, sf, "标识或账号密码格式异常");

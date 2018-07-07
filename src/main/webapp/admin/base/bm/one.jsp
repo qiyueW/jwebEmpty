@@ -77,7 +77,7 @@
                 <div class="span12">
                     <span class="myname" >部门图片2</span>
                     <a href="${path_home}/${BM.bm_tupian2}" target="_bland"><img src="${path_home}/${BM.bm_tupian2}" style="max-width:300px;"/></a>
-                </div>
+            </div>
             </div>
             <div class="row-fluid">
                 <div class="span12">

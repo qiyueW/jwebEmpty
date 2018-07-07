@@ -26,7 +26,7 @@
         <script src="lib/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
         <script src="lib/jquery/cookie.js" type="text/javascript"></script>
         <script type="text/javascript" src="${path_home}/static/js/login.js"></script> 
-        <%@include file="/WEB-INF/jspf/artDialog.jspf"%>
+        <%-- <%@include file="/WEB-INF/jspf/artDialog.jspf"%> --%>
         <script>
             var path_home = "${path_home}/"
             $(function () {
@@ -56,7 +56,7 @@
                         <input class="form-control" type="password" placeholder="密码" id="password" name="password" autocomplete="off" maxlength="32"/>
                     </div>
                     <div class="input-group">
-                        <span class="input-group-addon" id="basic-sort">方向</span>
+                        <span class="input-group-addon" id="basic-sort"  style="color: red;">方向</span>
                         <select id="sort" name="sort"class="form-control">
                             <option value="user">业务操作</option>
                             <option value="admin">管理后台</option>

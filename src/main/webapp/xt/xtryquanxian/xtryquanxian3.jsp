@@ -5,7 +5,7 @@
 <html>
     <head>
         <title>用户角色、权限的绑定</title>
-        <script type="text/javascript" src="${path_home}/xt/js/xtryquanxian/xtryquanxian2.js?id=<%=new Date()%>"></script>
+        <script type="text/javascript" src="${path_home}/xt/js/xtryquanxian/xtryquanxian3.js?id=<%=new Date()%>"></script>
         <%@include file="/WEB-INF/jspf/easyuiLocal.jspf"%>
         <%@include file="/WEB-INF/jspf/artDialog.jspf"%>
         <%@include file="/WEB-INF/jspf/ztree.jspf"%>
@@ -58,7 +58,7 @@
                    singleSelect:true,
                    showFooter:true,
                    toolbar:'#tb',
-                   url:'${path_home}/xt/xtryquanxian2/select/grid.jw',
+                   url:'${path_home}/xt/xtryquanxian3/select/grid.jw',
                    onRowContextMenu:f_gridMenu
                    ">
                 <thead>

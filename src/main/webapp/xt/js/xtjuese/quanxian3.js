@@ -33,7 +33,7 @@ function seeRowPower() {
     //取消权限树所有原有选择。
     var treeObj = $.fn.zTree.getZTreeObj("divID_Tree_menu_XtQuanxian");
     treeObj.checkAllNodes(false);
-    $.post(path_home + "xt/xtjuesequanxian2/select/json.jw", {juese_zj: f_getJueseGrid_zj(rows)}, function (d) {
+    $.post(path_home + "xt/xtjuesequanxian3/select/json.jw", {juese_zj: f_getJueseGrid_zj(rows)}, function (d) {
         //重装上权限
         treeObj.expandAll(false);
         var rsdata =d.split(",");
@@ -69,7 +69,7 @@ function setPower() {
     var quanxian = ztree_getNodesValues("divID_Tree_menu_XtQuanxian", "xt_quanxian_dm", 1);
     var juese_zj = f_getJueseGrid_zj(rows);
 
-    easyuiAjax("/xt/xtjuesequanxian2/setpower.jw", {quanxian: quanxian, juese_zj: juese_zj}, "请确认权限设置操作", function () {
+    easyuiAjax("/xt/xtjuesequanxian3/setpower.jw", {quanxian: quanxian, juese_zj: juese_zj}, "请确认权限设置操作", function () {
     });
 }
 
