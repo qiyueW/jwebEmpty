@@ -137,13 +137,9 @@ final public class XtGuanliyuanService {
     public static MsgVO dellOne(String id) {
         XtGuanliyuan cobj = selectOne(id);
         if (null == cobj || null == cobj.getXt_guanliyuan_zj() || cobj.getXt_guanliyuan_zt() != BaseService.XINZENG) {
-            return MsgVO.setError("没找到该记录。请刷新后再尝试");
+            return MsgVO.setError("目标已经锁定，或没找到该记录。请刷新后再尝试");
         }
-        int i = DBO.service.D.deleteOneByID_CheckToDeny(XtGuanliyuan.class, id, "xt_guanliyuan_zt<>0");
-        if (i == -1) {
-            return MsgVO.setError("单据锁定，无法删除");
-        }
-        return MsgVO.setDellRS(i);
+        return MsgVO.setDellRS(DBO.service.D.ooDelete(id, XtGuanliyuan.class,XtGuanliyuanJuese.class));
     }
 
     /**
@@ -167,10 +163,12 @@ final public class XtGuanliyuanService {
         if (selectOne(obj.getXt_guanliyuan_zj()).getXt_guanliyuan_zt() != BaseService.XINZENG) {
             return MsgVO.setError("无法附部门范围：管理员已审核");
         }
-        //设置权限
         return MsgVO.setUpdateRS(DBO.service.U.updateSome_alloy(obj, "xt_guanliyuan_bm"));
     }
-
+    public static MsgVO update_password(XtGuanliyuan obj) {
+        return MsgVO.setUpdateRS(DBO.service.U.updateSome_alloy(obj, "xt_guanliyuan_mima"));
+    }
+    
     public static MsgVO update_quanxian(XtGuanliyuan obj) {
 
         if (selectOne(obj.getXt_guanliyuan_zj()).getXt_guanliyuan_zt() != BaseService.XINZENG) {

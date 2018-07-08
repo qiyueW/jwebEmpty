@@ -4,12 +4,10 @@
 <html>
     <head>
         <title>添加部门管理</title>
-        <script type="text/javascript" src="${path_home}/static/js/bm/add.js"></script>
         <%@include file="/WEB-INF/jspf/easyuiLocal.jspf"%>
         <%@include file="/WEB-INF/jspf/boostrap.jspf"%>
-        <%@include file="/WEB-INF/jspf/artDialog.jspf"%>
         <%@include file="/WEB-INF/jspf/ztree.jspf"%>
-        <%@include file="/WEB-INF/jspf/GG.jspf"%>
+        <script type="text/javascript" src="${path_home}/static/js/bm/add.js"></script>
         <link rel="stylesheet" type="text/css" href="${path_home}/lib/webuploader/0.1.5/webuploader.css">
         <script type="text/javascript" src="${path_home}/lib/webuploader/0.1.5/webuploader.min.js"></script> 
         <script type="text/javascript" src="${path_home}/lib/webuploader/webuploader.js"></script> 

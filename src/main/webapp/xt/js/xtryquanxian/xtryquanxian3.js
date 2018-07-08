@@ -26,7 +26,7 @@ function seeRowPower() {
 	var quanxianObj = $.fn.zTree.getZTreeObj("divID_Tree_menu_XtQuanxian");
 	jueseObj.checkAllNodes(false);
 	quanxianObj.checkAllNodes(false);
-	$.post(path_home + "xt/xtryquanxian3/select/selectOne.jw", {
+	$.post(path_home + "/xt/xtryquanxian3/select/selectOne.jw", {
 		id : rows[0].xt_ryquanxian_zj
 	}, function(d) {
 		// 重装上权限

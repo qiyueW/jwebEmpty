@@ -26,7 +26,7 @@ function seeRowPower() {
 	var quanxianObj = $.fn.zTree.getZTreeObj("divID_Tree_menu_XtQuanxian");
 	jueseObj.checkAllNodes(false);
 	quanxianObj.checkAllNodes(false);
-	$.post(path_home + "xt/xtryquanxian2/select/selectOne.jw", {
+	$.post(path_home + "/xt/xtryquanxian2/select/selectOne.jw", {
 		id : rows[0].xt_ryquanxian_zj
 	}, function(d) {
 		// 重装上权限
@@ -60,6 +60,10 @@ function setPower() {
 	}
 	var xt_juese_zj = ztree_getNodesValues("divID_Tree_menu_XtJuese", "xt_juese_zj", 1);
 	var xt_quanxian = ztree_getNodesValues("divID_Tree_menu_XtQuanxian", "xt_quanxian_dm", 1);
+	var xt_ryquanxian_zj=rows[0].xt_ryquanxian_zj;
+	if (null==xt_ryquanxian_zj||xt_ryquanxian_zj=="null") {
+		xt_ryquanxian_zj = "";
+	}
 	if (!xt_quanxian) {
 		xt_quanxian = "";
 	}
@@ -67,6 +71,7 @@ function setPower() {
 	easyuiAjax("/xt/xtryquanxian2/adu.jw", {
 		xt_juese_zj : xt_juese_zj,
 		xt_quanxian : xt_quanxian,
+		xt_ryquanxian_zj:xt_ryquanxian_zj,
 		xt_ry_zj : ry_zj
 	}, "请确认权限设置操作", function() {
 		$('#dg').datagrid('reload');

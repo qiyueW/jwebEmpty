@@ -6,8 +6,8 @@ package configuration;
  */
 public class MsgVO {
 
-    private final String key;
-    private final String msg;
+    public final String key;
+    public final String msg;
 
     public String getResponseMsg() {
         StringBuilder sb = new StringBuilder();

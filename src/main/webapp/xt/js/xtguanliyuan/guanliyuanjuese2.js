@@ -22,7 +22,7 @@ function seeRowPower() {
     var treeObj = $.fn.zTree.getZTreeObj("divID_Tree_menu_XtQuanxian");
     treeObj.checkAllNodes(false);
                         
-    $.post(path_home + "xt/xtguanliyuan2/juese/select/json.jw", {id: f_getGuanliyuanGrid_zj(rows)}, function (d) {
+    $.post(path_home + "/xt/xtguanliyuan2/juese/select/json.jw", {id: f_getGuanliyuanGrid_zj(rows)}, function (d) {
         //重装上权限
         treeObj.expandAll(false);
         var rsdata = d.xt_juese_zj.split(",");

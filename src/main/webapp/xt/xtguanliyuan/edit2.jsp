@@ -9,7 +9,7 @@
 <%@include file="/WEB-INF/jspf/boostrap.jspf"%>
 <%@include file="/WEB-INF/jspf/ztree.jspf"%>
 <script type="text/javascript"
-	src="${path_home}/xt/js/xtguanliyuan/edit.js"></script>
+	src="${path_home}/xt/js/xtguanliyuan/edit2.js"></script>
 <!--        <script>
             $(function () {
                 inido();
@@ -64,7 +64,7 @@
 			</div>
 			<div class="row-fluid">
 				<div class="span12">
-					<span class="myname">管理员名称</span> <input type="text"
+					<span class="myname">辅管员名称</span> <input type="text"
 						value="${XtGuanliyuan.xt_guanliyuan_mc}" id="xt_guanliyuan_mc"
 						name="xt_guanliyuan_mc" data-options="required:true"
 						class="easyui-textbox" />
@@ -72,7 +72,7 @@
 			</div>
 			<div class="row-fluid">
 				<div class="span12">
-					<span class="myname">管理员账号</span> <input type="text"
+					<span class="myname">辅管员账号</span> <input type="text"
 						value="${XtGuanliyuan.xt_guanliyuan_zhanghao}"
 						id="xt_guanliyuan_zhanghao" name="xt_guanliyuan_zhanghao"
 						data-options="required:true" class="easyui-textbox" />
@@ -80,7 +80,7 @@
 			</div>
 			<div class="row-fluid">
 				<div class="span12">
-					<span class="myname">管理员密码</span> <input type="password"
+					<span class="myname">辅管员密码</span> <input type="password"
 						value="${XtGuanliyuan.xt_guanliyuan_mima}" id="xt_guanliyuan_mima"
 						name="xt_guanliyuan_mima" data-options="required:true"
 						class="easyui-textbox" />
@@ -88,7 +88,7 @@
 			</div>
 			<div class="row-fluid">
 				<div class="span12">
-					<span class="myname">管理员邮箱</span> <input type="text"
+					<span class="myname">辅管员邮箱</span> <input type="text"
 						value="${XtGuanliyuan.xt_guanliyuan_youxiang}"
 						id="xt_guanliyuan_youxiang" name="xt_guanliyuan_youxiang"
 						data-options="required:false" class="easyui-textbox" />

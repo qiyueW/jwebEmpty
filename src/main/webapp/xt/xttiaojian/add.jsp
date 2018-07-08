@@ -6,7 +6,6 @@
         <title>系统条件管理-添加</title>
         <%@include file="/WEB-INF/jspf/easyuiLocal.jspf"%>
         <%@include file="/WEB-INF/jspf/ztree.jspf"%>
-        <%@include file="/WEB-INF/jspf/GG.jspf"%>
         <script type="text/javascript" src="${path_home}/xt/js/xttiaojian/add.js"></script>
         <script type="text/javascript" src="${path_home}/xt/js/xttiaojian/common.js"></script>
         <script>

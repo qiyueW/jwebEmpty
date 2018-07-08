@@ -2,15 +2,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name=Keywords content="JWeb JWeb框架 JWeb官网 框架 mvc框架 jweb 框架 java">
-<meta name=Description content="JWeb框架 高效、创新、小巧且强健">
-<meta name=renderer content=webkit>
+<%@include file="/WEB-INF/jspf/meta.jspf"%>
 <script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <link rel="stylesheet" href="${path_home}/ib/bootstrap/css/bootstrap.min.css" />
 <link rel="stylesheet" href="${path_home}/lib/bootstrap/css/bootstrap-theme.min.css" />
 <script src="${path_home}/lib/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-<title>您好</title>
+<title>JWeb官网</title>
 </head>
 <style>
 .my_center {

@@ -33,7 +33,7 @@ function seeRowPower() {
     //取消权限树所有原有选择。
     var treeObj = $.fn.zTree.getZTreeObj("divID_Tree_menu_XtQuanxian");
     treeObj.checkAllNodes(false);
-    $.post(path_home + "xt/xtjuesequanxian2/select/json.jw", {juese_zj: f_getJueseGrid_zj(rows)}, function (d) {
+    $.post(path_home + "/xt/xtjuesequanxian2/select/json.jw", {juese_zj: f_getJueseGrid_zj(rows)}, function (d) {
         //重装上权限
         treeObj.expandAll(false);
         var rsdata =d.split(",");

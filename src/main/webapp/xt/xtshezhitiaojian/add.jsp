@@ -5,10 +5,8 @@
     <head>
         <title>系统设置_条件-添加</title>
         <%@include file="/WEB-INF/jspf/easyuiLocal.jspf"%>
-        <%@include file="/WEB-INF/jspf/artDialog.jspf"%>
         <%@include file="/WEB-INF/jspf/ztree.jspf"%>
-        <%@include file="/WEB-INF/jspf/GG.jspf"%>
-        <script type="text/javascript" src="${path_home}/xt/js/xtshezhitiaojian/add.js"></script>//测试时，调整防缓存：?id=<%=new Date()%>
+        <script type="text/javascript" src="${path_home}/xt/js/xtshezhitiaojian/add.js"></script>
         <script>
             $(function () {
                 f_extend_select();

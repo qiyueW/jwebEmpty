@@ -1,4 +1,4 @@
-package wx.xt.hm.xtjuese;
+ package wx.xt.hm.xtjuese;
 
 import system.base.annotation.H;
 import system.base.annotation.M;

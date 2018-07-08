@@ -72,7 +72,7 @@ public class XtGuanliyuan2HM {
             return;
         }
         jw.request.setAttribute("XtGuanliyuan", obj);
-        jw.forward("/xt/xtguanliyuan/edit.jsp");
+        jw.forward("/xt/xtguanliyuan/edit2.jsp");
     }
 //===================查询操作=============================
     //=========表头查询操作===========
@@ -86,7 +86,7 @@ public class XtGuanliyuan2HM {
             return;
         }
         jw.request.setAttribute("XtGuanliyuan", obj);
-        jw.forward("/xt/xtguanliyuan/one.jsp");
+        jw.forward("/xt/xtguanliyuan/one2.jsp");
     }
 
     @system.web.power.ann.ZDY(zdy = configuration.zdy.SQ_Admin2.class, value = "xtguanliyuan2S")

@@ -5,11 +5,9 @@
 <html>
     <head>
         <title>用户角色、权限的绑定</title>
-        <script type="text/javascript" src="${path_home}/xt/js/xtryquanxian/xtryquanxian2.js?id=<%=new Date()%>"></script>
         <%@include file="/WEB-INF/jspf/easyuiLocal.jspf"%>
-        <%@include file="/WEB-INF/jspf/artDialog.jspf"%>
         <%@include file="/WEB-INF/jspf/ztree.jspf"%>
-        <%@include file="/WEB-INF/jspf/GG.jspf"%>
+        <script type="text/javascript" src="${path_home}/xt/js/xtryquanxian/xtryquanxian2.js"></script>
         <script>
             $(function () {
                 inidoAdd();

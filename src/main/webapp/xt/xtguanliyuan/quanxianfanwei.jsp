@@ -5,11 +5,9 @@
 <html>
     <head>
         <title>管理员管理范围</title>
-        <script type="text/javascript" src="${path_home}/xt/js/xtguanliyuan/quanxianfanwei.js?id=<%=new Date()%>"></script>
         <%@include file="/WEB-INF/jspf/easyuiLocal.jspf"%>
-        <%@include file="/WEB-INF/jspf/artDialog.jspf"%>
-        <%@include file="/WEB-INF/jspf/ztree.jspf"%>
-        <%@include file="/WEB-INF/jspf/GG.jspf"%>
+        <%@include file="/WEB-INF/jspf/ztree.jspf"%>        
+        <script type="text/javascript" src="${path_home}/xt/js/xtguanliyuan/quanxianfanwei.js"></script>
         <script>
             $(function () {
                 inidoAdd();

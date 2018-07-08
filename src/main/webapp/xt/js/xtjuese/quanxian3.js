@@ -1,7 +1,7 @@
 //页面文档加载完后-调用此函数。
 //需要初始化的，统一放到此函数来
 function inidoAdd() {
-    toCreateTree("divID_Tree_menu_XtQuanxian", "xt_quanxian_zj", "xt_quanxian_fzj", "xt_quanxian_mc", "/xt/power/admin.jw?key=glyQX", true, function (event, id, treeNode) {
+    toCreateTree("divID_Tree_menu_XtQuanxian", "xt_quanxian_zj", "xt_quanxian_fzj", "xt_quanxian_mc", "/xt/power/admin.jw?key=yhQX", true, function (event, id, treeNode) {
         $("#xt_quanxian_fzj").val(treeNode.xt_quanxian_zj)
         $("#xt_quanxian_fzj_mc").textbox('setValue', treeNode.xt_quanxian_mc);
     }, true);
@@ -33,7 +33,7 @@ function seeRowPower() {
     //取消权限树所有原有选择。
     var treeObj = $.fn.zTree.getZTreeObj("divID_Tree_menu_XtQuanxian");
     treeObj.checkAllNodes(false);
-    $.post(path_home + "xt/xtjuesequanxian3/select/json.jw", {juese_zj: f_getJueseGrid_zj(rows)}, function (d) {
+    $.post(path_home + "/xt/xtjuesequanxian3/select/json.jw", {juese_zj: f_getJueseGrid_zj(rows)}, function (d) {
         //重装上权限
         treeObj.expandAll(false);
         var rsdata =d.split(",");

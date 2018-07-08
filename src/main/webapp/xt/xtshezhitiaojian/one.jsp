@@ -5,9 +5,7 @@
     <head>
         <title>添加部门管理</title>
         <%@include file="/WEB-INF/jspf/easyuiLocal.jspf"%>
-        <%@include file="/WEB-INF/jspf/artDialog.jspf"%>
         <%@include file="/WEB-INF/jspf/ztree.jspf"%>
-        <%@include file="/WEB-INF/jspf/GG.jspf"%>
         <script>
             $(function () {
                 $('#dg').datagrid('hideColumn', 'xt_shezhi_tiaojian1_zj');

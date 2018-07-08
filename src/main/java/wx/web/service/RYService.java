@@ -128,6 +128,15 @@ final public class RYService {
                 //状态,账号,密码,隔离标识,制单人,制单人主键
                 "ry_zt,ry_zhanghao,ry_mima,ry_gelibiaoshi,ry_zhidanren,ry_zhidanren_zj"));
     }
+    /**
+     * 修改人员密码
+     * @param obj
+     * @return MsgVO
+     */
+    public static MsgVO update_password(RY obj) {
+        return MsgVO.setUpdateRS(DBO.service.U.updateSome_alloy(obj, "ry_mima"));
+    }
+    
 //---------------------------------------单据状态管理---------------------------------------
 
     /**

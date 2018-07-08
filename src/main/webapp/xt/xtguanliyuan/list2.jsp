@@ -5,11 +5,9 @@
 <html>
     <head>
         <title>维护系统管理员</title>
-        <script type="text/javascript" src="${path_home}/xt/js/xtguanliyuan/list2.js"></script>
         <%@include file="/WEB-INF/jspf/easyuiLocal.jspf"%>
-        <%@include file="/WEB-INF/jspf/artDialog.jspf"%>
-        <%@include file="/WEB-INF/jspf/ztree.jspf"%>
-        <%@include file="/WEB-INF/jspf/GG.jspf"%>
+        <%@include file="/WEB-INF/jspf/ztree.jspf"%>        
+        <script type="text/javascript" src="${path_home}/xt/js/xtguanliyuan/list2.js"></script>
         <script>
             $(function () {
                 $('#dg').treegrid('hideColumn', 'xt_guanliyuan_zj');

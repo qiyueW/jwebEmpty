@@ -46,7 +46,7 @@ public class SQ_Admin2 implements IZDY {
             return true;
         }
         if (Login.isNoThisPower(pobj, urlCode)) {
-            jw.printOne(MyPowerCheck.SQ_ERROR);
+            jw.printOne(MyPowerCheck.SQ_ERROR2);
             return true;
         }
         return false;

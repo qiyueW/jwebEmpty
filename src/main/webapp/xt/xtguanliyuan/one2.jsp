@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>明细-系统管理员</title>
+        <title>明细-系统辅管员</title>
         <%@include file="/WEB-INF/jspf/easyuiLocal.jspf"%>
         <%@include file="/WEB-INF/jspf/boostrap.jspf"%>
         <%@include file="/WEB-INF/jspf/ztree.jspf"%>
@@ -41,50 +41,26 @@
             </div>
                 <div class="row-fluid">
                     <div class="span12">
-                            <span class="myname" >管理员名称</span>
+                            <span class="myname" >辅管员名称</span>
                             ${XtGuanliyuan.xt_guanliyuan_mc}
                     </div>
                 </div>
                 <div class="row-fluid">
                     <div class="span12">
-                            <span class="myname" >管理员账号</span>
+                            <span class="myname" >辅管员账号</span>
                             ${XtGuanliyuan.xt_guanliyuan_zhanghao}
                     </div>
                 </div>
-<!--                <div class="row-fluid">
-                    <div class="span12">
-                            <span class="myname" >管理员密码</span>
-                            ${XtGuanliyuan.xt_guanliyuan_mima}
-                    </div>
-                </div>-->
                 <div class="row-fluid">
                     <div class="span12">
-                            <span class="myname" >管理员邮箱</span>
+                            <span class="myname" >辅管员邮箱</span>
                             ${XtGuanliyuan.xt_guanliyuan_youxiang}
                     </div>
                 </div>
                 <div class="row-fluid">
                     <div class="span12">
-                            <span class="myname" >管理员备注</span>
+                            <span class="myname" >辅管员备注</span>
                             ${XtGuanliyuan.xt_guanliyuan_bz}
-                    </div>
-                </div>
-<!--                <div class="row-fluid">
-                    <div class="span12">
-                            <span class="myname" >管理员权限集合</span>
-                            <textarea rows=5 readonly="true" class="textarea easyui-validatebox" id="xt_guanliyuan_quanxian" name="xt_guanliyuan_quanxian" data-options="required:false">${XtGuanliyuan.xt_guanliyuan_quanxian}</textarea>
-                    </div>
-                </div>                 
-                <div class="row-fluid">
-                    <div class="span12">
-                            <span class="myname" >管理员部门集合</span>
-                            <textarea rows=5 readonly="true" class="textarea easyui-validatebox" id="xt_guanliyuan_bm" name="xt_guanliyuan_bm" data-options="required:false">${XtGuanliyuan.xt_guanliyuan_bm}</textarea>
-                    </div>
-                </div>                 -->
-                <div class="row-fluid">
-                    <div class="span12">
-                            <span class="myname" >隔离标识</span>
-                            ${XtGuanliyuan.xt_guanliyuan_gelibiaoshi}
                     </div>
                 </div>
         </div>

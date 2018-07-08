@@ -5,11 +5,9 @@
 <html>
     <head>
         <title>管理员与角色绑定</title>
-        <script type="text/javascript" src="${path_home}/xt/js/xtguanliyuan/guanliyuanjuese2.js?id=<%=new Date()%>"></script>
         <%@include file="/WEB-INF/jspf/easyuiLocal.jspf"%>
-        <%@include file="/WEB-INF/jspf/artDialog.jspf"%>
         <%@include file="/WEB-INF/jspf/ztree.jspf"%>
-        <%@include file="/WEB-INF/jspf/GG.jspf"%>
+        <script type="text/javascript" src="${path_home}/xt/js/xtguanliyuan/guanliyuanjuese2.js"></script>
         <script>
             $(function () {
                 inidoAdd();

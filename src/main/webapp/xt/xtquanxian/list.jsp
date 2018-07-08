@@ -5,11 +5,9 @@
 <html>
     <head>
         <title>维护系统权限</title>
-        <script type="text/javascript" src="${path_home}/xt/js/xtquanxian/list.js?id=<%=new Date()%>"></script>
         <%@include file="/WEB-INF/jspf/easyuiLocal.jspf"%>
-        <%@include file="/WEB-INF/jspf/artDialog.jspf"%>
         <%@include file="/WEB-INF/jspf/ztree.jspf"%>
-        <%@include file="/WEB-INF/jspf/GG.jspf"%>
+        <script type="text/javascript" src="${path_home}/xt/js/xtquanxian/list.js"></script>
         <script>
             $(function () {
                 $('#dg').treegrid('hideColumn', 'xt_quanxian_zj');

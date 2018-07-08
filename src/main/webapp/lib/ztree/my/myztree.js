@@ -55,5 +55,55 @@ function ztree_getNodeSonValue(node, columnName) {
             }
         }
     }
+}
 
+function toCreateTree(divID, id, pid, name, url, checkenble, myonclick, expandall) {
+	if(url.indexOf("/")!=0){
+		url="/"+url;
+	}
+    var setting2 = {treeId: id,
+        check: {enable: checkenble},
+        async: {enable: true, type: "post", url: path_home+ url},
+        data: {simpleData: {enable: true, idKey: id, pIdKey: pid, rootPId: "0"},
+            key: {name: name}},
+        callback: {
+            onClick: function (event, id, treeNode) {
+                myonclick(event, id, treeNode);
+            },
+            onAsyncSuccess: function () {
+                $.fn.zTree.getZTreeObj(divID).expandAll(expandall ? true : expandall);
+            }
+        }
+    }
+    $.fn.zTree.init($("#" + divID), setting2);
+}
+
+function toCreateTreeByChkboxType(divID, id, pid, name, url, checkenble, chkboxType, myonclick, expandall) {
+	if(url.indexOf("/")!=0){
+		url="/"+url;
+	}
+    var x = {"Y": "ps", "N": "ps"};
+    if (chkboxType == 0) {
+        x = {"Y": "", "N": ""};
+    }
+    var setting2 = {treeId: id,
+        check: {enable: checkenble
+            , chkboxType: x
+        },
+        async: {enable: true, type: "post", url: path_home+ url},
+        data: {simpleData: {enable: true, idKey: id, pIdKey: pid, rootPId: "0"},
+            key: {name: name}},
+        view: {
+            expandSpeed: ""
+        },
+        callback: {
+            onClick: function (event, id, treeNode) {
+                myonclick(event, id, treeNode);
+            },
+            onAsyncSuccess: function () {
+                $.fn.zTree.getZTreeObj(divID).expandAll(expandall ? true : expandall);
+            }
+        }
+    }
+    $.fn.zTree.init($("#" + divID), setting2);
 }

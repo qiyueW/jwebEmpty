@@ -128,20 +128,6 @@ function f_extend_select() {
                 $(target).combobox('setValue', value);
                 $(target).val(value);
             }
-//            ,
-//            resize: function (target, width) {
-//                 var input = $(target);
-//                 input.width(input.outerWidth()+20);
-//                 input.outerWidth(300)
-//                console.log(width+"//"+input.outerWidth()+"//"+input.width())
-////                $(target)._outerWidth(width+100);
-////                var input = $(target);
-////                if ($.boxModel == true) {
-////                    input.width(width - (input.outerWidth() - input.width()));
-////                } else {
-////                    input.width(width);
-////                }
-//            }
         }
     });
 }
@@ -161,4 +147,149 @@ function f_myajax(url, data) {
         , timeout: 6000
     });
     return m;
+}
+
+function easyuidateformatter(date) {
+    var y = date.getFullYear();
+    var m = date.getMonth() + 1;
+    var d = date.getDate();
+    return y + '-' + (m < 10 ? ('0' + m) : m) + '-' + (d < 10 ? ('0' + d) : d);
+}
+function easyuidateparser(s) {
+    if (!s)
+        return new Date();
+    var ss = (s.split('-'));
+    var y = parseInt(ss[0], 10);
+    var m = parseInt(ss[1], 10);
+    var d = parseInt(ss[2], 10);
+    if (!isNaN(y) && !isNaN(m) && !isNaN(d)) {
+        return new Date(y, m - 1, d);
+    } else {
+        return new Date();
+    }
+}
+function easyuiGridReload(tgid) {
+    $('#' + tgid).datagrid('reload');//刷新
+}
+function easyuiTreeGridReload(tgid, parentNode) {
+    if (parentNode) {
+        $('#' + tgid).treegrid('reload', parentNode.target);//刷新
+    } else {
+        $('#' + tgid).treegrid('reload');//刷新
+    }
+    $('#' + tgid).treegrid('unselectAll');
+}
+function easyuiGetRowsID(rows, idname) {
+    var ids = "";
+    for (var i = 0; i < rows.length; i++) {
+        ids = ids + "," + rows[i][idname];
+    }
+    return ids.length > 0 ? ids.substring(1) : "";
+}
+function easyuiLoadWindowByURL(winID, title, url) {
+	if(url.indexOf("/")!=0){
+		url="/"+url;
+	}
+    var winID2 = '#' + winID;
+    $(winID2).panel({title: title});
+    $(winID2).window('open');
+    document.getElementById(winID).innerHTML = '<iframe scrolling="no" frameborder="0"  src="' +path_home+ url + '" style="width:100%;height:100%;"></iframe>';
+}
+
+function f_grid_img(value, row, index) {
+    var url = "${path_home}/" + value;
+    if (value) {
+        return "<a href=\"javascript:void(0)\" onclick=\"f_grid_showIMGtoPanel('" + url + "')\">图片</a>";
+    }
+}
+function f_grid_file(value, row, index) {
+    var url = "${path_home}/" + value;
+    if (value) {
+        return "<a href=\"" + url + "\" target=\"_bland\">文件下载</a>";
+    }
+}
+function f_grid_showIMGtoPanel(url) {
+    $('#gridShowIMG').window({
+        width: 600,
+        height: 400,
+        title: '图片展示',
+        content: '<a href="' + url + '" target="_bland"><img src="' + url + '" style="max-width:570px;" /></a>',
+        modal: true
+    });
+}
+/**
+ * 
+ * @param {String} url 上传的路径
+ * @param {String} data 上传的数据
+ * @param {String} msg 确认的信息
+ * @param {function} okfun  操作成功回调
+ * @param {String} async 默认同步 false. 异步需设置为true
+ * @param {function} fun  调用自己的方法处理服务器响应的返回事件
+ * @param {int} w  长
+ * @param {int} h  高
+ * @returns {void}
+ */
+function easyuiAjax(url, data, msg, okfun, async, fun, w, h) {
+    w = w ? w : 300;
+    h = h ? h : 200;
+    if (msg) {
+        $.messager.confirm('请确认', msg, function (r) {
+            if (r) {
+                doajax()
+            }
+        });
+    } else {
+        doajax();
+    }
+    function doajax() {
+    	if(url.indexOf("/")!=0){
+    		url="/"+url;
+    	}
+        $.ajax({
+            url: path_home + url
+            , data: data
+            , dataType: "json"
+            , async: async ? true : false
+            , type: "post"
+            , success: function (rs) {
+                if (fun) {
+                    fun(rs);
+                } else {
+                    if (rs.statusCode == 99) {
+                        var msg = "";
+                        for (var i in rs.msg) {
+                            msg = msg + rs.msg[i] + "<br/>";
+                        }
+                        showmsg_error('执行异常', msg,w,h);
+                    } else if (rs.statusCode == 1) {
+                    	showmsg_ok('操作成功', rs.msg,w,h);
+                        if (okfun)
+                            okfun();
+                    } else {
+                    	showmsg_error('执行异常', rs.msg,w,h);
+                    }
+                }
+            }
+            , timeout: 4000
+        });
+    }
+}
+ 
+function showmsg_error(title,content,w,h){
+    w = w ? w : 300;
+    h = h ? h : 200;
+	$.messager.show({title: '<div style="color:red;font-size:9px;">'+title+'</div>', width: w, height: h, msg:content, showType: 'show', style: {
+        right: '',
+        top: '',
+        bottom: -document.body.scrollTop - document.documentElement.scrollTop
+    }});
+}
+function showmsg_ok(title,content,w,h){
+    w = w ? w : 300;
+    h = h ? h : 200;
+	$.messager.show({title: '<div style="color:#339933;font-size:9px;">'+title+'</div>', width: w, height: h, msg:content, showType: 'show', style: {
+        right: '',
+        top: '',
+        bottom: -document.body.scrollTop - document.documentElement.scrollTop
+    }});
 }

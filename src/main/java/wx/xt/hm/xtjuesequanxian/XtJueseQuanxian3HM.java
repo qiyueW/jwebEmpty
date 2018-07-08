@@ -7,13 +7,12 @@ import configuration.Tool;
 import system.base.annotation.H;
 import system.base.annotation.M;
 import system.web.JWeb;
-import system.web.power.ann.DL;
 import wx.xt.Gelibiaoshi;
 import wx.xt.bean.xtguanliyuan.XtGuanliyuan;
 import wx.xt.bean.xtjuese.XtJuese;
 import wx.xt.service.XTJueseQuanxianService;
 import wx.xt.service.XtJueseService;
-@system.web.power.ann.ZDY(zdy = configuration.zdy.SQ_Admin3.class, value = "")
+@system.web.power.ann.ZDY(zdy = configuration.zdy.SQ_Admin3.class, value = "xtjuesequanxian3")
 @H("/xt/xtjuesequanxian3")
 public class XtJueseQuanxian3HM {
 

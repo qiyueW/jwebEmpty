@@ -3,13 +3,11 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>添加系统管理员</title>
-        <script type="text/javascript" src="${path_home}/xt/js/xtguanliyuan/add2.js"></script>
-        <%@include file="/WEB-INF/jspf/easyuiLocal.jspf"%>
+        <title>添加系统辅管员</title>
+                <%@include file="/WEB-INF/jspf/easyuiLocal.jspf"%>
         <%@include file="/WEB-INF/jspf/boostrap.jspf"%>
-        <%@include file="/WEB-INF/jspf/artDialog.jspf"%>
         <%@include file="/WEB-INF/jspf/ztree.jspf"%>
-        <%@include file="/WEB-INF/jspf/GG.jspf"%>
+        <script type="text/javascript" src="${path_home}/xt/js/xtguanliyuan/add2.js"></script>
         <script>
             $(function () {
                 inidoAdd();
@@ -52,31 +50,31 @@
                 </div>
                  <div class="row-fluid">
                     <div class="span12">
-                        <span class="myname" >管理员名称</span>
+                        <span class="myname" >辅管员名称</span>
                         <input type="text"  id="xt_guanliyuan_mc" name="xt_guanliyuan_mc" data-options="required:true" class="easyui-textbox"/>
                     </div>
                 </div>
                  <div class="row-fluid">
                     <div class="span12">
-                        <span class="myname" >管理员账号</span>
+                        <span class="myname" >辅管员账号</span>
                         <input type="text"  id="xt_guanliyuan_zhanghao" name="xt_guanliyuan_zhanghao" data-options="required:true" class="easyui-textbox"/>
                     </div>
                 </div>
                  <div class="row-fluid">
                     <div class="span12">
-                        <span class="myname" >管理员密码</span>
+                        <span class="myname" >辅管员密码</span>
                         <input type="text"  id="xt_guanliyuan_mima" name="xt_guanliyuan_mima" data-options="required:true" class="easyui-textbox"/>
                     </div>
                 </div>
                  <div class="row-fluid">
                     <div class="span12">
-                        <span class="myname" >管理员邮箱</span>
+                        <span class="myname" >辅管员邮箱</span>
                         <input type="text"  id="xt_guanliyuan_youxiang" name="xt_guanliyuan_youxiang" data-options="required:false" class="easyui-textbox"/>
                     </div>
                 </div>
                  <div class="row-fluid">
                     <div class="span12">
-                        <span class="myname" >管理员备注</span>
+                        <span class="myname" >辅管员备注</span>
                         <input type="text"  id="xt_guanliyuan_bz" name="xt_guanliyuan_bz" data-options="required:false" class="easyui-textbox"/>
                     </div>
                 </div>

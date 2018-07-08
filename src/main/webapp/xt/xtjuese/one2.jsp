@@ -5,10 +5,8 @@
     <head>
         <title>明细-系统角色</title>
         <%@include file="/WEB-INF/jspf/easyuiLocal.jspf"%>
-        <%@include file="/WEB-INF/jspf/boostrap.jspf"%>
-        <%@include file="/WEB-INF/jspf/artDialog.jspf"%>
         <%@include file="/WEB-INF/jspf/ztree.jspf"%>
-        <%@include file="/WEB-INF/jspf/GG.jspf"%>
+        <%@include file="/WEB-INF/jspf/boostrap.jspf"%>
         <script>
             function closeMySelf() {
                 window.parent.closethisWindowSeeOne();//调取aa函数

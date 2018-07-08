@@ -5,11 +5,9 @@
 <html>
     <head>
         <title>系统管理员权限</title>
-        <script type="text/javascript" src="${path_home}/xt/js/xtguanliyuan/quanxian2.js?id=<%=new Date()%>"></script>
         <%@include file="/WEB-INF/jspf/easyuiLocal.jspf"%>
-        <%@include file="/WEB-INF/jspf/artDialog.jspf"%>
-        <%@include file="/WEB-INF/jspf/ztree.jspf"%>
-        <%@include file="/WEB-INF/jspf/GG.jspf"%>
+        <%@include file="/WEB-INF/jspf/ztree.jspf"%>        
+        <script type="text/javascript" src="${path_home}/xt/js/xtguanliyuan/quanxian2.js?id=<%=new Date()%>"></script>
         <script>
             $(function () {
                 inidoAdd();

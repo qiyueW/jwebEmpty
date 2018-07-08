@@ -19,13 +19,16 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title></title>
+        <title>JWeb官网-登陆</title>
+        
+        <%@include file="/WEB-INF/jspf/meta.jspf"%>
         <script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
         <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css" />
         <link rel="stylesheet" href="lib/bootstrap/css/bootstrap-theme.min.css" />
         <script src="lib/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
         <script src="lib/jquery/cookie.js" type="text/javascript"></script>
         <script type="text/javascript" src="${path_home}/static/js/login.js"></script> 
+        <script>if (typeof module === 'object') {window.jQuery = window.$ = module.exports;};</script>
         <%-- <%@include file="/WEB-INF/jspf/artDialog.jspf"%> --%>
         <script>
             var path_home = "${path_home}/"
@@ -40,20 +43,24 @@
         </style>
     </head>
     <body>
+    <p style="visibility: hidden;">
+    <input type="text" value="admin" style="position: absolute;z-index: -1;" disabled autocomplete = "off"/>
+	<input type="password"  value=" " style="position: absolute;z-index: -1;" disabled autocomplete = "off"/>
+	</p>
         <div class="container" style="width:400px; margin-top:65px; ">
             <div class="row">
                 <div class="col-md-12">
                     <div class="input-group">
                         <span class="input-group-addon" id="basic-xt_gelibiaoshi">标识</span>
-                        <input class="form-control" type="text" placeholder="公司标识" id="xt_gelibiaoshi" name="xt_gelibiaoshi" autofocus="autofocus"autocomplete="off" maxlength="20"/>
+                        <input class="form-control" type="text" placeholder="公司标识" id="xt_gelibiaoshi" autofocus="autofocus"maxlength="20"/>
                     </div>
                     <div class="input-group">
                         <span class="input-group-addon" id="basic-account">账号</span>
-                        <input class="form-control" type="text" placeholder="账号" id="account" name="account"  autocomplete="off" maxlength="32"/>
+                        <input class="form-control" type="text" placeholder="账号" id="account"  autocomplete="off" maxlength="32"/>
                     </div>
                     <div class="input-group">
                         <span class="input-group-addon" id="basic-password">密码</span>
-                        <input class="form-control" type="password" placeholder="密码" id="password" name="password" autocomplete="off" maxlength="32"/>
+                        <input class="form-control" type="password" placeholder="密码" id="password"  autocomplete="off" maxlength="32"/>
                     </div>
                     <div class="input-group">
                         <span class="input-group-addon" id="basic-sort"  style="color: red;">方向</span>

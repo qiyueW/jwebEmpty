@@ -9,8 +9,11 @@ import system.web.power.interfaces.UPMDefault;
  * @author wo
  */
 public class MyPowerCheck extends UPMDefault implements UPM {
-
-    public static final MsgVO SQ_ERROR = MsgVO.setError("没有权限。请向管理员申请权限。");
+    public static final MsgVO SQ_ERROR= MsgVO.setError("没有权限。请向【相关管理员】申请权限。");//无定位
+    public static final MsgVO SQ_ERROR2= MsgVO.setError("没有权限。请向【超级管理员】申请权限。");//一般是总管用
+    public static final MsgVO SQ_ERROR3 = MsgVO.setError("没有权限。请向【总管】申请权限。");//一般是辅管用
+    public static final MsgVO SQ_ERROR4 = MsgVO.setError("没有权限。请向【总管】或【辅管】申请权限。");//一般是业务用
+    
     public static final MsgVO DL_ERROR = MsgVO.setError("会话超时，或未登陆。请登陆后再尝试");
 
     @Override
