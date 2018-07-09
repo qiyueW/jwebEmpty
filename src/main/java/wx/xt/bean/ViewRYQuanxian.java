@@ -114,7 +114,7 @@ public class ViewRYQuanxian {
                 .append(",\"ry_zhidanren\":\"").append(ry_zhidanren).append("\"")
                 .append(",\"ry_gelibiaoshi\":\"").append(ry_gelibiaoshi).append("\"")
                 .append(",\"xt_ryquanxian_zj\":\"").append(xt_ryquanxian_zj).append("\"")
-                .append(",\"xt_guanliyuan_mc\":\"").append(xt_guanliyuan_mc).append("\"")
+                .append(",\"xt_guanliyuan_mc\":\"").append(null==xt_guanliyuan_mc?"":xt_guanliyuan_mc).append("\"")
                 .append(",\"ry_zt\":\"").append(ry_zt).append("\"}");
         return sb.toString();
     }

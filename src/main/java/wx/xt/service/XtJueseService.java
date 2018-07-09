@@ -61,7 +61,7 @@ final public class XtJueseService {
 
 //---------------------------------------隔离标识管理--------------------------------------
     public static boolean isErrorGelibiaoshiVast(String ids, String gelibiaoshi) {
-        List<XtJuese> list = DBO.service.S.selectByCondition(XtJuese.class, "WHERE xt_juese_gelibiaoshi IN(" + Tool.replaceDToDDD(ids) + ")");
+        List<XtJuese> list = DBO.service.S.selectByCondition(XtJuese.class, "WHERE xt_juese_zj IN(" + Tool.replaceDToDDD(ids) + ")");
         return BaseService.isErrorGelibiaoshiVast(list, "xt_juese_gelibiaoshi", gelibiaoshi);
     }
 

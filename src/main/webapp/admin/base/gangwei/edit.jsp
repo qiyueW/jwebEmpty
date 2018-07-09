@@ -5,12 +5,10 @@
 <html>
     <head>
         <title>修改岗位</title>
-        <script type="text/javascript" src="${path_home}/static/js/gangwei/edit.js"></script>
         <%@include file="/WEB-INF/jspf/easyuiLocal.jspf"%>
         <%@include file="/WEB-INF/jspf/boostrap.jspf"%>
-        <%@include file="/WEB-INF/jspf/artDialog.jspf"%>
         <%@include file="/WEB-INF/jspf/ztree.jspf"%>
-        <%@include file="/WEB-INF/jspf/GG.jspf"%>
+        <script type="text/javascript" src="${path_home}/static/js/gangwei/edit.js"></script>
         <script>
             $(function () {
                 inido();

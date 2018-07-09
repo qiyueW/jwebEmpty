@@ -5,11 +5,9 @@
 <html>
     <head>
         <title>维护职位</title>
-        <script type="text/javascript" src="${path_home}/static/js/zhiwei/list.js"></script>
         <%@include file="/WEB-INF/jspf/easyuiLocal.jspf"%>
-        <%@include file="/WEB-INF/jspf/artDialog.jspf"%>
         <%@include file="/WEB-INF/jspf/ztree.jspf"%>
-        <%@include file="/WEB-INF/jspf/GG.jspf"%>
+        <script type="text/javascript" src="${path_home}/static/js/zhiwei/list.js"></script>
         <script>
             $(function (){
                 $('#dg').treegrid('hideColumn', 'zhiwei_zj');

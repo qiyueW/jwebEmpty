@@ -3,6 +3,8 @@ package wx.xt.service;
 import configuration.DBO;
 import configuration.MsgVO;
 import configuration.Tool;
+import configuration.mvc.BaseService;
+
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -147,6 +149,23 @@ final public class XtRYQuanxianService {
 		}
 	}
 
+
+	//---------------------------------------隔离标识管理--------------------------------------
+	    public static boolean isErrorGelibiaoshiVast(String ids, String gelibiaoshi) {
+	        List<XtRYQuanxian> list = DBO.service.S.selectByCondition(XtRYQuanxian.class, "WHERE xt_ryquanxian_zj IN(" + Tool.replaceDToDDD(ids) + ")");
+	        return BaseService.isErrorGelibiaoshiVast(list, "xt_ryquanxian_gelibiaoshi", gelibiaoshi);
+	    }
+
+	    public static boolean isErrorGelibiaoshiOne(String id, String gelibiaoshi) {
+	    	XtRYQuanxian obj = DBO.service.S.selectOneByID(XtRYQuanxian.class, id);
+	        return BaseService.isErrorGelibiaoshiOne(obj, "xt_ryquanxian_gelibiaoshi", gelibiaoshi);
+	    }
+
+	    public static boolean isErrorGelibiaoshiOne(XtRYQuanxian obj, String gelibiaoshi) {
+	        return BaseService.isErrorGelibiaoshiOne(obj, "xt_ryquanxian_gelibiaoshi", gelibiaoshi);
+	    }
+	    
+//---------------------------------------ADU--------------------------------------
 	/**
 	 * 添加数据
 	 *

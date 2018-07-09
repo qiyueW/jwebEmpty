@@ -5,7 +5,6 @@
 <html>
     <head>
         <title>维护系统角色</title>
-
         <%@include file="/WEB-INF/jspf/easyuiLocal.jspf"%>
         <%@include file="/WEB-INF/jspf/ztree.jspf"%>
         <script type="text/javascript" src="${path_home}/xt/js/xtjuese/list2.js"></script>

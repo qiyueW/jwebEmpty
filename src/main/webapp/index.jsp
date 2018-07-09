@@ -24,7 +24,14 @@
 }
 </style>
 <body>
-	<div class="my_center">
+<div class="text-success">
+JWeb框架能做什么？<br/>
+请首先不要批评我重复造轮子，设计非主流.....讨论是件耗脑力的东西。<br/>
+我精力有限，正在默默地耕田搬砖。顺便写个saas级的权限平台给大伙体验。点下面图片进入体验<br/>
+本人接私单。有活致电17376764752 汪春滋<br/>
+同时，本人还是实施顾问。企业上erp、oa、制定开发？?找个人把把关？没事，联系我。<br/>
+</div>
+	<div class="my_center" >
 		<img alt=""src="${path_home}/static/img/xmzj.jpg" /> <img alt="" src="${path_home}/static/img/jweb.jpg" />
 		<div>
 		<a href="${path_home}/login.jsp"><img alt="" src="${path_home}/static/img/gdjc.jpg" /></a>

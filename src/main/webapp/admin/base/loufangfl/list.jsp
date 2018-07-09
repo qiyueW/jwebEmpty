@@ -4,11 +4,10 @@
 <html>
     <head>
         <title>维护楼房分类</title>
-        <script type="text/javascript" src="${path_home}/static/js/loufangfl/list.js"></script>
+        
         <%@include file="/WEB-INF/jspf/easyuiLocal.jspf"%>
-        <%@include file="/WEB-INF/jspf/artDialog.jspf"%>
         <%@include file="/WEB-INF/jspf/ztree.jspf"%>
-        <%@include file="/WEB-INF/jspf/GG.jspf"%>
+        <script type="text/javascript" src="${path_home}/static/js/loufangfl/list.js"></script>
         <script>
             $(function () {
                 $('#dg').treegrid('hideColumn', 'loufangfl_zj');

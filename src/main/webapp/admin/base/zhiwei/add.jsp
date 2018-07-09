@@ -4,12 +4,10 @@
 <html>
     <head>
         <title>添加职位</title>
-        <script type="text/javascript" src="${path_home}/static/js/zhiwei/add.js"></script>
         <%@include file="/WEB-INF/jspf/easyuiLocal.jspf"%>
         <%@include file="/WEB-INF/jspf/boostrap.jspf"%>
-        <%@include file="/WEB-INF/jspf/artDialog.jspf"%>
         <%@include file="/WEB-INF/jspf/ztree.jspf"%>
-        <%@include file="/WEB-INF/jspf/GG.jspf"%>
+        <script type="text/javascript" src="${path_home}/static/js/zhiwei/add.js"></script>
         <script>
             $(function () {
                 inidoAdd();

@@ -34,7 +34,7 @@
 	<div data-options="region:'center'">
 		<div data-options="border:false" class="easyui-tabs" id="tt"
 			fit="true">
-			<!--<div title="个人中心" data-options="href:'${path_home}/admin/iniView.jsp'"></div>onclick="return updateMypassword()"-->
+			<div title="个人中心" data-options="href:'${path_home}/xt/indexAdminFirstPage.jsp'"></div>
 		</div>
 	</div>
 	

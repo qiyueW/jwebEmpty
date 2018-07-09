@@ -5,7 +5,6 @@
 <%
     XtGuanliyuan admin = Gelibiaoshi.getAdminInfoBySession(session);
     if (null == admin) {
-        response.sendRedirect(application.getAttribute("path_home").toString() + "/login.jsp");
         return;
     }
     String hyy = "您好,欢迎使用JWeb框架. 致 " + admin.getXt_guanliyuan_mc();

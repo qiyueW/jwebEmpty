@@ -1,4 +1,3 @@
-                                    
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!--后台UI组件Start-->
 <!DOCTYPE html>
@@ -52,13 +51,6 @@
                     <a href="javascript:void(0)" iconCls="icon-tip" class="easyui-linkbutton" plain="true" onclick="seeRowPower()">展示权限</a>
                     <a href="javascript:void(0)" iconCls="icon-tip" class="easyui-linkbutton" plain="true" onclick="f_condition()">过滤条件</a>
                 </div>
-                <!--                <div>
-                                    <select onchange="$('#dg').treegrid({singleSelect: (this.value == 0)});
-                                            pageCN('dg', 100)">
-                                        <option value="0">单行选择</option>
-                                        <option value="1">多行选择</option>
-                                    </select>
-                                </div>-->
             </div>
         </div>
 

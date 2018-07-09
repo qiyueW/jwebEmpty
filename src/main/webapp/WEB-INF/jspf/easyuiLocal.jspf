@@ -6,7 +6,7 @@
 <script src="${path_home}/lib/easyui/jquery.min.js"type="text/javascript" ></script>
 <script src="${path_home}/lib/easyui/jquery.easyui.min.js"type="text/javascript" ></script>
 <script src="${path_home}/lib/easyui/locale/easyui-lang-zh_CN.js"type="text/javascript" ></script> 
-<script src="${path_home}/lib/easyui/myeasyui.js?id=<%=new Date()%>"></script>
+<script src="${path_home}/lib/easyui/myeasyui.js"></script>
 <script src="${path_home}/lib/jweb.js"></script>
 <script>if (typeof module === 'object') {window.jQuery = window.$ = module.exports;};</script>
 <script type="text/javascript">
