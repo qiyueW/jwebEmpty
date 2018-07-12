@@ -1,9 +1,12 @@
 package wx.xt.service;
 
+import java.util.List;
+import java.util.Set;
+
 import configuration.DBO;
 import configuration.MsgVO;
-import java.util.List;
 import wx.xt.bean.xtguanliyuan.XtGuanliyuanJuese;
+import wx.xt.bean.xtjuese.XTJueseQuanxian;
 
 /**
  *
@@ -45,6 +48,23 @@ final public class XtGuanliyuanJueseService {
         return DBO.service.S.selectVastByCondition(XtGuanliyuanJuese.class, page, size, null == where ? "" : where, null == ordery ? "" : ordery);
     }
 
+    /**
+     * 总管专用-针对辅管。检出指定辅管的所有角色，一旦发现存在要过滤的权限（在集合dellPower中），进行权限更新。
+     * <p>
+     * @param liststr 存放执行sql语句的容器
+     * @param guanliyuan_zj 管理员主键
+     * @param dellPower 要过滤的权限
+     */
+    public static void updateGuanliyuanJueseQianxianByRejectSomePower(List<String> liststr,String guanliyuan_zj,Set<String> dellPower){
+    	XtGuanliyuanJuese admin=selectOneByGuanliyuanZJ(guanliyuan_zj);
+    	List<XTJueseQuanxian> rq=XTJueseQuanxianService.selectByJueses(admin.getXt_juese_zj());
+    	for(XTJueseQuanxian jrx:rq) {
+    		//从角色绑定的权限中，移除要删除的权限。
+    		jrx.setXt_quanxian(MyTool.toRejectStr(jrx.getXt_quanxian(),dellPower));
+    		//重新解析成更新权限的sql语句。以备之后的事务管理，一起执行。
+    		liststr.add(DBO.service.SQL.updateSome_alloy(jrx, "xt_quanxian"));
+    	}
+    }
 //---------------------------------------统计区--------------------------------------
     /**
      * 统计表头数据(条件为null或为空时，表示统计整张表)

@@ -82,6 +82,24 @@ function update40() {//反作废
         easyuiGridReload('dg')
     });
 }
+function f_resetpassword() {//重置辅管密码
+    var rows = $('#dg').datagrid('getSelections');
+    if (!rows[0]) {
+        $.messager.alert('提示', '请选择行');
+        return;
+    }
+	$.messager.prompt('重置密码', '请输入重置后的密码', function(r) {
+		if (r) {
+			easyuiAjax("/xt/xtguanliyuan2/update/password3.jw", {
+				newpassword : r,
+				id : rows[0]['xt_guanliyuan_zj']
+			}, "请确认你重置的密码为："+r, function() {
+			});
+		}else{
+			$.messager.alert('提示', '无法重置。请输入一个重置后的新密码');
+		}
+	});
+}
 //-------------------------子页面调用方法-------------------------                
 function closethisWindow() {
     $('#showUpdatePage').panel('close');

@@ -74,6 +74,32 @@ public class XtGuanliyuan2HM {
         jw.request.setAttribute("XtGuanliyuan", obj);
         jw.forward("/xt/xtguanliyuan/edit2.jsp");
     }
+    
+    /**
+	 * 重置辅管级的密码
+	 */
+	@M("/update/password3")
+	public void updatePassword2() {
+		String id = jw.getString("id");
+		String newpassword=jw.getString("newpassword","");
+		if(id.length()!=24||newpassword.trim().isEmpty()) {
+			return;
+		}
+		XtGuanliyuan obj = XtGuanliyuanService.selectOne(id);
+		if (null == obj.getXt_guanliyuan_zj()) {
+			return;
+		}
+		if(obj.getXt_guanliyuan_jibie()!=3) {
+			jw.printOne(MsgVO.setError("只能重置辅管的密码。"));
+			return;
+		}
+        if (XtGuanliyuanService.isErrorGelibiaoshi(obj, jw)) {//非同个隔离标识
+            return;
+        }
+        obj.setXt_guanliyuan_mima(newpassword);
+		jw.printOne(XtGuanliyuanService.update_password(obj));
+	}
+	
 //===================查询操作=============================
     //=========表头查询操作===========
 

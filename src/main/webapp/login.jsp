@@ -58,7 +58,7 @@
 							aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
-						<h4 class="modal-title" id="myModalLabel">总管级账号</h4>
+						<h4 class="modal-title" id="myModalLabel">总管级账号【一个账号等于一间公司】数据是隔离的</h4>
 					</div>
 					<div class="modal-body">
 						<table class="table table-striped">
@@ -89,7 +89,7 @@
 						</table>
 						<div>
 							备注 <br />
-							<h6>标识： 表示一家公司。总管下，所有辅管，业务员 登陆，都要填 这个标识。表示【同一间公司】。</h6>
+							<h6>标识： 代表公司。不同标识，代表不同公司。不同公司，意味着数据是隔离的</h6>
 							<h6>方向： 总管与辅总登陆，必须选【管理后台】，业务员账号登陆必须选【业务操作】</h6>
 						</div>
 					</div>

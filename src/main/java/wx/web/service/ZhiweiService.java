@@ -103,7 +103,7 @@ final public class ZhiweiService {
         }
         return MsgVO.setUpdateRS(DBO.service.U.updateSome_reject(obj,
         //zhiwei_zt,制单时间
-                "zhiwei_zt,zhiwei_zhidanshijian"));
+                "zhiwei_zt,zhiwei_zhidanshijian,zhiwei_gelibiaoshi"));
     }
 //---------------------------------------单据状态管理---------------------------------------
 

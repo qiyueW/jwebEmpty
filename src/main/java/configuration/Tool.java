@@ -83,7 +83,9 @@ final public class Tool {
         }
         return true;
     }
-
+    public static boolean isEmpty(String str) {
+        return null==str||str.isEmpty();
+    }
 //    public static <T> String doListDataToTreeData(List<T> list, String id, String pid, String name) {
 //        List<T> topList = new ArrayList<>();
 //        @SuppressWarnings("rawtypes")

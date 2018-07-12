@@ -1,8 +1,10 @@
 package wx.xt.hm.xtguanliyuan;
 
+import configuration.Tool;
 import system.base.annotation.H;
 import system.base.annotation.M;
 import system.web.JWeb;
+import wx.xt.Gelibiaoshi;
 import wx.xt.bean.xtguanliyuan.XtGuanliyuan;
 import wx.xt.service.XtGuanliyuanService;
 
@@ -24,12 +26,23 @@ public class XtGuanliyuanQuanxian2HM {
     @system.web.power.ann.ZDY(zdy = configuration.zdy.SQ_Admin2.class, value = "xtguanliyuanquanxian2_xiuganquanxian")
     @M("/xiugan/quanxian")
     public void update() {
-        XtGuanliyuan obj = jw.getObject(XtGuanliyuan.class);
-        if (null == obj.getXt_guanliyuan_zj() || obj.getXt_guanliyuan_zj().length() != 24) {
+        XtGuanliyuan newAdmin = jw.getObject(XtGuanliyuan.class);
+        if (null == newAdmin.getXt_guanliyuan_zj() || newAdmin.getXt_guanliyuan_zj().length() != 24) {
             return;
         }
-        System.out.println(obj.toString());
-        jw.printOne(XtGuanliyuanService.update_quanxian(obj));
+        //管理员只能管理自己公司的辅助
+        XtGuanliyuan oldAdmin=XtGuanliyuanService.selectOne(newAdmin.getXt_guanliyuan_zj());
+        if(XtGuanliyuanService.isErrorGelibiaoshi(oldAdmin, jw)) {
+        	return;
+        }
+        ///如果以前的权限为空，则可以直接添加进去
+        if(Tool.isEmpty(oldAdmin.getXt_guanliyuan_quanxian())) {
+        	 jw.printOne(XtGuanliyuanService.update_quanxian(newAdmin));
+        	 return;
+        }
+        XtGuanliyuan admin2=Gelibiaoshi.getAdminInfoBySession(jw);
+        jw.printOne(XtGuanliyuanService.update_quanxian(newAdmin));
+        
     }
 
     @system.web.power.ann.ZDY(zdy = configuration.zdy.SQ_Admin2.class, value = "xtguanliyuanquanxian2_xiuganbm")

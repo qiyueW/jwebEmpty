@@ -103,7 +103,7 @@ final public class GangweiService {
         }
         return MsgVO.setUpdateRS(DBO.service.U.updateSome_reject(obj,
         //gangwei_zt,制单时间
-                "gangwei_zt,gangwei_zhidanshijian"));
+                "gangwei_zt,gangwei_zhidanshijian,gangwei_gelibiaoshi"));
     }
 //---------------------------------------单据状态管理---------------------------------------
 

@@ -48,6 +48,7 @@
                 <a href="javascript:void(0)"iconCls="icon-remove" class="easyui-linkbutton" plain="true" onclick="dellRow()">删除一行</a>
                 <a href="javascript:void(0)" iconCls="icon-reload" class="easyui-linkbutton" plain="true" onclick="easyuiGridReload('dg')">刷新</a>
                 <a href="javascript:void(0)" iconCls="icon-edit" class="easyui-linkbutton" plain="true" onclick="updateRow()">修改</a>
+                <a href="javascript:void(0)" iconCls="icon-tip" class="easyui-linkbutton" plain="true" onclick="f_resetpassword()">重置密码</a>
                 <a href="javascript:void(0)" iconCls="icon-tip" class="easyui-linkbutton" plain="true" onclick="seeRow()">明细</a>
                 <a href="javascript:void(0)" iconCls="icon-tip" class="easyui-linkbutton" plain="true" onclick="f_condition()">过滤条件</a>
             </div>
@@ -76,6 +77,7 @@
         <div id="menu" class="easyui-menu" style="width:150px;">
             <div onclick="seeRow()">明细</div>
             <div onclick="updateRow()">修改</div>
+            <div onclick="f_resetpassword()">重置密码</div>
             <div class="menu-sep"></div>
             <div onclick="easyuiTreeGridReload('dg')">刷新</div>
             <div class="menu-sep"></div>

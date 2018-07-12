@@ -34,7 +34,9 @@ final public class XTJueseQuanxianService {
         String wheresql = " WHERE xt_juese_zj IN(" + Tool.replaceDToDDD(juese_zj) + ")";
         return toObjectPower(select(wheresql));
     }
-
+    public static List<XTJueseQuanxian> selectByJueses(final String juese_zjs) {
+        return select("WHERE xt_juese_zj IN(" + Tool.replaceDToDDD(juese_zjs) + ")");
+    }
     /**
      * 通过个人角色ID查询 权限集合
      *

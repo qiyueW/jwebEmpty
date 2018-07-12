@@ -170,10 +170,6 @@ final public class XtGuanliyuanService {
     }
     
     public static MsgVO update_quanxian(XtGuanliyuan obj) {
-
-        if (selectOne(obj.getXt_guanliyuan_zj()).getXt_guanliyuan_zt() != BaseService.XINZENG) {
-            return MsgVO.setError("无法附权限：管理员已审核");
-        }
         //设置权限
         return MsgVO.setUpdateRS(DBO.service.U.updateSome_alloy(obj, "xt_guanliyuan_quanxian"));
     }

@@ -16,7 +16,7 @@
 	border-radius: 20px;
 	height: 350px;
 	margin: auto;
-	position: absolute;
+	/* position: absolute; */
 	top: 0;
 	left: 0;
 	right: 0;
@@ -24,12 +24,21 @@
 }
 </style>
 <body>
-<div class="text-success">
+<div class="text-success" style="font-size: 9px;">
 JWeb框架能做什么？<br/>
 请首先不要批评我重复造轮子，设计非主流.....讨论是件耗脑力的东西。<br/>
-我精力有限，正在默默地耕田搬砖。顺便写个saas级的权限平台给大伙体验。点下面图片进入体验<br/>
+我精力有限，正在默默地耕田搬砖。顺便写个saas级的权限平台给大伙体验。<br/>
+什么是saas平台级权限？简单地说，包含以下四点<br/>
+<div style="color: red;">
+1。一套系统，多个客户在用<br/>
+2。彼此数据隔离。<br/>
+3。每个客户都有自己的一套管理（在同一套云系统下）<br/>
+4。每个客户可能使用不同的功能（功能按需分配）<br/>
+</div>
+<br/>
 本人接私单。有活致电17376764752 汪春滋<br/>
 同时，本人还是实施顾问。企业上erp、oa、制定开发？?找个人把把关？没事，联系我。<br/>
+<h3>点下面图片进入体验</h3><br/>
 </div>
 	<div class="my_center" >
 		<img alt=""src="${path_home}/static/img/xmzj.jpg" /> <img alt="" src="${path_home}/static/img/jweb.jpg" />
