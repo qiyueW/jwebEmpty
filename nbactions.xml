@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+        <action>
+            <actionName>CUSTOM-jetty:run</actionName>
+            <displayName>jetty:run</displayName>
+            <recursive>false</recursive>
+            <goals>
+                <goal>jetty:run</goal>
+            </goals>
+        </action>
+        <action>
+            <actionName>CUSTOM-jettyurn</actionName>
+            <displayName>jettyurn</displayName>
+            <recursive>false</recursive>
+            <goals>
+                <goal>jetty:run</goal>
+            </goals>
+        </action>
+    </actions>
