@@ -57,7 +57,7 @@ function ztree_getNodeSonValue(node, columnName) {
     }
 }
 
-function toCreateTree(divID, id, pid, name, url, checkenble, myonclick, expandall) {
+function toCreateTree(divID, id, pid, name, url, checkenble, myonclick, expandall,onAsyncSuccess) {
 	if(url.indexOf("/")!=0){
 		url="/"+url;
 	}
@@ -72,6 +72,9 @@ function toCreateTree(divID, id, pid, name, url, checkenble, myonclick, expandal
             },
             onAsyncSuccess: function () {
                 $.fn.zTree.getZTreeObj(divID).expandAll(expandall ? true : expandall);
+                if(onAsyncSuccess){
+                    onAsyncSuccess();
+                }
             }
         }
     }

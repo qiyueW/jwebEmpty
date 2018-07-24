@@ -68,7 +68,7 @@ public class RY {
                 .append(",\"ry_bm_zj\":\"").append(ry_bm_zj).append("\"")
                 .append(",\"ry_mc\":\"").append(ry_mc).append("\"")
                 .append(",\"ry_zhanghao\":\"").append(ry_zhanghao).append("\"")
-                .append(",\"ry_mima\":\"").append(ry_mima).append("\"")
+                .append(",\"ry_mima\":\"").append("\"")
                 .append(",\"ry_xingbie\":\"").append(ry_xingbie).append("\"")
                 .append(",\"ry_ruzhiriqi\":\"").append(Tool.dateToString(this.ry_ruzhiriqi, "yyyy-MM-dd")).append("\"")
                 .append(",\"ry_chushengriqi\":\"").append(Tool.dateToString(this.ry_chushengriqi, "yyyy-MM-dd")).append("\"")

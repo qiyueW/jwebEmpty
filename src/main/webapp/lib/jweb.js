@@ -18,8 +18,23 @@ function f_common_style(value, row, index) {
 		return "作废"
 	}
 }
+//楼房计算方式
+function f_common_loufang_jsfs(value, row, index) {
+	switch (value) {
+	case '1':
+		return "按入住日"
+	case '2':
+		return "每月月底"
+	case '3':
+		return "每月x号"
+	}
+}
 function btfunctionStyel(btID, text, int1_0) {
 	var bt = document.getElementById(btID);
 	bt.value = text;
 	bt.disabled = int1_0 == 0 ? true : false;
+}
+function jwebGetDate(){
+    var d = new Date();
+    return d.getFullYear()+"-"+(d.getMonth() + 1)+"-"+d.getDate()
 }

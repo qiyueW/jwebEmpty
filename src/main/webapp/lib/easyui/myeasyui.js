@@ -7,18 +7,91 @@ function f_onHidePanel_combotree() {
     }
     $(this).combotree('clear');
 }
-function pageCN(tableID, pagesize, pageList) {
-    var p = $('#' + tableID).datagrid('getPager');
-    var mpage = pagesize ? pagesize : 50;
-    var mpageList = pageList ? pageList : [50, 100, 200, 300, 500]
-    $(p).pagination({
-        pageSize: mpage, //每页显示的记录条数，默认为10  
-        pageList: mpageList, //可以设置每页记录条数的列表  
-        beforePageText: '第', //页数文本框前显示的汉字  
-        afterPageText: '页,共{pages}页',
-        displayMsg: '当前显示 {from} - {to} 条记录 共{total}条记录'
-    });
+function f_onHidePanel_combogrid() {
+    this.gridID;
+    this.gridFieldID;
+    this.gridFieldText;
+    this.hiddenID;
+    this.hiddenText;
 }
+f_onHidePanel_combogrid.prototype.setValue = function (f_ok) {
+    var g = $("#" + this.gridID).combogrid('grid');
+    var r = g.datagrid('getSelected');
+    if (r) {
+        if (this.hiddenText) {
+            $("#" + this.hiddenText).val(r[this.gridFieldText]);
+        }
+        if (this.hiddenID) {
+            $("#" + this.hiddenID).val(r[this.gridFieldID]);
+        }
+        if (f_ok) {
+            var checkDat = {};
+            checkDat.id = r[this.gridFieldID];
+            checkDat.text = this.hiddenText ? r[this.gridFieldText] : "";
+            f_ok(checkDat);
+        }
+    } else {//用户输入不正确的，回写正确的
+        if (this.hiddenText) {
+            $("#" + this.gridID).combo('setText', $("#" + this.hiddenText).val());
+        }
+        $("#" + this.gridID).combogrid('setValue', $("#" + this.hiddenID).val());
+    }
+}
+f_onHidePanel_combogrid.prototype.getGridObject=function(){
+    return  $("#" + this.gridID).combogrid('grid');
+}
+f_onHidePanel_combogrid.prototype.setValueByCheckbox = function (f_ok) {
+    var g = $("#" + this.gridID).combogrid('grid');
+    var rows = g.datagrid('getChecked');
+    if (rows) {
+        var text = "";
+        var id = "";
+        for (var ri = 0; ri < rows.length; ri++) {
+            text = text + "," + rows[ri][this.gridFieldText]
+            id = id + "," + rows[ri][this.gridFieldID]
+        }
+        if (text.length > 0) {
+            text = text.substring(1);
+            id = id.substring(1);
+        }
+        if (this.hiddenText) {
+            $("#" + this.hiddenText).val(text);
+        }
+        if (this.hiddenID) {
+            $("#" + this.hiddenID).val(id);
+        }
+        if (f_ok) {
+            var checkDat = {};
+            checkDat.id = this.hiddenID ? id : "";
+            checkDat.text = this.hiddenText ? text : "";
+            f_ok(checkDat,rows);
+        }
+    }
+}
+f_onHidePanel_combogrid.prototype.setGridID = function (id) {
+    this.gridID = id;
+};
+f_onHidePanel_combogrid.prototype.setFieldID_HiddenID = function (fieldID, hiddenID) {
+    this.gridFieldID = fieldID;
+    this.hiddenID = hiddenID;
+};
+f_onHidePanel_combogrid.prototype.setFieldText_HiddenText = function (gridFieldText, hiddenText) {
+    this.gridFieldText = gridFieldText;
+    this.hiddenText = hiddenText;
+};
+
+//function pageCN(tableID, pagesize, pageList) {
+//    var p = $('#' + tableID).datagrid('getPager');
+//    var mpage = pagesize ? pagesize : 50;
+//    var mpageList = pageList ? pageList : [50, 100, 200, 300, 500]
+//    $(p).pagination({
+//        pageSize: mpage, //每页显示的记录条数，默认为10  
+//        pageList: mpageList, //可以设置每页记录条数的列表  
+//        beforePageText: '第', //页数文本框前显示的汉字  
+//        afterPageText: '页,共{pages}页',
+//        displayMsg: '当前显示 {from} - {to} 条记录 共{total}条记录'
+//    });
+//}
 function easyuipost(url, mydata) {
     var x = false;
     $.ajax({
@@ -187,13 +260,13 @@ function easyuiGetRowsID(rows, idname) {
     return ids.length > 0 ? ids.substring(1) : "";
 }
 function easyuiLoadWindowByURL(winID, title, url) {
-	if(url.indexOf("/")!=0){
-		url="/"+url;
-	}
+    if (url.indexOf("/") != 0) {
+        url = "/" + url;
+    }
     var winID2 = '#' + winID;
     $(winID2).panel({title: title});
     $(winID2).window('open');
-    document.getElementById(winID).innerHTML = '<iframe scrolling="no" frameborder="0"  src="' +path_home+ url + '" style="width:100%;height:100%;"></iframe>';
+    document.getElementById(winID).innerHTML = '<iframe scrolling="no" frameborder="0"  src="' + path_home + url + '" style="width:100%;height:100%;"></iframe>';
 }
 
 function f_grid_img(value, row, index) {
@@ -242,9 +315,9 @@ function easyuiAjax(url, data, msg, okfun, async, fun, w, h) {
         doajax();
     }
     function doajax() {
-    	if(url.indexOf("/")!=0){
-    		url="/"+url;
-    	}
+        if (url.indexOf("/") != 0) {
+            url = "/" + url;
+        }
         $.ajax({
             url: path_home + url
             , data: data
@@ -260,13 +333,13 @@ function easyuiAjax(url, data, msg, okfun, async, fun, w, h) {
                         for (var i in rs.msg) {
                             msg = msg + rs.msg[i] + "<br/>";
                         }
-                        showmsg_error('执行异常', msg,w,h);
+                        showmsg_error('执行异常', msg, w, h);
                     } else if (rs.statusCode == 1) {
-                    	showmsg_ok('操作成功', rs.msg,w,h);
+                        showmsg_ok('操作成功', rs.msg, w, h);
                         if (okfun)
                             okfun();
                     } else {
-                    	showmsg_error('执行异常', rs.msg,w,h);
+                        showmsg_error('执行异常', rs.msg, w, h);
                     }
                 }
             }
@@ -274,22 +347,22 @@ function easyuiAjax(url, data, msg, okfun, async, fun, w, h) {
         });
     }
 }
- 
-function showmsg_error(title,content,w,h){
+
+function showmsg_error(title, content, w, h) {
     w = w ? w : 300;
     h = h ? h : 200;
-	$.messager.show({title: '<div style="color:red;font-size:9px;">'+title+'</div>', width: w, height: h, msg:content, showType: 'show', style: {
-        right: '',
-        top: '',
-        bottom: -document.body.scrollTop - document.documentElement.scrollTop
-    }});
+    $.messager.show({title: '<div style="color:red;font-size:9px;">' + title + '</div>', width: w, height: h, msg: content, showType: 'show', style: {
+            right: '',
+            top: '',
+            bottom: -document.body.scrollTop - document.documentElement.scrollTop
+        }});
 }
-function showmsg_ok(title,content,w,h){
+function showmsg_ok(title, content, w, h) {
     w = w ? w : 300;
     h = h ? h : 200;
-	$.messager.show({title: '<div style="color:#339933;font-size:9px;">'+title+'</div>', width: w, height: h, msg:content, showType: 'show', style: {
-        right: '',
-        top: '',
-        bottom: -document.body.scrollTop - document.documentElement.scrollTop
-    }});
+    $.messager.show({title: '<div style="color:#339933;font-size:9px;">' + title + '</div>', width: w, height: h, msg: content, showType: 'show', style: {
+            right: '',
+            top: '',
+            bottom: -document.body.scrollTop - document.documentElement.scrollTop
+        }});
 }

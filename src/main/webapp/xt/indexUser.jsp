@@ -5,7 +5,7 @@
 <head>
 <%@include file="/WEB-INF/jspf/meta.jspf"%>
 <%@include file="/WEB-INF/jspf/easyuiLocal.jspf"%>
-<%@include file="/WEB-INF/jspf/ztree.jspf"%>
+<%@include file="/WEB-INF/jspf/ztreeMenu.jspf"%>
 <script src="${path_home}/xt/js/indexUser.js" type="text/javascript"></script>
 
 <title>您好，欢迎您进入管理员后台</title>
@@ -28,7 +28,7 @@
 <body class="easyui-layout" style="margin: 0;">
 	<input type="hidden" id="tabsRClickDoSaveValueID" />
 	<div data-options="region:'west',split:true" title="菜单"
-		style="width: 280px;">
+             style="width: 280px; background-color:#fff8ff">
 		<div id="divID_Tree_Main" class="ztree powertablediv">---</div>
 	</div>
 	<div data-options="region:'center'">

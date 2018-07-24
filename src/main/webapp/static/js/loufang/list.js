@@ -1,17 +1,27 @@
-function f_gridMenu(e, rowIndex, rowData) {         //右击事件
+function f_initListLoufang() {
+    var caobj = new Obj_condition_append();
+    toCreateTree("divID_Tree_menu_LoufangFL", "loufangfl_zj", "loufangfl_fzj", "loufangfl_mc", "/base/loufangfl/select/json.jw", false, function (event, id, treeNode) {
+        $("#loufangfl_zj").val(treeNode.loufangfl_zj)
+        var queryParams = $('#dg').datagrid('options').queryParams;
+        caobj.setConditionData(queryParams.key);
+        caobj.appendAND("loufangfl_zj","=", treeNode.loufangfl_zj);
+        queryParams.key =caobj.getConditionByJSonStr();
+        $('#dg').datagrid('reload');
+    }, true);
+}
+function f_gridMenu(e, rowIndex, rowData) {
     $('#menu').menu('show', {
         left: e.pageX, //弹出窗口的方位坐标
         top: e.pageY
     });
-    e.preventDefault();         //阻止浏览器自带的右键菜单弹出
+    e.preventDefault();
 }
 function dellRow() {
     var rows = $('#dg').datagrid('getSelections');
     if (!rows[0]) {
         $.messager.alert('提示', '请选择行');
         return;
-    } 
-    else if (rows[0].loufang_zt != '0') {
+    } else if (rows[0].loufang_zt != '0') {
         $.messager.alert('异常', '单据锁定，无法删除');
         return;
     }
@@ -24,8 +34,7 @@ function updateRow() {
     if (!rows[0]) {
         $.messager.alert('提示', '请选择行');
         return;
-    } 
-    else if (rows[0].loufang_zt != '0') {
+    } else if (rows[0].loufang_zt != '0') {
         $.messager.alert('异常', '单据锁定，无法修改');
         return;
     }
@@ -103,7 +112,7 @@ function f_closeCondition() {
 }
 function f_queryByCondition(jsonData) {
     $('#showConditionPage').panel('close');
-    var queryParams = $('#dg').treegrid('options').queryParams;
-    queryParams.key =jsonData;
-    $('#dg').treegrid('reload');
+    var queryParams = $('#dg').datagrid('options').queryParams;
+    queryParams.key = jsonData;
+    $('#dg').datagrid('reload');
 }

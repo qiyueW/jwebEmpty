@@ -6,6 +6,7 @@ import system.base.annotation.M;
 import system.base.annotation.Validate;
 import system.web.JWeb;
 import configuration.Tool;
+import configuration.mvc.BaseService;
 import plugins.easyui.EasyuiService;
 import wx.web.bean.BM;
 import wx.web.bean.Gangwei;
@@ -149,6 +150,15 @@ public class RYHM {
     }
 
     @system.web.power.ann.ZDY(zdy = configuration.zdy.SQ_AdminOrUser.class, value = "ryS")
+    @M("/select/grid2")//针对表头的查询-返回json数据
+    public static void selectGrid2(JWeb jw) {
+        jw.printOne(EasyuiService.formatGrid(
+                RYService.select(
+                        "WHERE ry_gelibiaoshi='" + Gelibiaoshi.getGelibiaoshi(jw) + "' AND ry_zt=" + BaseService.SHENHE,
+                         null)));
+    }
+
+    @system.web.power.ann.ZDY(zdy = configuration.zdy.SQ_AdminOrUser.class, value = "ryS")
     @M("/select/grid")//针对表头的查询-返回Grid数据
     public static void selectGrid(JWeb jw) {
         String condition = wx.xt.service.XTTiaojianService.openConditionByReturnWhere_key(jw, "ry_gelibiaoshi", Gelibiaoshi.getGelibiaoshi(jw));
@@ -201,7 +211,8 @@ public class RYHM {
     }
 //---------------------------------------文件图片管理---------------------------------------
     //@system.web.power.ann.SQ("BA")
-   @system.web.power.ann.ZDY(zdy = configuration.zdy.SQ_AdminOrUser.class, value = "ryA,ryU")
+
+    @system.web.power.ann.ZDY(zdy = configuration.zdy.SQ_AdminOrUser.class, value = "ryA,ryU")
     @M("/up/file")//文件上传
     public void upfile() {
         jw.printOne(RYService.upOneFile(jw.request));

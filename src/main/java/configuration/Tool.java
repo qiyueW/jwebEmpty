@@ -51,8 +51,8 @@ final public class Tool {
         if (null == list || list.isEmpty()) {
             return "[]";
         }
-        @SuppressWarnings("unused")
-		Class<?> t = list.get(0).getClass();
+//        @SuppressWarnings("unused")
+//        Class<?> t = list.get(0).getClass();
         String str = list.get(0).toString();
         if (str.startsWith("{")) {//表示覆盖toString方法的entity/bean/vo
             StringBuilder sb = new StringBuilder();
@@ -83,8 +83,9 @@ final public class Tool {
         }
         return true;
     }
+
     public static boolean isEmpty(String str) {
-        return null==str||str.isEmpty();
+        return null == str || str.isEmpty();
     }
 //    public static <T> String doListDataToTreeData(List<T> list, String id, String pid, String name) {
 //        List<T> topList = new ArrayList<>();

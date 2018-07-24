@@ -1,26 +1,31 @@
-////iniEvent inieditor
-////初始化事件
-////绑定FORM提交事件
+function f_init() {
+    toCreateTree("divID_Tree_menu_LoufangFL", "loufangfl_zj", "loufangfl_fzj", "loufangfl_mc", "/base/loufangfl/select/json.jw", false, function (event, id, treeNode) {
+        $("#loufangfl_zj").val(treeNode.loufangfl_zj)
+        $("#loufangfl_mc").textbox('setValue', treeNode.loufangfl_mc);
+    }, true);
+}
 function submitForm(formid) {
-    var vcheck = $('#'+formid).form('enableValidation').form('validate');
+    var vcheck = $('#' + formid).form('enableValidation').form('validate');
     if (vcheck) {
         $("#dg").datagrid('endEdit', getIndex());
         var datas = $('#dg').datagrid('getData');
         var rs = "";
         for (var i = 0; i < datas.total; i++) {
-            if (datas.rows[i].loufang2_bianhao) //假设哪例不为空的情况下，才算进记录中，需要人为二次调整与判断
+            if (datas.rows[i].loufang2_bianhao || datas.rows[i].loufang2_mingcheng || datas.rows[i].loufang2_chuangwei) //假设哪例不为空的情况下，才算进记录中，需要人为二次调整与判断
                 rs = rs + getJsonByBody(datas.rows[i], i == 0 ? null : ",");
         }
         var data = {};
 //  data.loufang_zj = $('#loufang_zj').val()//主键，将由后台进行生成
-            data.loufangfl_zj = $('#loufangfl_zj').val() //分类外键
-            data.loufang_mc = $('#loufang_mc').val() //名称
-            data.loufang_tj_danrenfang = $('#loufang_tj_danrenfang').val() //单人房总数
-            data.loufang_tj_taojianfang = $('#loufang_tj_taojianfang').val() //套间房总数
-            data.loufang_dizhi = $('#loufang_dizhi').val() //地址
-            data.loufang_bz = $('#loufang_bz').val() //备注
-            data.loufang_gelibiaoshi = $('#loufang_gelibiaoshi').val() //隔离标识
-            data.loufang_zt = $('#loufang_zt').val() //状态
+        data.loufangfl_zj = $('#loufangfl_zj').val() //分类外键
+        data.loufang_mc = $('#loufang_mc').val() //名称
+        data.loufang_dizhi = $('#loufang_dizhi').val() //地址
+        data.loufang_bz = $('#loufang_bz').val() //备注
+        data.loufang_gelibiaoshi = $('#loufang_gelibiaoshi').val() //隔离标识
+        data.loufang_zt = $('#loufang_zt').val() //状态
+        data.loufang_danjian_chuangwei = $('#loufang_danjian_chuangwei').val() //单间床位
+        data.loufang_danjian_chuangwei2 = $('#loufang_danjian_chuangwei2').val() //已用单间床位
+        data.loufang_taojian_chuangwei = $('#loufang_taojian_chuangwei').val() //套间床位
+        data.loufang_taojian_chuangwei2 = $('#loufang_taojian_chuangwei2').val() //已用套间床位
         data.jsonkey = rs ? "[" + rs + "]" : "";
         easyuiAjax("/base/loufang/save.jw", data, "请确认保存操作", function () {
             //回调函数
@@ -48,7 +53,7 @@ function getIndex() {
     return row ? $("#dg").datagrid('getRowIndex', row) : 0;
 }
 function dellRow() {
-    var index =getIndex()
+    var index = getIndex()
     $("#dg").datagrid('deleteRow', index)
     if (editIndex) {
         $('#dg').datagrid('endEdit', editIndex);
@@ -63,7 +68,7 @@ function addRow() {
     });
 }
 function MoveUp() {
-    var index =getIndex()
+    var index = getIndex()
     mysort(index, 'up', 'dg');
 }
 //下移

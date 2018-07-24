@@ -2,16 +2,19 @@ package wx.web.bean;
 
 @system.base.annotation.Table
 public class Loufang {
+
     @system.base.annotation.ID
     private  String loufang_zj ;// 主键
     private  String loufangfl_zj ;// 分类外键 
     private  String loufang_mc ;// 名称 
-    private  Integer loufang_tj_danrenfang ;// 单人房总数 
-    private  Integer loufang_tj_taojianfang ;// 套间房总数 
     private  String loufang_dizhi ;// 地址 
     private  String loufang_bz ;// 备注 
     private  String loufang_gelibiaoshi ;// 隔离标识 
     private  Integer loufang_zt ;// 状态 
+    private  Integer loufang_danjian_chuangwei ;// 单间床位 
+    private  Integer loufang_danjian_chuangwei2 ;// 已用单间床位 
+    private  Integer loufang_taojian_chuangwei ;// 套间床位 
+    private  Integer loufang_taojian_chuangwei2 ;// 已用套间床位 
 
     @Override
     public String toString() {
@@ -19,12 +22,14 @@ public class Loufang {
         sb.append("{\"loufang_zj\":\"").append(loufang_zj).append("\"")
                 .append(",\"loufangfl_zj\":\"").append(loufangfl_zj).append("\"")
                 .append(",\"loufang_mc\":\"").append(loufang_mc).append("\"")
-                .append(",\"loufang_tj_danrenfang\":\"").append(loufang_tj_danrenfang).append("\"")
-                .append(",\"loufang_tj_taojianfang\":\"").append(loufang_tj_taojianfang).append("\"")
                 .append(",\"loufang_dizhi\":\"").append(loufang_dizhi).append("\"")
                 .append(",\"loufang_bz\":\"").append(loufang_bz).append("\"")
                 .append(",\"loufang_gelibiaoshi\":\"").append(loufang_gelibiaoshi).append("\"")
-                .append(",\"loufang_zt\":\"").append(loufang_zt).append("\"}")
+                .append(",\"loufang_zt\":\"").append(loufang_zt).append("\"")
+                .append(",\"loufang_danjian_chuangwei\":\"").append(loufang_danjian_chuangwei).append("\"")
+                .append(",\"loufang_danjian_chuangwei2\":\"").append(loufang_danjian_chuangwei2).append("\"")
+                .append(",\"loufang_taojian_chuangwei\":\"").append(loufang_taojian_chuangwei).append("\"")
+                .append(",\"loufang_taojian_chuangwei2\":\"").append(loufang_taojian_chuangwei2).append("\"}")
                 ;
         return sb.toString();
     }
@@ -79,40 +84,6 @@ public class Loufang {
      */
     public String getLoufang_mc() {
         return this.loufang_mc;
-    }
-    /**
-     * 设置 单人房总数
-     *
-     * @param loufang_tj_danrenfang Integer
-     */
-    public void setLoufang_tj_danrenfang(Integer loufang_tj_danrenfang) {
-        this.loufang_tj_danrenfang=loufang_tj_danrenfang;
-    }
-
-    /**
-     * 取得 单人房总数
-     *
-     * @return Integer
-     */
-    public Integer getLoufang_tj_danrenfang() {
-        return this.loufang_tj_danrenfang;
-    }
-    /**
-     * 设置 套间房总数
-     *
-     * @param loufang_tj_taojianfang Integer
-     */
-    public void setLoufang_tj_taojianfang(Integer loufang_tj_taojianfang) {
-        this.loufang_tj_taojianfang=loufang_tj_taojianfang;
-    }
-
-    /**
-     * 取得 套间房总数
-     *
-     * @return Integer
-     */
-    public Integer getLoufang_tj_taojianfang() {
-        return this.loufang_tj_taojianfang;
     }
     /**
      * 设置 地址
@@ -181,5 +152,73 @@ public class Loufang {
      */
     public Integer getLoufang_zt() {
         return this.loufang_zt;
+    }
+    /**
+     * 设置 单间床位
+     *
+     * @param loufang_danjian_chuangwei Integer
+     */
+    public void setLoufang_danjian_chuangwei(Integer loufang_danjian_chuangwei) {
+        this.loufang_danjian_chuangwei=loufang_danjian_chuangwei;
+    }
+
+    /**
+     * 取得 单间床位
+     *
+     * @return Integer
+     */
+    public Integer getLoufang_danjian_chuangwei() {
+        return this.loufang_danjian_chuangwei;
+    }
+    /**
+     * 设置 已用单间床位
+     *
+     * @param loufang_danjian_chuangwei2 Integer
+     */
+    public void setLoufang_danjian_chuangwei2(Integer loufang_danjian_chuangwei2) {
+        this.loufang_danjian_chuangwei2=loufang_danjian_chuangwei2;
+    }
+
+    /**
+     * 取得 已用单间床位
+     *
+     * @return Integer
+     */
+    public Integer getLoufang_danjian_chuangwei2() {
+        return this.loufang_danjian_chuangwei2;
+    }
+    /**
+     * 设置 套间床位
+     *
+     * @param loufang_taojian_chuangwei Integer
+     */
+    public void setLoufang_taojian_chuangwei(Integer loufang_taojian_chuangwei) {
+        this.loufang_taojian_chuangwei=loufang_taojian_chuangwei;
+    }
+
+    /**
+     * 取得 套间床位
+     *
+     * @return Integer
+     */
+    public Integer getLoufang_taojian_chuangwei() {
+        return this.loufang_taojian_chuangwei;
+    }
+    /**
+     * 设置 已用套间床位
+     *
+     * @param loufang_taojian_chuangwei2 Integer
+     */
+    public void setLoufang_taojian_chuangwei2(Integer loufang_taojian_chuangwei2) {
+        this.loufang_taojian_chuangwei2=loufang_taojian_chuangwei2;
+    }
+
+    /**
+     * 取得 已用套间床位
+     *
+     * @return Integer
+     */
+    public Integer getLoufang_taojian_chuangwei2() {
+        return this.loufang_taojian_chuangwei2;
     }
 }

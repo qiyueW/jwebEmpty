@@ -1,8 +1,14 @@
-//页面文档加载完后-调用此函数。
-//需要初始化的，统一放到此函数来
-//初始化
-function inido() {
-
+function f_initEdit(iniTreeIDValue) {
+    toCreateTree("divID_Tree_menu_LoufangFL", "loufangfl_zj", "loufangfl_fzj", "loufangfl_mc", "/base/loufangfl/select/json.jw", false, function (event, id, treeNode) {
+        $.messager.confirm('请确认', "是否改变此分类？", function (r) {
+            $("#loufangfl_zj").val(treeNode.loufangfl_zj)
+            $("#loufangfl_mc").textbox('setValue', treeNode.loufangfl_mc);
+        });
+    }, true, function () {
+        var treeObj = $.fn.zTree.getZTreeObj("divID_Tree_menu_LoufangFL");
+        var node = treeObj.getNodeByParam("loufangfl_zj", iniTreeIDValue, null);
+        $("#loufangfl_mc").textbox('setValue', node.loufangfl_mc);
+    });
 }
 var close = false;
 function closeMySelf() {
@@ -18,26 +24,28 @@ function closeMySelf() {
 }
 //提交表单
 function submitForm(formid) {
-    var vcheck = $('#'+formid).form('enableValidation').form('validate');
+    var vcheck = $('#' + formid).form('enableValidation').form('validate');
     if (vcheck) {
-        close=true;
+        close = true;
         $("#dg").datagrid('endEdit', getIndex());
         var datas = $('#dg').datagrid('getData');
         var rs = "";
         for (var i = 0; i < datas.total; i++) {
             //if (datas.rows[i].xx) //假设哪例不为空的情况下，才算进记录中，需要人为二次调整与判断
-                rs = rs + getJsonByBody(datas.rows[i], i == 0 ? null : ",");
+            rs = rs + getJsonByBody(datas.rows[i], i == 0 ? null : ",");
         }
         var data = {};
         data.loufang_zj = $('#loufang_zj').val()//主键
-            data.loufangfl_zj = $('#loufangfl_zj').val() //分类外键
-            data.loufang_mc = $('#loufang_mc').val() //名称
-            data.loufang_tj_danrenfang = $('#loufang_tj_danrenfang').val() //单人房总数
-            data.loufang_tj_taojianfang = $('#loufang_tj_taojianfang').val() //套间房总数
-            data.loufang_dizhi = $('#loufang_dizhi').val() //地址
-            data.loufang_bz = $('#loufang_bz').val() //备注
-            data.loufang_gelibiaoshi = $('#loufang_gelibiaoshi').val() //隔离标识
-            data.loufang_zt = $('#loufang_zt').val() //状态
+        data.loufangfl_zj = $('#loufangfl_zj').val() //分类外键
+        data.loufang_mc = $('#loufang_mc').val() //名称
+        data.loufang_dizhi = $('#loufang_dizhi').val() //地址
+        data.loufang_bz = $('#loufang_bz').val() //备注
+        data.loufang_gelibiaoshi = $('#loufang_gelibiaoshi').val() //隔离标识
+        data.loufang_zt = $('#loufang_zt').val() //状态
+        data.loufang_danjian_chuangwei = $('#loufang_danjian_chuangwei').val() //单间床位
+        data.loufang_danjian_chuangwei2 = $('#loufang_danjian_chuangwei2').val() //已用单间床位
+        data.loufang_taojian_chuangwei = $('#loufang_taojian_chuangwei').val() //套间床位
+        data.loufang_taojian_chuangwei2 = $('#loufang_taojian_chuangwei2').val() //已用套间床位
         data.jsonkey = rs ? "[" + rs + "]" : "";
         easyuiAjax("/base/loufang/update.jw", data, "请确认修改操作", function () {
             //回调函数
@@ -66,7 +74,7 @@ function getIndex() {
     return row ? $("#dg").datagrid('getRowIndex', row) : 0;
 }
 function dellRow() {
-    var index =getIndex()
+    var index = getIndex()
     $("#dg").datagrid('deleteRow', index)
     if (editIndex) {
         $('#dg').datagrid('endEdit', editIndex);
@@ -81,7 +89,7 @@ function addRow() {
     });
 }
 function MoveUp() {
-    var index =getIndex()
+    var index = getIndex()
     mysort(index, 'up', 'dg');
 }
 //下移
@@ -154,11 +162,5 @@ function onClickCell(index, field) {
     $("#dg").datagrid('beginEdit', index);//{index:index, field: field}
     var ed = $("#dg").datagrid('getEditor', {index: index, field: field});//获取当前编辑器
     $(ed.target).focus();//获取焦点
-    //
-//                if (endEditing()) {
-//                    console.log("doing endEditing()"+(++i))
-//                    $('#dg').datagrid('selectRow', index)
-//                            .datagrid('editCell', {index: index, field: field});
     editIndex = index;
-//                }
 }

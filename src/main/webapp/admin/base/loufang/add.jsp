@@ -7,6 +7,7 @@
         <%@include file="/WEB-INF/jspf/easyuiLocal.jspf"%>
         <%@include file="/WEB-INF/jspf/ztree.jspf"%>
         <script type="text/javascript" src="${path_home}/static/js/loufang/add.js"></script>
+        <script type="text/javascript" src="${path_home}/static/js/loufang/common.js"></script>
         <script>
             $(function () {
                 f_extend_select();
@@ -20,10 +21,7 @@
                 $('#dg').datagrid('hideColumn', 'loufang2_gelibiaoshi');
                 $('#dg').datagrid('hideColumn', 'loufang2_zj');
                 $('#dg').datagrid('hideColumn', 'loufang2_ruzhuren_zj');
-                toCreateTree("divID_Tree_menu_LoufangFL", "loufangfl_zj", "loufangfl_fzj", "loufangfl_mc", "/base/loufangfl/select/json.jw", false, function (event, id, treeNode) {
-                    $("#loufangfl_zj").val(treeNode.loufangfl_zj)
-                     $("#loufangfl_mc").textbox('setValue',treeNode.loufangfl_mc);
-                }, true);
+                f_init();
             });
 //            function f_panduan(value, row, index) {
 //                if (value instanceof Object) {
@@ -56,13 +54,19 @@
                         <th data-options="field:'loufang2_gelibiaoshi'">隔离标识</th>
                         <th data-options="field:'loufang2_zj'">主键</th>
                         <th data-options="field:'loufang2_bianhao',width:90,editor:'text'"><div>编号</div></th>
-                <th data-options="field:'loufang2_mingcheng',width:90,editor:'text'"><div>名称</div></th>
-                <th data-options="field:'loufang2_chuangwei',width:90,editor:'text'"><div>床位</div></th>
-                <th data-options="field:'loufang2_ruzhurenshu',width:90,editor:'text'"><div>入住人数</div></th>
-                <th data-options="field:'loufang2_ruzhuren_zj'">入住人主键集合</th>
-                <th data-options="field:'loufang2_lx',width:90,editor:'text'"><div>房间类型</div></th>
-                <th data-options="field:'loufang2_bz',width:90,editor:'text'"><div>备注</div></th>
-                </tr>
+                        <th data-options="field:'loufang2_mingcheng',width:90,editor:'text'"><div>名称</div></th>
+                        <th data-options="field:'loufang2_chuangwei',width:90,editor:'text'"><div>床位</div></th>
+                        <th data-options="field:'loufang2_ruzhurenshu',width:90,editor:'text'"><div>入住人数</div></th>
+                        <th data-options="field:'loufang2_ruzhuren_zj'">入住人主键集合</th>
+                        <th data-options="field:'loufang2_lx',width:90,editor:{type:'combobox',options:{
+                            data:DATA_LOUFANG2_LX
+                            ,editable:false
+                            ,width:200
+                            ,valueField:'loufang2_lx'
+                            ,textField:'loufang2_lx2'
+                            }}"><div>房间类型</div></th>
+                        <th data-options="field:'loufang2_bz',width:90,editor:'text'"><div>备注</div></th>
+                    </tr>
                 </thead>
             </table>
             <div id="tb" style="padding:2px 5px;">
@@ -88,20 +92,6 @@
                             <td>备注</td><td colspan="3"><input type="text" style="width:500px;" id="loufang_bz" name="loufang_bz" data-options="required:false" class="easyui-textbox"/></td>
                         </tr>
                     </table>
-<!--                    <div class="container"  id="LoufangFormID">
-                        <div class="row-fluid">
-                            <div class="span12">
-                                <span class="myname" >单人房总数</span>
-                                <input type="text"  id="loufang_tj_danrenfang" name="loufang_tj_danrenfang" data-options="required:false" class="easyui-textbox"/>
-                            </div>
-                        </div>
-                        <div class="row-fluid">
-                            <div class="span12">
-                                <span class="myname" >套间房总数</span>
-                                <input type="text"  id="loufang_tj_taojianfang" name="loufang_tj_taojianfang" data-options="required:false" class="easyui-textbox"/>
-                            </div>
-                        </div>
-                    </div>-->
                 </div>
             </div>
         </div>

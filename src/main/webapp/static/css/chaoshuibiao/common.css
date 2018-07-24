@@ -1,0 +1,16 @@
+.STYLE2 {font-family: "新宋体"; margin-right:6px;}
+.textbox{border:none}
+.operationHead{
+    margin: 10px;
+    font-size:14px;
+}
+table input{
+    width:193px;
+    height:20px;
+    border:0px;outline:none;
+}
+table select{
+    width:193px;
+    height:20px;
+    border:0px;outline:none;
+}

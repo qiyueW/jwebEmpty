@@ -56,6 +56,9 @@ final public class RYService {
     public static List<RY> select(final int page, final int size, final String where, final String ordery) {
         return DBO.service.S.selectVastByCondition(RY.class, page, size, null == where ? "" : where, null == ordery ? "" : ordery);
     }
+    public static List<RY> select(final String where, final String ordery) {
+        return DBO.service.S.selectByCondition(RY.class, null == where ? "" : where, null == ordery ? "" : ordery);
+    }
 //---------------------------------------隔离标识管理--------------------------------------
 
     public static boolean isErrorGelibiaoshiVast(String ids, String gelibiaoshi) {

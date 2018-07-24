@@ -28,19 +28,19 @@
             <name>wangchunzi</name>
             <email>pankeng1988w@163.com</email>
             <organization>wangchunzi</organization>
-            <url>https://github.com/qiyueW/JWeb</url>
+            <url>https://github.com/qiyueW/jwebEmpty</url>
             <roles>
                 <role>developer</role>
             </roles>
             <timezone>+8</timezone>
         </developer>
     </developers>
-    <scm>
+    <!--    <scm>
         <connection>scm:git:https://github.com/qiyueW/jwebEmpty.git</connection>
         <developerConnection>scm:git:https://github.com/qiyueW/jwebEmpty.git</developerConnection>
         <url>https://github.com/qiyueW/jwebEmpty</url>
         <tag>v${project.version}</tag>
-    </scm>
+    </scm>-->
 
     <dependencies>
         <!--JWeb框架 -->
@@ -67,13 +67,13 @@
             <version>7.0</version>
             <scope>provided</scope>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.codehaus.mojo/exec-maven-plugin -->
-        <!--websocket-->
+        <!--         https://mvnrepository.com/artifact/org.codehaus.mojo/exec-maven-plugin 
+        websocket
         <dependency>
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>exec-maven-plugin</artifactId>
             <version>1.2.1</version>
-        </dependency>
+        </dependency>-->
         <!--excel文档操作 -->
         <dependency>
             <groupId>org.apache.poi</groupId>
@@ -114,7 +114,7 @@
             <version>1.1.2</version>
         </dependency>
         <!--模板引擎-->
-        <dependency>
+        <!--        <dependency>
             <groupId>org.apache.velocity</groupId>
             <artifactId>velocity-engine-core</artifactId>
             <version>2.0</version>
@@ -124,13 +124,13 @@
                     <artifactId>slf4j-api</artifactId>
                 </exclusion>
             </exclusions>
-        </dependency>
+        </dependency>-->
         <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
-        <dependency>
+        <!--        <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
             <version>1.8.0-beta2</version>
-        </dependency>
+        </dependency>-->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
@@ -152,20 +152,24 @@
 
     <build>
         <plugins>
-            <plugin>
+            <!--            <plugin>
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
                 <version>9.4.8.v20171121</version>
                 <configuration> 
                     <scanIntervalSeconds>10</scanIntervalSeconds>
                 </configuration>
-            </plugin>
+            </plugin>-->
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.3.2</version>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
+                <version>9.4.11.v20180605</version>
                 <configuration>
-                    <debug>false</debug>
+                    <scanIntervalSeconds>10</scanIntervalSeconds>
+                    <webAppConfig>  
+                        <contextPath>/</contextPath>
+                        <defaultsDescriptor>src/main/resources/webdefault.xml</defaultsDescriptor>
+                    </webAppConfig>
                 </configuration>
             </plugin>
         </plugins>

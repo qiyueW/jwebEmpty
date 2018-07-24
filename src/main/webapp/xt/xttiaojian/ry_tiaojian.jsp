@@ -6,8 +6,8 @@
         <title>系统条件管理-添加</title>
         <%@include file="/WEB-INF/jspf/easyuiLocal.jspf"%>
         <%@include file="/WEB-INF/jspf/ztree.jspf"%>
-        <script type="text/javascript" src="${path_home}/xt/js/xttiaojian/common.js?id=<%=new Date()%>"></script>
-        <script type="text/javascript" src="${path_home}/xt/js/xttiaojian/ry_tiaojian.js?id=<%=new Date()%>"></script>
+        <script type="text/javascript" src="${path_home}/xt/js/xttiaojian/common.js"></script>
+        <script type="text/javascript" src="${path_home}/xt/js/xttiaojian/ry_tiaojian.js"></script>
         <script>
             $(function () {
                 f_extend_select();

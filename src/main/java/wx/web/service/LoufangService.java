@@ -14,11 +14,14 @@ import wx.web.bean.Loufang2;
  * @author wangchunzi
  */
 final public class LoufangService {
+
     private static final String TABLE1 = "Loufang";
     private static final String PK1 = "loufang_zj";
     private static final String STYLE1 = "loufang_zt";
     private static final String GE_LI_BIAO_SHI = "loufang_gelibiaoshi";
+    private static final String FANGJIAN_LX_DANJIAN = "单间";
 //---------------------------------------查询---------------------------------------
+
     /**
      * 检出一条记录(表头)
      *
@@ -52,6 +55,14 @@ final public class LoufangService {
         return DBO.service.S.selectVastByCondition(Loufang.class, page, size, null == where ? "" : where, null == ordery ? "" : ordery);
     }
 
+    public static List<Loufang> select(String GLBS) {
+        return DBO.service.S.selectByCondition(Loufang.class, "WHERE loufang_gelibiaoshi='" + GLBS + "'");
+    }
+
+    public static List<Loufang> selectCanUse(String GLBS) {
+        return DBO.service.S.selectByCondition(Loufang.class, "WHERE loufang_gelibiaoshi='" + GLBS + "' AND (loufang_danjian_chuangwei>loufang_danjian_chuangwei2 OR loufang_taojian_chuangwei>loufang_taojian_chuangwei2)");
+    }
+
     /**
      * 检出表体数据 根据表头主键
      *
@@ -59,9 +70,24 @@ final public class LoufangService {
      * @return List
      */
     public static List<Loufang2> select2(String pid) {
-        return DBO.service.S.selectByCondition(Loufang2.class, "WHERE "+PK1+" IN('" + pid + "')");
+        return DBO.service.S.selectByCondition(Loufang2.class, "WHERE " + PK1 + " IN('" + pid + "')");
+    }
+
+    /**
+     * 通过指定楼，房单编号，隔离标识
+     *
+     * @param loufang_zj 通过指定楼的主键
+     * @param bianma 房单编号
+     * @param gelibiaoshi 隔离标识
+     * @return
+     */
+    public static Loufang2 select2One(String loufang_zj, String bianma, String gelibiaoshi) {
+        return DBO.service.S.selectOneByCondition(Loufang2.class,
+                "loufang_zj='" + loufang_zj + "' AND loufang2_bianhao='" + bianma + "' AND loufang2_gelibiaoshi='" + gelibiaoshi + "'"
+        );
     }
 //---------------------------------------统计区--------------------------------------
+
     /**
      * 统计表头数据(条件为null或为空时，表示统计整张表)
      *
@@ -70,8 +96,9 @@ final public class LoufangService {
      */
     public static int selectCount(final String where) {
         return null == where || where.isEmpty() ? DBO.service.S.selectCount(Loufang.class) : DBO.service.S.selectCountByCondition(Loufang.class, where);
-    }    
+    }
 //---------------------------------------增删改--------------------------------------
+
     /**
      * 添加数据
      *
@@ -79,9 +106,9 @@ final public class LoufangService {
      * @param list 多方
      * @return MsgVO
      */
-    public static MsgVO addOne(Loufang  obj, List<Loufang2 > list) {
+    public static MsgVO addOne(Loufang obj, List<Loufang2> list) {
         plugins.Table<Loufang2> table = new plugins.Table(list);
-        if(!table.isUnique("loufang2_bianhao")){
+        if (!table.isUnique("loufang2_bianhao")) {
             return MsgVO.setError("添加异常,表体编号不唯一，请调整后再试");
         }
         obj.setLoufang_zt(0);
@@ -92,6 +119,7 @@ final public class LoufangService {
         }
         return MsgVO.setAddRS(i[0]);
     }
+
     /**
      * 删除指定数据。
      *
@@ -104,6 +132,7 @@ final public class LoufangService {
         }
         return MsgVO.setDellRS(DBO.service.D.ooDelete(ids, Loufang.class, Loufang2.class));
     }
+
     /**
      * 修改 一条记录（一个表头，多个表体。即一对多表）<br>
      * 本方法采用删除旧表体的方法，强烈建议反审核时，此单一定是没有其他引用才可以反审，反审后才能修改。<br>
@@ -116,9 +145,9 @@ final public class LoufangService {
     public static MsgVO update(Loufang obj, List<Loufang2> list) {
         if (null == obj.getLoufang_zj() || obj.getLoufang_zj().length() != 24) {
             return MsgVO.setError("修改异常,表头信息丢失，请退出修改界面后，重新操作");
-        }    
+        }
         plugins.Table<Loufang2> table = new plugins.Table(list);
-        if(!table.isUnique("loufang2_bianhao")){
+        if (!table.isUnique("loufang2_bianhao")) {
             return MsgVO.setError("修改异常,表体编号不唯一，请调整后再试");
         }
         if (selectOne(obj.getLoufang_zj()).getLoufang_zt() != BaseService.XINZENG) {
@@ -126,18 +155,80 @@ final public class LoufangService {
         }
         int[] i = DBO.service.ADUS.executeBatch(
                 //loufang_zt,隔离标识
-                DBO.service.SQL.updateSome_reject(obj, "loufang_zt,loufang_gelibiaoshi")//修改表头的数据,排序字段不进行修改
+                DBO.service.SQL.updateSome_reject(obj, "loufang_zt,loufang_gelibiaoshi,loufang_danjian_chuangwei2,loufang_taojian_chuangwei2")//修改表头的数据,排序字段不进行修改
                 ,
                  DBO.service.SQL.dellByCondition(Loufang2.class, "WHERE loufang_zj='" + obj.getLoufang_zj() + "'")//清空旧表体的值
                 ,
                  DBO.service.SQL.addVast(list)//加入新表体的值
         );
-        if(null==i){
+        if (null == i) {
             return MsgVO.setError("修改操作异常。请通知管理查询服务器日志");
         }
         return MsgVO.setUpdateRS(i[0]);
     }
 
+    /**
+     * 将入住的楼，进行重新统计；入住的房，数据+1
+     * <p>
+     * 注：执行事务时，需要单线程或锁定线程开启同步。否则这统计的数据可能不准备。
+     *
+     * @param obj Loufang 入住的楼
+     * @param obj2 Loufang2 入住的房间
+     * @param ruzhuren_zj 入住人员
+     * @param gelibiaoshi 客户的隔离标识
+     * @return 可执行的sql语句。2条
+     */
+    public static String[] ruzhu(Loufang obj, Loufang2 obj2, String ruzhuren_zj, String gelibiaoshi) {
+        //房间床位+1
+        obj2.setLoufang2_ruzhurenshu(obj2.getLoufang2_ruzhurenshu() + 1);
+        //入住人员增加新人
+        obj2.setLoufang2_ruzhuren_zj(Tool.isEmpty(obj2.getLoufang2_ruzhuren_zj()) ? ruzhuren_zj : obj2.getLoufang2_ruzhuren_zj() + "," + ruzhuren_zj);
+        //重新统计表头的已用床位
+        if (obj2.getLoufang2_lx().equals(FANGJIAN_LX_DANJIAN)) {
+            obj.setLoufang_danjian_chuangwei2(obj.getLoufang_danjian_chuangwei2() + 1);//已用单间+1
+        } else {
+            obj.setLoufang_taojian_chuangwei2(obj.getLoufang_taojian_chuangwei2() + 1);//已用套间+1
+        }
+        String[] sql = new String[2];
+        sql[0] = DBO.service.SQL.updateSome_alloy(obj, "loufang_danjian_chuangwei2,loufang_taojian_chuangwei2");
+        sql[1] = DBO.service.SQL.updateSome_alloy(obj2, "loufang2_ruzhurenshu,loufang2_ruzhuren_zj");
+        return sql;
+    }
+
+    public static void sumLoufang_add(final Loufang obj, final List<Loufang2> list, final String gelibiaoshi) {
+        int count_danjian = 0;//合计单间的数量
+        int count_taojian = 0;//合计套件的数据
+        for (Loufang2 o2 : list) {
+            o2.setLoufang2_gelibiaoshi(gelibiaoshi);
+            if (o2.getLoufang2_lx().equals(FANGJIAN_LX_DANJIAN)) {
+                count_danjian = count_danjian + o2.getLoufang2_chuangwei();//统计单间床位
+            } else {
+                count_taojian = count_taojian + o2.getLoufang2_chuangwei();//统计套间床位
+            }
+            o2.setLoufang2_ruzhurenshu(0);//入住人数锁定0
+        }
+        obj.setLoufang_danjian_chuangwei(count_danjian);
+        obj.setLoufang_taojian_chuangwei(count_taojian);
+    }
+
+    public static void sumLoufang_update(final Loufang obj, final List<Loufang2> list, final String gelibiaoshi) {
+        int count_danjian = 0;//合计单间的数量
+        int count_taojian = 0;//合计套件的数据
+        for (Loufang2 o2 : list) {
+            o2.setLoufang2_gelibiaoshi(gelibiaoshi);
+            o2.setLoufang_zj(obj.getLoufang_zj());//锁定表头主键
+            if (o2.getLoufang2_lx().equals(FANGJIAN_LX_DANJIAN)) {
+                count_danjian = count_danjian + o2.getLoufang2_chuangwei();//统计单间床位
+            } else {
+                count_taojian = count_taojian + o2.getLoufang2_chuangwei();//统计套间床位
+            }
+            if (null == o2.getLoufang2_ruzhurenshu()) {
+                o2.setLoufang2_ruzhurenshu(0);//入住人数锁定0
+            }
+        }
+        obj.setLoufang_danjian_chuangwei(count_danjian);
+        obj.setLoufang_taojian_chuangwei(count_taojian);
+    }
 //---------------------------------------单据状态管理---------------------------------------
 
     /**
@@ -157,7 +248,7 @@ final public class LoufangService {
      * @return
      */
     public static MsgVO updateStyle_unExamine(String ids) {
-        return BaseService.updateStyle_unExamine(ids,  TABLE1, PK1, STYLE1);
+        return BaseService.updateStyle_unExamine(ids, TABLE1, PK1, STYLE1);
     }
 
     /**
@@ -167,7 +258,7 @@ final public class LoufangService {
      * @return
      */
     public static MsgVO updateStyle_void(String ids) {
-        return BaseService.updateStyle_void(ids,  TABLE1, PK1, STYLE1);
+        return BaseService.updateStyle_void(ids, TABLE1, PK1, STYLE1);
     }
 
     /**
@@ -183,17 +274,20 @@ final public class LoufangService {
 //---------------------------------------隔离标识管理--------------------------------------
     public static boolean isErrorGelibiaoshiVast(String ids, String gelibiaoshi) {
         List<Loufang> list = DBO.service.S.selectByCondition(Loufang.class, "WHERE loufang_zj IN(" + configuration.Tool.replaceDToDDD(ids) + ")");
-        return BaseService.isErrorGelibiaoshiVast(list,GE_LI_BIAO_SHI, gelibiaoshi);
+        return BaseService.isErrorGelibiaoshiVast(list, GE_LI_BIAO_SHI, gelibiaoshi);
     }
+
     public static boolean isErrorGelibiaoshiVast(List<Loufang> list, String gelibiaoshi) {
-        return BaseService.isErrorGelibiaoshiVast(list,GE_LI_BIAO_SHI, gelibiaoshi);
+        return BaseService.isErrorGelibiaoshiVast(list, GE_LI_BIAO_SHI, gelibiaoshi);
     }
+
     public static boolean isErrorGelibiaoshiOne(String id, String gelibiaoshi) {
         Loufang obj = DBO.service.S.selectOneByID(Loufang.class, id);
-        return BaseService.isErrorGelibiaoshiOne(obj,GE_LI_BIAO_SHI, gelibiaoshi);
+        return BaseService.isErrorGelibiaoshiOne(obj, GE_LI_BIAO_SHI, gelibiaoshi);
     }
+
     public static boolean isErrorGelibiaoshiOne(Loufang obj, String gelibiaoshi) {
-        return BaseService.isErrorGelibiaoshiOne(obj,GE_LI_BIAO_SHI, gelibiaoshi);
+        return BaseService.isErrorGelibiaoshiOne(obj, GE_LI_BIAO_SHI, gelibiaoshi);
     }
 
 }
