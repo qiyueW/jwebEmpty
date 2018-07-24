@@ -60,24 +60,6 @@
                         <td bordercolor="#9900FF"><input class="easyui-textbox" type="text"  id="loufang_fybz_shuifei"  data-options="required:true"/></td>
                     </tr>
                 </table>
-                <!--                <div class="row-fluid">
-                                    <div class="span12">
-                                        <span class="myname" >冷水费标准</span>
-                                        <input type="text"  id="loufang_fybz_shuifei_leng" name="loufang_fybz_shuifei_leng" data-options="required:true" class="easyui-textbox"/>
-                                    </div>
-                                </div>
-                                <div class="row-fluid">
-                                    <div class="span12">
-                                        <span class="myname" >热水费标准</span>
-                                        <input type="text"  id="loufang_fybz_shuifei_re" name="loufang_fybz_shuifei_re" data-options="required:true" class="easyui-textbox"/>
-                                    </div>
-                                </div>
-                                <div class="row-fluid">
-                                    <div class="span12">
-                                        <span class="myname" >煤气费标准</span>
-                                        <input type="text"  id="loufang_fybz_meiqi" name="loufang_fybz_meiqi" data-options="required:true" class="easyui-textbox"/>
-                                    </div>
-                                </div>-->
             </div>
         </div>
     </body>

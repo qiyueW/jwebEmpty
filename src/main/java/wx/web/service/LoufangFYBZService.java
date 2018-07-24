@@ -18,6 +18,7 @@ final public class LoufangFYBZService {
     private static final String STYLE1 = "loufang_fybz_zt";
     private static final String GE_LI_BIAO_SHI = "loufang_fybz_gelibiaoshi";
 //---------------------------------------查询---------------------------------------
+
     /**
      * 检出一条记录(表头)
      *
@@ -50,8 +51,9 @@ final public class LoufangFYBZService {
      */
     public static int selectCount(final String where) {
         return null == where || where.isEmpty() ? DBO.service.S.selectCount(LoufangFYBZ.class) : DBO.service.S.selectCountByCondition(LoufangFYBZ.class, where);
-    }    
+    }
 //---------------------------------------增删改--------------------------------------
+
     /**
      * 添加数据
      *
@@ -60,6 +62,9 @@ final public class LoufangFYBZService {
      */
     public static MsgVO addOne(LoufangFYBZ obj) {
         obj.setLoufang_fybz_zt(0);
+        if (selectCount("WHERE loufang_fybz_loufang_zj='" + obj.getLoufang_fybz_loufang_zj() + "'") > 0) {
+            return MsgVO.setError("本楼房的费用标准已经存在。如果调整，请找到原记录进行修改");
+        }
         int i = DBO.service.A.addOne(obj);
         return MsgVO.setAddRS(i);
     }
@@ -72,7 +77,7 @@ final public class LoufangFYBZService {
      */
     public static MsgVO dellOne(String id) {
         LoufangFYBZ cobj = selectOne(id);
-        if (null == cobj||null==cobj.getLoufang_fybz_zj()||cobj.getLoufang_fybz_zt() != BaseService.XINZENG) {
+        if (null == cobj || null == cobj.getLoufang_fybz_zj() || cobj.getLoufang_fybz_zt() != BaseService.XINZENG) {
             return MsgVO.setError("没找到该记录。请刷新后再尝试");
         }
         int i = DBO.service.D.deleteOneByID_CheckToDeny(LoufangFYBZ.class, id, "loufang_fybz_zt<>0");
@@ -94,27 +99,30 @@ final public class LoufangFYBZService {
             return MsgVO.setError();
         }
         return MsgVO.setUpdateRS(DBO.service.U.updateSome_reject(obj,
-        //loufang_fybz_zt,隔离标识
-                "loufang_fybz_zt,loufang_fybz_gelibiaoshi"));
+                //loufang_fybz_zt,隔离标识,楼房主键,楼名 
+                "loufang_fybz_zt,loufang_fybz_gelibiaoshi,loufang_fybz_loufang_zj,loufang_fybz_loufang_mc"));
     }
 //---------------------------------------隔离标识管理--------------------------------------
+
     public static boolean isErrorGelibiaoshiVast(String ids, String gelibiaoshi) {
         List<LoufangFYBZ> list = DBO.service.S.selectByCondition(LoufangFYBZ.class, "WHERE loufang_fybz_zj IN(" + configuration.Tool.replaceDToDDD(ids) + ")");
-        return BaseService.isErrorGelibiaoshiVast(list,GE_LI_BIAO_SHI, gelibiaoshi);
+        return BaseService.isErrorGelibiaoshiVast(list, GE_LI_BIAO_SHI, gelibiaoshi);
     }
+
     public static boolean isErrorGelibiaoshiVast(List<LoufangFYBZ> list, String gelibiaoshi) {
-        return BaseService.isErrorGelibiaoshiVast(list,GE_LI_BIAO_SHI, gelibiaoshi);
+        return BaseService.isErrorGelibiaoshiVast(list, GE_LI_BIAO_SHI, gelibiaoshi);
     }
+
     public static boolean isErrorGelibiaoshiOne(String id, String gelibiaoshi) {
         LoufangFYBZ obj = DBO.service.S.selectOneByID(LoufangFYBZ.class, id);
-        return BaseService.isErrorGelibiaoshiOne(obj,GE_LI_BIAO_SHI, gelibiaoshi);
+        return BaseService.isErrorGelibiaoshiOne(obj, GE_LI_BIAO_SHI, gelibiaoshi);
     }
+
     public static boolean isErrorGelibiaoshiOne(LoufangFYBZ obj, String gelibiaoshi) {
-        return BaseService.isErrorGelibiaoshiOne(obj,GE_LI_BIAO_SHI, gelibiaoshi);
+        return BaseService.isErrorGelibiaoshiOne(obj, GE_LI_BIAO_SHI, gelibiaoshi);
     }
 
 //---------------------------------------单据状态管理---------------------------------------
-
     /**
      * 审核
      *
@@ -132,7 +140,7 @@ final public class LoufangFYBZService {
      * @return
      */
     public static MsgVO updateStyle_unExamine(String ids) {
-        return BaseService.updateStyle_unExamine(ids,  TABLE1, PK1, STYLE1);
+        return BaseService.updateStyle_unExamine(ids, TABLE1, PK1, STYLE1);
     }
 
     /**
@@ -142,7 +150,7 @@ final public class LoufangFYBZService {
      * @return
      */
     public static MsgVO updateStyle_void(String ids) {
-        return BaseService.updateStyle_void(ids,  TABLE1, PK1, STYLE1);
+        return BaseService.updateStyle_void(ids, TABLE1, PK1, STYLE1);
     }
 
     /**

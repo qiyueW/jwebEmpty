@@ -1,5 +1,6 @@
 package wx.web.hm;
 
+import configuration.MsgVO;
 import configuration.Page;
 import system.base.annotation.H;
 import system.base.annotation.M;
@@ -7,9 +8,13 @@ import system.base.annotation.Validate;
 import system.web.JWeb;
 import configuration.Tool;
 import plugins.easyui.EasyuiService;
+import wx.web.bean.Loufang;
 import wx.web.bean.LoufangFYBZ;
+import wx.web.bean.RY;
 import wx.web.service.LoufangFYBZService;
+import wx.web.service.LoufangService;
 import wx.xt.Gelibiaoshi;
+
 @H("/base/loufangfybz")
 public class LoufangFYBZHM {
 
@@ -19,15 +24,23 @@ public class LoufangFYBZHM {
         this.jw = jw;
     }
 //===================添加操作=============================    
+
     @system.web.power.ann.SQ("loufangfybzA")
     @M("/save")
     @Validate(wx.web.validate.LoufangFYBZValidate.class)
     public void add() {
         LoufangFYBZ obj = jw.getObject(LoufangFYBZ.class);
-        obj.setLoufang_fybz_gelibiaoshi(Gelibiaoshi.getGelibiaoshi(jw));
+        RY ry = Gelibiaoshi.getUserInfoBySession(jw);
+        Loufang lobj = LoufangService.selectOne(obj.getLoufang_fybz_loufang_zj());
+        if (null == lobj || null == lobj.getLoufang_zj() || LoufangService.isErrorGelibiaoshiOne(lobj, ry.getRy_gelibiaoshi())) {
+            jw.printOne(MsgVO.setError("楼房不存在"));
+            return;
+        }
+        obj.setLoufang_fybz_gelibiaoshi(ry.getRy_gelibiaoshi());
         jw.printOne(LoufangFYBZService.addOne(obj));
     }
 //===================删除操作=============================    
+
     @system.web.power.ann.SQ("loufangfybzD")
     @M("/remove")
     public void dellVast() {
@@ -41,23 +54,26 @@ public class LoufangFYBZHM {
         jw.printOne(LoufangFYBZService.dellOne(id));
     }
 //===================修改操作=============================    
+
     @system.web.power.ann.SQ("loufangfybzU")
     @M("/update")
     @Validate(wx.web.validate.LoufangFYBZValidate.class)
-	public void update() {
-		LoufangFYBZ obj = jw.getObject(LoufangFYBZ.class);
-		if (null == obj.getLoufang_fybz_zj() || obj.getLoufang_fybz_zj().length() != 24)
-			return;
+    public void update() {
+        LoufangFYBZ obj = jw.getObject(LoufangFYBZ.class);
+        if (null == obj.getLoufang_fybz_zj() || obj.getLoufang_fybz_zj().length() != 24) {
+            return;
+        }
         if (LoufangFYBZService.isErrorGelibiaoshiOne(obj, Gelibiaoshi.getGelibiaoshi(jw))) {//存在别人家的隔离标识的单据
             return;
         }
         jw.printOne(LoufangFYBZService.update(obj));
-	}
+    }
+
     @system.web.power.ann.SQ("loufangfybzU")
     @M("/update/select")
     public void updateSelect() {
         String id = jw.getString("id");
-        LoufangFYBZ obj =  LoufangFYBZService.selectOne(id);
+        LoufangFYBZ obj = LoufangFYBZService.selectOne(id);
         if (null == obj.getLoufang_fybz_zj()) {
             return;
         }
@@ -70,19 +86,20 @@ public class LoufangFYBZHM {
 //===================查询操作=============================
     //=========表头查询操作===========
 
-    @system.web.power.ann.SQ("loufangfybzS") 
+    @system.web.power.ann.SQ("loufangfybzS")
     @M("/select/selectOne")//针对表头的查询-一条记录的明细
-	public void selectOne() {
-		String id = jw.getString("id");
-		LoufangFYBZ obj = LoufangFYBZService.selectOne(id);
-		if (null == obj.getLoufang_fybz_zj())
-			return;
+    public void selectOne() {
+        String id = jw.getString("id");
+        LoufangFYBZ obj = LoufangFYBZService.selectOne(id);
+        if (null == obj.getLoufang_fybz_zj()) {
+            return;
+        }
         if (LoufangFYBZService.isErrorGelibiaoshiOne(obj, Gelibiaoshi.getGelibiaoshi(jw))) {//存在别人家的隔离标识的单据
             return;
         }
-		jw.request.setAttribute("LoufangFYBZ", obj);
-		jw.forward("/admin/base/loufangfybz/one.jsp");
-	}
+        jw.request.setAttribute("LoufangFYBZ", obj);
+        jw.forward("/admin/base/loufangfybz/one.jsp");
+    }
 
     @system.web.power.ann.SQ("loufangfybzS")
     @M("/select/json")//针对表头的查询-返回json数据
@@ -98,11 +115,12 @@ public class LoufangFYBZHM {
         String condition = wx.xt.service.XTTiaojianService.openConditionByReturnWhere_key(jw, "loufang_fybz_gelibiaoshi", Gelibiaoshi.getGelibiaoshi(jw));
         Page page = EasyuiService.getPageAndOrderby(jw);
         jw.printOne(EasyuiService.formatGrid(
-            LoufangFYBZService.select(page.getPage(), page.getRows(), condition, page.getOrderBy()),
-            LoufangFYBZService.selectCount(condition))
+                LoufangFYBZService.select(page.getPage(), page.getRows(), condition, page.getOrderBy()),
+                LoufangFYBZService.selectCount(condition))
         );
     }
 //---------------------------------------单据状态管理---------------------------------------
+
     @system.web.power.ann.SQ("loufangfybzE")
     @M("/update/examine")//审核单据
     public void examine() {
@@ -112,6 +130,7 @@ public class LoufangFYBZHM {
         }
         jw.printOne(LoufangFYBZService.updateStyle_examine(ids));
     }
+
     @system.web.power.ann.SQ("loufangfybzUE")
     @M("/update/unexamine")//反审核
     public void unexamine() {
@@ -121,6 +140,7 @@ public class LoufangFYBZHM {
         }
         jw.printOne(LoufangFYBZService.updateStyle_unExamine(ids));
     }
+
     @system.web.power.ann.SQ("loufangfybzV")
     @M("/update/void")//作废
     public void tovoid() {
@@ -130,6 +150,7 @@ public class LoufangFYBZHM {
         }
         jw.printOne(LoufangFYBZService.updateStyle_void(ids));
     }
+
     @system.web.power.ann.SQ("loufangfybzUV")
     @M("/update/unvoid")//反作废
     public void untovoid() {
@@ -139,6 +160,5 @@ public class LoufangFYBZHM {
         }
         jw.printOne(LoufangFYBZService.updateStyle_unVoid(ids));
     }
-
 
 }

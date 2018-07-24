@@ -33,12 +33,12 @@
                 <tr>
                     <th data-options="field:'ck',checkbox:true"></th>                    <th data-options="field:'loufang_fybz_zj'">主键</th>
                     <th data-options="field:'loufang_fybz_loufang_zj'">楼房主键</th>
-                       <th data-options="field:'loufang_fybz_loufang_mc',width:90"><div>楼名</div></th>
+                       <th data-options="field:'loufang_fybz_loufang_mc',width:190"><div>楼名</div></th>
                        <th data-options="field:'loufang_fybz_dianfei',width:90"><div>电费标准</div></th>
                        <th data-options="field:'loufang_fybz_shuifei',width:90"><div>水费标准</div></th>
-                       <th data-options="field:'loufang_fybz_shuifei_leng',width:90"><div>冷水费标准</div></th>
+<!--                       <th data-options="field:'loufang_fybz_shuifei_leng',width:90"><div>冷水费标准</div></th>
                        <th data-options="field:'loufang_fybz_shuifei_re',width:90"><div>热水费标准</div></th>
-                       <th data-options="field:'loufang_fybz_meiqi',width:90"><div>煤气费标准</div></th>
+                       <th data-options="field:'loufang_fybz_meiqi',width:90"><div>煤气费标准</div></th>-->
                     <th data-options="field:'loufang_fybz_zt',width:60,formatter:f_common_style"><div>状态</div></th>
                     <th data-options="field:'loufang_fybz_gelibiaoshi'">隔离标识</th>
                 </tr>

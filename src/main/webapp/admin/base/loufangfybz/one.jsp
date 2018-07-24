@@ -5,79 +5,38 @@
     <head>
         <title>明细-楼房费用标准</title>
         <%@include file="/WEB-INF/jspf/easyuiLocal.jspf"%>
-        <%@include file="/WEB-INF/jspf/boostrap.jspf"%>
         <%@include file="/WEB-INF/jspf/ztree.jspf"%>
+        <link rel="stylesheet" href="${path_home}/static/css/loufangfybz/common.css"  type="text/css" />
         <script>
             function closeMySelf() {
                 window.parent.closethisWindowSeeOne();//调取aa函数
             }
         </script>
-        <style>
-        .row-fluid{
-            margin: 10px;
-        }
-        .row-fluid input{
-            height: 40px;
-            width: 660px;
-        }
-        .row-fluid textarea{
-            width: 660px;
-        }
-        .myname{
-            display:block;
-            width: 660px;
-            background-color: #ebfceb
-        }
-    </style>
     </head>
     <body class="easyui-layout">
-            <input type="hidden" id="loufang_fybz_zj" name="loufang_fybz_zj" value="${LoufangFYBZ.loufang_fybz_zj}">
-            <input type="hidden" id="loufang_fybz_loufang_zj" name="loufang_fybz_loufang_zj" value="${LoufangFYBZ.loufang_fybz_loufang_zj}">
-            <input type="hidden" id="loufang_fybz_zt" name="loufang_fybz_zt" value="${LoufangFYBZ.loufang_fybz_zt}">
-            <input type="hidden" id="loufang_fybz_gelibiaoshi" name="loufang_fybz_gelibiaoshi" value="${LoufangFYBZ.loufang_fybz_gelibiaoshi}">
-<div class="container"  style="height:100%;overflow-y: scroll">
-            <div class="row-fluid">
-                <div class="span12">
-                    <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" onclick="closeMySelf()">关闭</a>
-                </div>
-            </div>
-                <div class="row-fluid">
-                    <div class="span12">
-                            <span class="myname" >楼名</span>
-                            ${LoufangFYBZ.loufang_fybz_loufang_mc}
-                    </div>
-                </div>
-                <div class="row-fluid">
-                    <div class="span12">
-                            <span class="myname" >电费标准</span>
-                            ${LoufangFYBZ.loufang_fybz_dianfei}
-                    </div>
-                </div>
-                <div class="row-fluid">
-                    <div class="span12">
-                            <span class="myname" >水费标准</span>
-                            ${LoufangFYBZ.loufang_fybz_shuifei}
-                    </div>
-                </div>
-                <div class="row-fluid">
-                    <div class="span12">
-                            <span class="myname" >冷水费标准</span>
-                            ${LoufangFYBZ.loufang_fybz_shuifei_leng}
-                    </div>
-                </div>
-                <div class="row-fluid">
-                    <div class="span12">
-                            <span class="myname" >热水费标准</span>
-                            ${LoufangFYBZ.loufang_fybz_shuifei_re}
-                    </div>
-                </div>
-                <div class="row-fluid">
-                    <div class="span12">
-                            <span class="myname" >煤气费标准</span>
-                            ${LoufangFYBZ.loufang_fybz_meiqi}
-                    </div>
-                </div>
+        <input type="hidden" id="loufang_fybz_zj" name="loufang_fybz_zj" value="${LoufangFYBZ.loufang_fybz_zj}">
+        <div class="operationHead">
+            <a href="javascript:void(0)"  class="easyui-linkbutton"  onclick="closeMySelf()">关闭</a>
         </div>
+        <table border="1" cellpadding="0" cellspacing="0" bordercolor="#0000CC">
+            <col width="102" />
+            <col width="198" />
+            <col width="102" />
+            <col width="198" />
+            <tr height="32">
+                <td height="32" align="right" valign="middle" bordercolor="#9900FF" bgcolor="#CCCCFF"><span class="STYLE2">楼</span></td>
+                <td colspan="3" bordercolor="#9900FF">
+                    <input type="text" readonly="true" id="loufang_fybz_loufang_mc" value="${LoufangFYBZ.loufang_fybz_loufang_mc}"/>
+                    <input type="hidden" id="loufang_fybz_loufang_zj" value="${LoufangFYBZ.loufang_fybz_loufang_zj}">
+                </td>
+            </tr>
+            <tr height="32">
+                <td height="32" align="right" valign="middle" bordercolor="#9900FF" bgcolor="#CCCCFF"><span class="STYLE2">电费标准</span></td>
+                <td bordercolor="#9900FF"><input class="easyui-textbox" type="text" readonly="true" value="${LoufangFYBZ.loufang_fybz_dianfei}"  id="loufang_fybz_dianfei"  data-options="required:true"/></td>
+                <td align="right" valign="middle" bordercolor="#9900FF" bgcolor="#CCCCFF"><span class="STYLE2">水费标准</span></td>
+                <td bordercolor="#9900FF"><input class="easyui-textbox" type="text" readonly="true" value="${LoufangFYBZ.loufang_fybz_shuifei}" id="loufang_fybz_shuifei"  data-options="required:true"/></td>
+            </tr>
+        </table>
     </body>
 </html>
 
