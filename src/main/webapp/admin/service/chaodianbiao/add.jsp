@@ -3,16 +3,16 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>抄水表-添加</title>
+        <title>抄电表</title>
         <%@include file="/WEB-INF/jspf/easyuiLocal.jspf"%>
         <%@include file="/WEB-INF/jspf/ztree.jspf"%>
-        <link rel="stylesheet" href="${path_home}/static/css/chaoshuibiao/common.css"  type="text/css" />
-        <script type="text/javascript" src="${path_home}/static/js/chaoshuibiao/add.js"></script>
-        <script type="text/javascript" src="${path_home}/static/js/chaoshuibiao/common.js"></script>
+        <link rel="stylesheet" href="${path_home}/static/css/chaodianbiao/common.css"  type="text/css" />
+        <script type="text/javascript" src="${path_home}/static/js/chaodianbiao/add.js"></script>
+        <script type="text/javascript" src="${path_home}/static/js/chaodianbiao/common.js?<%=new Date()%>"></script>
         <script>
             $(function () {
                 inidoCommon();
-                $('#chaoshuibiao_riqi2').datebox('setValue',jwebGetDate());
+                $('#chaodianbiao_riqi2').datebox('setValue',jwebGetDate());
             });
         </script>
     </head>
@@ -22,9 +22,9 @@
             <input type="hidden" id="zhusuhetong_loufang2_zj" name="zhusuhetong_loufang2_zj" value="">
             <div class="operationHead">
                 <a href="javascript:void(0)"  class="easyui-linkbutton" onclick="clearForm()">清空</a>
-                <a href="javascript:void(0)"  class="easyui-linkbutton" onclick="submitForm('ChaoShuibiaoFormID')">保存</a>
+                <a href="javascript:void(0)"  class="easyui-linkbutton" onclick="submitForm('ChaoDianbiaoFormID')">保存</a>
             </div>
-            <div id="ChaoShuibiaoFormID">
+            <div id="ChaoDianbiaoFormID">
                 <table border="1" cellpadding="0" cellspacing="0" bordercolor="#0000CC">
                     <col width="102" />
                     <col width="198" />
@@ -33,9 +33,9 @@
                     <tr height="32">
                         <td width="102" height="32" align="right" valign="middle" bordercolor="#9900FF" bgcolor="#CCCCFF"><span class="STYLE2">楼</span></td>
                         <td width="198" bordercolor="#9900FF"> 
-                            <input type="hidden"  id="chaoshuibiao_loufang_mc"/>
-                            <input type="hidden" id="chaoshuibiao_loufang_zj" value="">
-                            <input id="chaoshuibiao_loufangGrid" class="easyui-combogrid" style=" width:100%"data-options="
+                            <input type="hidden"  id="chaodianbiao_loufang_mc"/>
+                            <input type="hidden" id="chaodianbiao_loufang_zj" value="">
+                            <input id="chaodianbiao_loufangGrid" class="easyui-combogrid" style=" width:100%"data-options="
                                    required:true,
                                    panelWidth:600,
                                    idField: 'loufang_zj',
@@ -55,9 +55,9 @@
                         </td>
                         <td width="102" align="right" valign="middle" bordercolor="#9900FF" bgcolor="#CCCCFF"><span class="STYLE2">房间</span></td>
                         <td width="198" bordercolor="#9900FF">
-                            <input type="hidden" id="chaoshuibiao_loufang2_bianma" />
-                            <input type="hidden" id="chaoshuibiao_loufang2_zj" value="">
-                            <input id="chaoshuibiao_loufang2Grid" class="easyui-combogrid" style=" width:100%"data-options="
+                            <input type="hidden" id="chaodianbiao_loufang2_bianma" />
+                            <input type="hidden" id="chaodianbiao_loufang2_zj" value="">
+                            <input id="chaodianbiao_loufang2Grid" class="easyui-combogrid" style=" width:100%"data-options="
                                    required:true,
                                    panelWidth:600,
                                    idField: 'loufang2_zj',
@@ -78,15 +78,15 @@
                     </tr>
                     <tr height="32">
                         <td height="32" align="right" valign="middle" bordercolor="#9900FF" bgcolor="#CCCCFF"><span class="STYLE2">上次读数</span></td>
-                        <td bordercolor="#9900FF"><input type="text"  id="chaoshuibiao_dushu1" data-options="required:true" class="easyui-textbox"/></td>
+                        <td bordercolor="#9900FF"><input type="text"  id="chaodianbiao_dushu1" data-options="required:true" class="easyui-textbox"/></td>
                         <td align="right" valign="middle" bordercolor="#9900FF" bgcolor="#CCCCFF"><span class="STYLE2">上次抄表日期</span></td>
-                        <td bordercolor="#9900FF"><input type="text"  id="chaoshuibiao_riqi1" data-options="required:true,formatter:easyuidateformatter,parser:easyuidateparser" class="easyui-datebox"/></td>
+                        <td bordercolor="#9900FF"><input type="text"  id="chaodianbiao_riqi1" data-options="required:true,formatter:easyuidateformatter,parser:easyuidateparser" class="easyui-datebox"/></td>
                     </tr>
                     <tr height="32">
                         <td height="32" align="right" valign="middle" bordercolor="#9900FF" bgcolor="#CCCCFF"><span class="STYLE2">本次读数</span></td>
-                        <td bordercolor="#9900FF"><input type="text"  id="chaoshuibiao_dushu2" data-options="required:true" class="easyui-textbox"/></td>
+                        <td bordercolor="#9900FF"><input type="text"  id="chaodianbiao_dushu2" data-options="required:true" class="easyui-textbox"/></td>
                         <td align="right" valign="middle" bordercolor="#9900FF" bgcolor="#CCCCFF"><span class="STYLE2">本次抄表日期</span></td>
-                        <td bordercolor="#9900FF"><input type="text"  id="chaoshuibiao_riqi2" data-options="required:true,formatter:easyuidateformatter,parser:easyuidateparser" class="easyui-datebox"/></td>
+                        <td bordercolor="#9900FF"><input type="text"  id="chaodianbiao_riqi2" data-options="required:true,formatter:easyuidateformatter,parser:easyuidateparser" class="easyui-datebox"/></td>
                     </tr>
                 </table>
             </div>

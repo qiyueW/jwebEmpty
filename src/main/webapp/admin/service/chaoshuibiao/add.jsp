@@ -3,12 +3,12 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>抄水表-添加</title>
+        <title>抄水表</title>
         <%@include file="/WEB-INF/jspf/easyuiLocal.jspf"%>
         <%@include file="/WEB-INF/jspf/ztree.jspf"%>
         <link rel="stylesheet" href="${path_home}/static/css/chaoshuibiao/common.css"  type="text/css" />
         <script type="text/javascript" src="${path_home}/static/js/chaoshuibiao/add.js"></script>
-        <script type="text/javascript" src="${path_home}/static/js/chaoshuibiao/common.js"></script>
+        <script type="text/javascript" src="${path_home}/static/js/chaoshuibiao/common.js?<%=new Date()%>"></script>
         <script>
             $(function () {
                 inidoCommon();

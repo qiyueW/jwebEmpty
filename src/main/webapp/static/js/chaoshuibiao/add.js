@@ -12,7 +12,6 @@ function submitForm(formid) {
         data.chaoshuibiao_riqi2 = $('#chaoshuibiao_riqi2').val() //抄表日期
         data.chaoshuibiao_shui = $('#chaoshuibiao_shui').val() //水(吨)
         data.chaoshuibiao_shui_danjia = $('#chaoshuibiao_shui_danjia').val() //水单价
-        data.jsonkey = rs ? "[" + rs + "]" : "";
         easyuiAjax("/service/chaoshuibiao/save.jw", data, "请确认保存操作", function () {
             //回调函数
         });

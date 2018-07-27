@@ -11,11 +11,11 @@ function dellRow() {
         $.messager.alert('提示', '请选择行');
         return;
     } 
-    else if (rows[0].chaoshuibiao_zt != '0') {
+    else if (rows[0].chaodianbiao_zt != '0') {
         $.messager.alert('异常', '单据锁定，无法删除');
         return;
     }
-    easyuiAjax("/service/chaoshuibiao/remove.jw", {id: rows[0].chaoshuibiao_zj}, "请确认删除操作", function () {
+    easyuiAjax("/service/chaodianbiao/remove.jw", {id: rows[0].chaodianbiao_zj}, "请确认删除操作", function () {
         easyuiGridReload('dg')
     });
 }
@@ -25,11 +25,11 @@ function updateRow() {
         $.messager.alert('提示', '请选择行');
         return;
     } 
-    else if (rows[0].chaoshuibiao_zt != '0') {
+    else if (rows[0].chaodianbiao_zt != '0') {
         $.messager.alert('异常', '单据锁定，无法修改');
         return;
     }
-    easyuiLoadWindowByURL('showUpdatePage', '修改', '/service/chaoshuibiao/update/select.jw?id=' + rows[0].chaoshuibiao_zj);
+    easyuiLoadWindowByURL('showUpdatePage', '修改', '/service/chaodianbiao/update/select.jw?id=' + rows[0].chaodianbiao_zj);
 }
 
 function seeRow() {
@@ -38,7 +38,7 @@ function seeRow() {
         $.messager.alert('提示', '请选择行');
         return;
     }
-    easyuiLoadWindowByURL('showSeeOnePage', '明细', '/service/chaoshuibiao/select/selectOne.jw?id=' + rows[0].chaoshuibiao_zj);
+    easyuiLoadWindowByURL('showSeeOnePage', '明细', '/service/chaodianbiao/select/selectOne.jw?id=' + rows[0].chaodianbiao_zj);
 }
 
 //-------------------------单据状态管理-------------------------                
@@ -48,7 +48,7 @@ function update01() {//审核
         $.messager.alert('提示', '请选择行');
         return;
     }
-    easyuiAjax("/service/chaoshuibiao/update/examine.jw", {ids: easyuiGetRowsID(rows, 'chaoshuibiao_zj')}, "请确认审核操作", function () {
+    easyuiAjax("/service/chaodianbiao/update/examine.jw", {ids: easyuiGetRowsID(rows, 'chaodianbiao_zj')}, "请确认审核操作", function () {
         easyuiGridReload('dg')
     });
 }
@@ -58,7 +58,7 @@ function update10() {//反审核
         $.messager.alert('提示', '请选择行');
         return;
     }
-    easyuiAjax("/service/chaoshuibiao/update/unexamine.jw", {ids: easyuiGetRowsID(rows, 'chaoshuibiao_zj')}, "请确认反审核操作", function () {
+    easyuiAjax("/service/chaodianbiao/update/unexamine.jw", {ids: easyuiGetRowsID(rows, 'chaodianbiao_zj')}, "请确认反审核操作", function () {
         easyuiGridReload('dg')
     });
 }
@@ -68,7 +68,7 @@ function update04() {//作废
         $.messager.alert('提示', '请选择行');
         return;
     }
-    easyuiAjax("/service/chaoshuibiao/update/void.jw", {ids: easyuiGetRowsID(rows, 'chaoshuibiao_zj')}, "请确认作废操作", function () {
+    easyuiAjax("/service/chaodianbiao/update/void.jw", {ids: easyuiGetRowsID(rows, 'chaodianbiao_zj')}, "请确认作废操作", function () {
         easyuiGridReload('dg')
     });
 }
@@ -78,7 +78,7 @@ function update40() {//反作废
         $.messager.alert('提示', '请选择行');
         return;
     }
-    easyuiAjax("/service/chaoshuibiao/update/unvoid.jw", {ids: easyuiGetRowsID(rows, 'chaoshuibiao_zj')}, "请确认反作废操作", function () {
+    easyuiAjax("/service/chaodianbiao/update/unvoid.jw", {ids: easyuiGetRowsID(rows, 'chaodianbiao_zj')}, "请确认反作废操作", function () {
         easyuiGridReload('dg')
     });
 }
@@ -96,7 +96,7 @@ function closethisWindowSeeOne() {
 function f_condition() {
     $('#showConditionPage').panel({title: '过滤条件'});
     $('#showConditionPage').window('open');
-    easyuiLoadWindowByURL('showConditionPage', '过滤条件', '/xt/xttiaojian/ry_tiaojian.jsp?key=ChaoShuibiao');
+    easyuiLoadWindowByURL('showConditionPage', '过滤条件', '/xt/xttiaojian/ry_tiaojian.jsp?key=ChaoDianbiao');
 }
 function f_closeCondition() {
     $('#showConditionPage').panel('close');

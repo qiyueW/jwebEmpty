@@ -29,27 +29,27 @@ function submitForm(formid) {
                 rs = rs + getJsonByBody(datas.rows[i], i == 0 ? null : ",");
         }
         var data = {};
-        data.chaoshuibiao_zj = $('#chaoshuibiao_zj').val()//主键
-            data.chaoshuibiao_loufang_zj = $('#chaoshuibiao_loufang_zj').val() //楼主键
-            data.chaoshuibiao_loufang_mc = $('#chaoshuibiao_loufang_mc').val() //楼名称
-            data.chaoshuibiao_loufang2_zj = $('#chaoshuibiao_loufang2_zj').val() //房主键
-            data.chaoshuibiao_loufang2_bianma = $('#chaoshuibiao_loufang2_bianma').val() //房编号
-            data.chaoshuibiao_dushu1 = $('#chaoshuibiao_dushu1').val() //上次读数
-            data.chaoshuibiao_riqi1 = $('#chaoshuibiao_riqi1').val() //上次抄表日期
-            data.chaoshuibiao_dushu2 = $('#chaoshuibiao_dushu2').val() //读数
-            data.chaoshuibiao_riqi2 = $('#chaoshuibiao_riqi2').val() //抄表日期
-            data.chaoshuibiao_shui = $('#chaoshuibiao_shui').val() //水(吨)
-            data.chaoshuibiao_shui_danjia = $('#chaoshuibiao_shui_danjia').val() //水单价
-            data.chaoshuibiao_shui_jine = $('#chaoshuibiao_shui_jine').val() //金额
-            data.chaoshuibiao_zhidanshijian = $('#chaoshuibiao_zhidanshijian').val() //制单时间
-            data.chaoshuibiao_zhidanren = $('#chaoshuibiao_zhidanren').val() //制单人
-            data.chaoshuibiao_zhidanren_zj = $('#chaoshuibiao_zhidanren_zj').val() //制单人主键
-            data.chaoshuibiao_fentanrenshu = $('#chaoshuibiao_fentanrenshu').val() //分摊人数
-            data.chaoshuibiao_yj_fentanrenshu = $('#chaoshuibiao_yj_fentanrenshu').val() //已分摊人数
-            data.chaoshuibiao_zt = $('#chaoshuibiao_zt').val() //状态
-            data.chaoshuibiao_gelibiaoshi = $('#chaoshuibiao_gelibiaoshi').val() //隔离标识
+        data.chaodianbiao_zj = $('#chaodianbiao_zj').val()//主键
+            data.chaodianbiao_loufang_zj = $('#chaodianbiao_loufang_zj').val() //楼主键
+            data.chaodianbiao_loufang_mc = $('#chaodianbiao_loufang_mc').val() //楼名称
+            data.chaodianbiao_loufang2_zj = $('#chaodianbiao_loufang2_zj').val() //房主键
+            data.chaodianbiao_loufang2_bianma = $('#chaodianbiao_loufang2_bianma').val() //房编号
+            data.chaodianbiao_dushu1 = $('#chaodianbiao_dushu1').val() //上次读数
+            data.chaodianbiao_riqi1 = $('#chaodianbiao_riqi1').val() //上次抄表日期
+            data.chaodianbiao_dushu2 = $('#chaodianbiao_dushu2').val() //读数
+            data.chaodianbiao_riqi2 = $('#chaodianbiao_riqi2').val() //抄表日期
+            data.chaodianbiao_dian = $('#chaodianbiao_dian').val() //水(吨)
+            data.chaodianbiao_dian_danjia = $('#chaodianbiao_dian_danjia').val() //水单价
+            data.chaodianbiao_dian_jine = $('#chaodianbiao_dian_jine').val() //金额
+            data.chaodianbiao_zhidanshijian = $('#chaodianbiao_zhidanshijian').val() //制单时间
+            data.chaodianbiao_zhidanren = $('#chaodianbiao_zhidanren').val() //制单人
+            data.chaodianbiao_zhidanren_zj = $('#chaodianbiao_zhidanren_zj').val() //制单人主键
+            data.chaodianbiao_fentanrenshu = $('#chaodianbiao_fentanrenshu').val() //分摊人数
+            data.chaodianbiao_yj_fentanrenshu = $('#chaodianbiao_yj_fentanrenshu').val() //已分摊人数
+            data.chaodianbiao_zt = $('#chaodianbiao_zt').val() //状态
+            data.chaodianbiao_gelibiaoshi = $('#chaodianbiao_gelibiaoshi').val() //隔离标识
         data.jsonkey = rs ? "[" + rs + "]" : "";
-        easyuiAjax("/service/chaoshuibiao/update.jw", data, "请确认修改操作", function () {
+        easyuiAjax("/service/chaodianbiao/update.jw", data, "请确认修改操作", function () {
             //回调函数
         });
     }
@@ -57,14 +57,14 @@ function submitForm(formid) {
         if (!obj)
             return "";
         var str = (fh ? fh : "") + '{'
-                + '"chaoshuibiaofengtan_zj":"' + toFormatZT(obj.chaoshuibiaofengtan_zj) + '"' //主键
-                + ',"chaoshuibiao_zj":"' + toFormatZT(obj.chaoshuibiao_zj) + '"' //水表记录主键
-                + ',"chaoshuibiaofengtan_shui":"' + toFormatZT(obj.chaoshuibiaofengtan_shui) + '"' //水
-                + ',"chaoshuibiaofengtan_shui_danjia":"' + toFormatZT(obj.chaoshuibiaofengtan_shui_danjia) + '"' //水单价
-                + ',"chaoshuibiaofengtan_feiyong":"' + toFormatZT(obj.chaoshuibiaofengtan_feiyong) + '"' //分摊费
-                + ',"chaoshuibiaofengtan_nfsj":"' + toFormatZT(obj.chaoshuibiaofengtan_nfsj) + '"' //纳费时间
-                + ',"chaoshuibiaofengtan_nfr_zj":"' + toFormatZT(obj.chaoshuibiaofengtan_nfr_zj) + '"' //纳费人主键
-                + ',"chaoshuibiaofengtan_nfr":"' + toFormatZT(obj.chaoshuibiaofengtan_nfr) + '"' //纳费人
+                + '"chaodianbiaofengtan_zj":"' + toFormatZT(obj.chaodianbiaofengtan_zj) + '"' //主键
+                + ',"chaodianbiao_zj":"' + toFormatZT(obj.chaodianbiao_zj) + '"' //水表记录主键
+                + ',"chaodianbiaofengtan_dian":"' + toFormatZT(obj.chaodianbiaofengtan_dian) + '"' //水
+                + ',"chaodianbiaofengtan_dian_danjia":"' + toFormatZT(obj.chaodianbiaofengtan_dian_danjia) + '"' //水单价
+                + ',"chaodianbiaofengtan_feiyong":"' + toFormatZT(obj.chaodianbiaofengtan_feiyong) + '"' //分摊费
+                + ',"chaodianbiaofengtan_nfsj":"' + toFormatZT(obj.chaodianbiaofengtan_nfsj) + '"' //纳费时间
+                + ',"chaodianbiaofengtan_nfr_zj":"' + toFormatZT(obj.chaodianbiaofengtan_nfr_zj) + '"' //纳费人主键
+                + ',"chaodianbiaofengtan_nfr":"' + toFormatZT(obj.chaodianbiaofengtan_nfr) + '"' //纳费人
         return str + "}";
     }
 }

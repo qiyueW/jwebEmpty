@@ -9,12 +9,18 @@ import configuration.MsgVO;
 import java.util.List;
 import configuration.WebConfigModel;
 import configuration.Tool;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import plugins.easyui.EasyuiService;
 import java.util.Date;
+import system.base.date.DateService;
 import wx.web.bean.ChaoShuibiao;
 import wx.web.bean.ChaoShuibiaoFengtan;
+import wx.web.bean.LoufangFYBZ;
 import wx.web.bean.RY;
+import wx.web.bean.ZhusuHetong;
 import wx.web.service.ChaoShuibiaoService;
+import wx.web.service.LoufangFYBZService;
 import wx.web.service.ZhusuHetongService;
 import wx.xt.Gelibiaoshi;
 
@@ -34,17 +40,48 @@ public class ChaoShuibiaoHM {
     public void add() {
         ChaoShuibiao obj = jw.getObject(ChaoShuibiao.class);
         RY ry = Gelibiaoshi.getUserInfoBySession(jw);
+        //检出此楼标准费用
+        LoufangFYBZ fyObj = LoufangFYBZService.selectOneByLoufang_zj(obj.getChaoshuibiao_loufang_zj());
+        if (null == fyObj || null == fyObj.getLoufang_fybz_zj()) {
+            jw.printOne(MsgVO.setError("记录表异常：请先建立此楼的【楼房费用标准】。"));
+            return;
+        }
+        if (obj.getChaoshuibiao_riqi2().compareTo(DateService.TO.toDate(LocalDate.now())) > 0) {
+            jw.printOne(MsgVO.setError("记录表异常：记录日期超前。"));
+            return;
+        }
+        if (obj.getChaoshuibiao_riqi1().compareTo(obj.getChaoshuibiao_riqi2()) > 0) {
+            jw.printOne(MsgVO.setError("记录表异常：上次的记录日期比这次大。"));
+            return;
+        }
+        double shui = obj.getChaoshuibiao_dushu2() - obj.getChaoshuibiao_dushu1();
+        if (shui <= 0) {
+            jw.printOne(MsgVO.setError("异常：本次抄表读数小于上次读数。本次记录的用水为：" + shui + "吨，"));
+            return;
+        }
+        //上次的抄表情况
+        ChaoShuibiao lastObj = ChaoShuibiaoService.selectLastOne(obj.getChaoshuibiao_loufang2_zj());
+        if (null == lastObj || null == lastObj.getChaoshuibiao_zj()) {
+            obj.setChaoshuibiao_dushu1(0.0);
+        } else {
+            obj.setChaoshuibiao_dushu1(lastObj.getChaoshuibiao_dushu2());
+            obj.setChaoshuibiao_riqi1(lastObj.getChaoshuibiao_riqi2());
+        }
+        //设置隔离标识
+        obj.setChaoshuibiao_gelibiaoshi(ry.getRy_gelibiaoshi());
         //设置分摊的人数——查询审核的合同
-        obj.setChaoshuibiao_fentanrenshu(ZhusuHetongService.selectCountByLoufang2_zj(obj.getChaoshuibiao_loufang2_zj(), ry.getRy_gelibiaoshi()));
+        List<ZhusuHetong> zhusuren = ZhusuHetongService.select(obj.getChaoshuibiao_loufang2_zj(), ry.getRy_gelibiaoshi());
+        obj.setChaoshuibiao_fentanrenshu(zhusuren.size());
         //已分摊人数锁定为0
         obj.setChaoshuibiao_yj_fentanrenshu(0);
         //设置录单人
         obj.setChaoshuibiao_zhidanshijian(new Date());
         obj.setChaoshuibiao_zhidanren_zj(ry.getRy_zj());
         obj.setChaoshuibiao_zhidanren(ry.getRy_mc());
-        //
-        
-        List<ChaoShuibiaoFengtan> obj2 = (List<ChaoShuibiaoFengtan>) jw.request.getAttribute(WebConfigModel.JSONKEY);
+        //水，水费单价，水金额
+        ChaoShuibiaoService.feiyong_shuibiao(obj, shui, fyObj);
+        //开始计算分摊
+        List<ChaoShuibiaoFengtan> obj2 = ChaoShuibiaoService.feiyong_fentang(obj, zhusuren, fyObj);
         jw.printOne(ChaoShuibiaoService.addOne(obj, obj2));
     }
 //===================删除操作=============================    
@@ -65,19 +102,35 @@ public class ChaoShuibiaoHM {
 
     @system.web.power.ann.SQ("chaoshuibiaoU")
     @M("/update")
-    @Validate({wx.web.validate.ChaoShuibiaoValidate.class, wx.web.validate.ChaoShuibiaoFengtanValidate.class})
     public void update() {
-        ChaoShuibiao obj = jw.getObject(ChaoShuibiao.class);
-        if (null == obj || null == obj.getChaoshuibiao_zj() || obj.getChaoshuibiao_zj().length() != 24) {
+        String id = jw.getString("chaoshuibiao_zj", "");
+        Double dushu = jw.getDouble("chaoshuibiao_dushu2");
+        if (null == dushu || id.length() != 24) {
             return;
         }
-        if (ChaoShuibiaoService.isErrorGelibiaoshiOne(obj, Gelibiaoshi.getGelibiaoshi(jw))) {//存在别人家的隔离标识的单据
+        ChaoShuibiao obj = ChaoShuibiaoService.selectOne(id);
+        if (null == obj || ChaoShuibiaoService.isErrorGelibiaoshiOne(obj, Gelibiaoshi.getGelibiaoshi(jw))) {//存在别人家的隔离标识的单据
+            jw.printOne(MsgVO.setError("没有找到此楼"));
             return;
         }
-        List<ChaoShuibiaoFengtan> obj2 = (List<ChaoShuibiaoFengtan>) jw.request.getAttribute(WebConfigModel.JSONKEY);
-        for (ChaoShuibiaoFengtan o2 : obj2) {
-            o2.setChaoshuibiao_zj(obj.getChaoshuibiao_zj());//锁定表头主键
+        if (obj.getChaoshuibiao_yj_fentanrenshu() > 0) {
+            jw.printOne(MsgVO.setError("无法修改,单据已锁定：已经有"+obj.getChaoshuibiao_yj_fentanrenshu()+"个人上交分摊费。"));
+            return;
         }
+        //调整读数
+        obj.setChaoshuibiao_dushu2(dushu);
+        //调整读数引起的水值变化
+        double shui = obj.getChaoshuibiao_dushu2() - obj.getChaoshuibiao_dushu1();
+        if (shui <= 0) {
+            jw.printOne(MsgVO.setError("异常：本次抄表读数小于上次读数。本次记录的用水为：" + shui + "吨，"));
+            return;
+        }
+        //检出此楼标准费用
+        LoufangFYBZ fyObj = LoufangFYBZService.selectOneByLoufang_zj(obj.getChaoshuibiao_loufang_zj());
+        //重新设置：水，水费单价，水金额
+        ChaoShuibiaoService.feiyong_shuibiao(obj, shui, fyObj);
+        //开始计算分摊
+        List<ChaoShuibiaoFengtan> obj2 = ChaoShuibiaoService.feiyong_fentang(obj, null, fyObj);
         jw.printOne(ChaoShuibiaoService.update(obj, obj2));
     }
 
@@ -111,6 +164,21 @@ public class ChaoShuibiaoHM {
         }
         jw.request.setAttribute("ChaoShuibiao", obj);
         jw.forward("/admin/service/chaoshuibiao/one.jsp");
+    }
+
+    @system.web.power.ann.SQ("chaoshuibiaoS")
+    @M("/select/selectOne/last")//针对表头的查询-一条记录的明细
+    public void selectOneLast() {
+        String loufang2_zj = jw.getString("loufang2_zj");
+        ChaoShuibiao obj = ChaoShuibiaoService.selectLastOne(loufang2_zj);
+        if (null == obj || null == obj.getChaoshuibiao_zj()) {
+            jw.printOne("{}");
+            return;
+        }
+        if (ChaoShuibiaoService.isErrorGelibiaoshiOne(obj, Gelibiaoshi.getGelibiaoshi(jw))) {//存在别人家的隔离标识的单据
+            return;
+        }
+        jw.printOne(obj);
     }
 
     @system.web.power.ann.SQ("chaoshuibiaoS")

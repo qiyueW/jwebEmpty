@@ -4,21 +4,25 @@ import configuration.mvc.BaseService;
 import configuration.DBO;
 import configuration.MsgVO;
 import configuration.Tool;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Date;
 import wx.web.bean.ChaoShuibiao;
 import wx.web.bean.ChaoShuibiaoFengtan;
+import wx.web.bean.LoufangFYBZ;
+import wx.web.bean.ZhusuHetong;
 
 /**
  *
  * @author wangchunzi
  */
 final public class ChaoShuibiaoService {
+
     private static final String TABLE1 = "ChaoShuibiao";
     private static final String PK1 = "chaoshuibiao_zj";
     private static final String STYLE1 = "chaoshuibiao_zt";
     private static final String GE_LI_BIAO_SHI = "chaoshuibiao_gelibiaoshi";
 //---------------------------------------查询---------------------------------------
+
     /**
      * 检出一条记录(表头)
      *
@@ -27,6 +31,17 @@ final public class ChaoShuibiaoService {
      */
     public static ChaoShuibiao selectOne(String id) {
         return DBO.service.S.selectOneByID(ChaoShuibiao.class, id);
+    }
+
+    /**
+     * 检查某间房的最后一次抄表的记录
+     *
+     * @param loufang2_zj
+     * @return ChaoShuibiao
+     */
+    public static ChaoShuibiao selectLastOne(String loufang2_zj) {
+        return DBO.service.S.selectOneByCondition(ChaoShuibiao.class,
+                "WHERE chaoshuibiao_loufang2_zj='" + loufang2_zj + "' ORDER BY chaoshuibiao_riqi2 DESC, chaoshuibiao_dushu2 DESC");
     }
 
     /**
@@ -59,9 +74,10 @@ final public class ChaoShuibiaoService {
      * @return List
      */
     public static List<ChaoShuibiaoFengtan> select2(String pid) {
-        return DBO.service.S.selectByCondition(ChaoShuibiaoFengtan.class, "WHERE "+PK1+" IN('" + pid + "')");
+        return DBO.service.S.selectByCondition(ChaoShuibiaoFengtan.class, "WHERE " + PK1 + " IN('" + pid + "')");
     }
 //---------------------------------------统计区--------------------------------------
+
     /**
      * 统计表头数据(条件为null或为空时，表示统计整张表)
      *
@@ -70,8 +86,58 @@ final public class ChaoShuibiaoService {
      */
     public static int selectCount(final String where) {
         return null == where || where.isEmpty() ? DBO.service.S.selectCount(ChaoShuibiao.class) : DBO.service.S.selectCountByCondition(ChaoShuibiao.class, where);
-    }    
+    }
+
+    /**
+     * 计算水表的费用(水，水费单价，水金额)
+     *
+     * @param obj
+     * @param shui
+     * @param fyObj
+     */
+    public static void feiyong_shuibiao(ChaoShuibiao obj, double shui, LoufangFYBZ fyObj) {
+        obj.setChaoshuibiao_shui(shui);
+        obj.setChaoshuibiao_shui_danjia(fyObj.getLoufang_fybz_shuifei());
+        obj.setChaoshuibiao_shui_jine(fyObj.getLoufang_fybz_shuifei() * obj.getChaoshuibiao_shui());
+    }
+
+    public static List<ChaoShuibiaoFengtan> feiyong_fentang(ChaoShuibiao obj, List<ZhusuHetong> zhusuren, LoufangFYBZ fyObj) {
+        List<ChaoShuibiaoFengtan> obj2;
+        ChaoShuibiaoFengtan obj2sm;
+        int countDay = 0;
+        int myCountDay;
+        if (null != zhusuren) {//表示新增，从合同中取出人数
+            obj2 = new ArrayList<>();
+            for (ZhusuHetong zhobj : zhusuren) {
+                obj2sm = new ChaoShuibiaoFengtan();
+                //分摊的纳费人
+                obj2sm.setChaoshuibiaofengtan_nfr(zhobj.getZhusuhetong_qianyueren());
+                obj2sm.setChaoshuibiaofengtan_nfr_zj(zhobj.getZhusuhetong_qianyueren_zj());
+                //写入本房的水单价
+                obj2sm.setChaoshuibiaofengtan_shui_danjia(fyObj.getLoufang_fybz_shuifei());
+                //本人占用了几天
+                myCountDay = ZhusuHetongService.getMyUserData(zhobj, obj.getChaoshuibiao_riqi1(), obj.getChaoshuibiao_riqi2());
+                countDay = countDay + myCountDay;//累计天数，用于一会的费用分摊
+                obj2sm.setChaoshuibiaofengtan_zhanyongtian(myCountDay);
+                obj2.add(obj2sm);
+            }
+        } else {//表示更新，从旧记录中取出数据
+            obj2 = select2(obj.getChaoshuibiao_zj());
+        }
+        for (ChaoShuibiaoFengtan cbobj : obj2) {
+            countDay = countDay + cbobj.getChaoshuibiaofengtan_zhanyongtian();
+        }
+        double ft_zyb_shui = obj.getChaoshuibiao_shui() / countDay;//分摊，每1份天，占用的水
+        for (ChaoShuibiaoFengtan cbobj : obj2) {
+            //分到的水
+            cbobj.setChaoshuibiaofengtan_shui(ft_zyb_shui * cbobj.getChaoshuibiaofengtan_zhanyongtian());
+            //计算水的费用
+            cbobj.setChaoshuibiaofengtan_feiyong(cbobj.getChaoshuibiaofengtan_shui() * cbobj.getChaoshuibiaofengtan_shui_danjia());
+        }
+        return obj2;
+    }
 //---------------------------------------增删改--------------------------------------
+
     /**
      * 添加数据
      *
@@ -79,14 +145,18 @@ final public class ChaoShuibiaoService {
      * @param list 多方
      * @return MsgVO
      */
-    public static MsgVO addOne(ChaoShuibiao  obj, List<ChaoShuibiaoFengtan > list) {
+    public static MsgVO addOne(ChaoShuibiao obj, List<ChaoShuibiaoFengtan> list) {
         obj.setChaoshuibiao_zt(0);
+        if (null == list || list.isEmpty()) {
+            return DBO.service.A.addOne(obj) > 0 ? MsgVO.setOK("记录成功!") : MsgVO.setNotOK("抄表异常：记录失败");
+        }
         int[] i = DBO.service.A.add_OM(obj, list);
         if (null == i) {
             return MsgVO.setError("添加异常,请通知管理检查后台数据库连接是否异常。");
         }
         return MsgVO.setAddRS(i[0]);
     }
+
     /**
      * 删除指定数据。
      *
@@ -99,6 +169,7 @@ final public class ChaoShuibiaoService {
         }
         return MsgVO.setDellRS(DBO.service.D.ooDelete(ids, ChaoShuibiao.class, ChaoShuibiaoFengtan.class));
     }
+
     /**
      * 修改 一条记录（一个表头，多个表体。即一对多表）<br>
      * 本方法采用删除旧表体的方法，强烈建议反审核时，此单一定是没有其他引用才可以反审，反审后才能修改。<br>
@@ -109,28 +180,28 @@ final public class ChaoShuibiaoService {
      * @return MsgVO
      */
     public static MsgVO update(ChaoShuibiao obj, List<ChaoShuibiaoFengtan> list) {
-        if (null == obj.getChaoshuibiao_zj() || obj.getChaoshuibiao_zj().length() != 24) {
-            return MsgVO.setError("修改异常,表头信息丢失，请退出修改界面后，重新操作");
-        }    
         if (selectOne(obj.getChaoshuibiao_zj()).getChaoshuibiao_zt() != BaseService.XINZENG) {
             return MsgVO.setError();
         }
+        String alloyUpdate = "chaoshuibiao_dushu2,chaoshuibiao_shui,chaoshuibiao_shui_danjia,chaoshuibiao_shui_jine";
+        if (null == list || list.isEmpty()) {
+            return MsgVO.setUpdateRS(DBO.service.U.updateSome_alloy(obj, alloyUpdate));
+        }
         int[] i = DBO.service.ADUS.executeBatch(
-                //chaoshuibiao_zt,隔离标识,制单时间
-                DBO.service.SQL.updateSome_reject(obj, "chaoshuibiao_zt,chaoshuibiao_gelibiaoshi,chaoshuibiao_zhidanshijian")//修改表头的数据,排序字段不进行修改
+                //读数,水(吨) ,水单价 ,金额
+                DBO.service.SQL.updateSome_alloy(obj, alloyUpdate)//修改表头的数据,排序字段不进行修改
                 ,
                  DBO.service.SQL.dellByCondition(ChaoShuibiaoFengtan.class, "WHERE chaoshuibiao_zj='" + obj.getChaoshuibiao_zj() + "'")//清空旧表体的值
                 ,
                  DBO.service.SQL.addVast(list)//加入新表体的值
         );
-        if(null==i){
+        if (null == i) {
             return MsgVO.setError("修改操作异常。请通知管理查询服务器日志");
         }
         return MsgVO.setUpdateRS(i[0]);
     }
 
 //---------------------------------------单据状态管理---------------------------------------
-
     /**
      * 审核
      *
@@ -148,7 +219,7 @@ final public class ChaoShuibiaoService {
      * @return
      */
     public static MsgVO updateStyle_unExamine(String ids) {
-        return BaseService.updateStyle_unExamine(ids,  TABLE1, PK1, STYLE1);
+        return BaseService.updateStyle_unExamine(ids, TABLE1, PK1, STYLE1);
     }
 
     /**
@@ -158,7 +229,7 @@ final public class ChaoShuibiaoService {
      * @return
      */
     public static MsgVO updateStyle_void(String ids) {
-        return BaseService.updateStyle_void(ids,  TABLE1, PK1, STYLE1);
+        return BaseService.updateStyle_void(ids, TABLE1, PK1, STYLE1);
     }
 
     /**
@@ -174,17 +245,20 @@ final public class ChaoShuibiaoService {
 //---------------------------------------隔离标识管理--------------------------------------
     public static boolean isErrorGelibiaoshiVast(String ids, String gelibiaoshi) {
         List<ChaoShuibiao> list = DBO.service.S.selectByCondition(ChaoShuibiao.class, "WHERE chaoshuibiao_zj IN(" + configuration.Tool.replaceDToDDD(ids) + ")");
-        return BaseService.isErrorGelibiaoshiVast(list,GE_LI_BIAO_SHI, gelibiaoshi);
+        return BaseService.isErrorGelibiaoshiVast(list, GE_LI_BIAO_SHI, gelibiaoshi);
     }
+
     public static boolean isErrorGelibiaoshiVast(List<ChaoShuibiao> list, String gelibiaoshi) {
-        return BaseService.isErrorGelibiaoshiVast(list,GE_LI_BIAO_SHI, gelibiaoshi);
+        return BaseService.isErrorGelibiaoshiVast(list, GE_LI_BIAO_SHI, gelibiaoshi);
     }
+
     public static boolean isErrorGelibiaoshiOne(String id, String gelibiaoshi) {
         ChaoShuibiao obj = DBO.service.S.selectOneByID(ChaoShuibiao.class, id);
-        return BaseService.isErrorGelibiaoshiOne(obj,GE_LI_BIAO_SHI, gelibiaoshi);
+        return BaseService.isErrorGelibiaoshiOne(obj, GE_LI_BIAO_SHI, gelibiaoshi);
     }
+
     public static boolean isErrorGelibiaoshiOne(ChaoShuibiao obj, String gelibiaoshi) {
-        return BaseService.isErrorGelibiaoshiOne(obj,GE_LI_BIAO_SHI, gelibiaoshi);
+        return BaseService.isErrorGelibiaoshiOne(obj, GE_LI_BIAO_SHI, gelibiaoshi);
     }
 
 }

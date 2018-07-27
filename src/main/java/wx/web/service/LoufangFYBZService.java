@@ -17,6 +17,8 @@ final public class LoufangFYBZService {
     private static final String PK1 = "loufang_fybz_zj";
     private static final String STYLE1 = "loufang_fybz_zt";
     private static final String GE_LI_BIAO_SHI = "loufang_fybz_gelibiaoshi";
+    public static final int FY_DIAN = 1;
+    public static final int FY_SHUI = 2;
 //---------------------------------------查询---------------------------------------
 
     /**
@@ -27,6 +29,16 @@ final public class LoufangFYBZService {
      */
     public static LoufangFYBZ selectOne(String id) {
         return DBO.service.S.selectOneByID(LoufangFYBZ.class, id);
+    }
+
+    /**
+     * 检出xx楼的费用标准
+     *
+     * @param loufang_zj 楼的主键
+     * @return LoufangFYBZ
+     */
+    public static LoufangFYBZ selectOneByLoufang_zj(String loufang_zj) {
+        return DBO.service.S.selectOneByCondition(LoufangFYBZ.class, "WHERE loufang_fybz_loufang_zj='" + loufang_zj + "'");
     }
 
     /**

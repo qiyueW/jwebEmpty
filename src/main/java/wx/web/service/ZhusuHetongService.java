@@ -3,7 +3,9 @@ package wx.web.service;
 import configuration.mvc.BaseService;
 import configuration.DBO;
 import configuration.MsgVO;
+import java.util.Date;
 import java.util.List;
+import system.base.date.DateService;
 import wx.web.bean.Loufang;
 import wx.web.bean.Loufang2;
 import wx.web.bean.ZhusuHetong;
@@ -43,7 +45,22 @@ final public class ZhusuHetongService {
         return DBO.service.S.selectVastByCondition(ZhusuHetong.class, page, size, null == where ? "" : where, null == ordery ? "" : ordery);
     }
 
+    /**
+     * 通过房间的主键，统计像这样的房有多少间（一合同一间）审核状态下
+     *
+     * @param loufang2_zj
+     * @param gelibiaoshi
+     * @return
+     */
+    public static List<ZhusuHetong> select(final String loufang2_zj, String gelibiaoshi) {
+        return DBO.service.S.selectByCondition(ZhusuHetong.class,
+                "WHERE zhusuhetong_loufang2_zj='" + loufang2_zj
+                + "' AND zhusuhetong_gelibiaoshi='" + gelibiaoshi
+                + "' AND zhusuhetong_zt='" + BaseService.SHENHE + "'"
+        );
+    }
 //---------------------------------------统计区--------------------------------------
+
     /**
      * 统计表头数据(条件为null或为空时，表示统计整张表)
      *
@@ -191,4 +208,21 @@ final public class ZhusuHetongService {
     public static MsgVO updateStyle_unVoid(String ids) {
         return BaseService.updateStyle_unVoid(ids, TABLE1, PK1, STYLE1);
     }
+
+    /**
+     * 检查合同的人员，在date1与date2间，占用了多少天。
+     *
+     * @param obj 合同人员
+     * @param date1 开始
+     * @param date2 结束
+     * @return
+     */
+    public static int getMyUserData(final ZhusuHetong obj, final Date date1, final Date date2) {
+        return DateService.RUN.minus(
+                date2,//上次抽检日期
+                //合同开始日期在date1之前或等于date1，直接按date1与date2的差距离算。否则按合同的日期与date2的差距算。
+                (obj.getZhusuhetong_kaishiriqi().compareTo(date1) <= 0 ? date1 : obj.getZhusuhetong_kaishiriqi())
+        );
+    }
+
 }

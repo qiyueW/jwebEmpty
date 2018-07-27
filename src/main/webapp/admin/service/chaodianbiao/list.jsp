@@ -1,22 +1,42 @@
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!--后台UI组件Start-->
 <!DOCTYPE html>
 <html>
     <head>
-        <title>维护抄水表</title>
+        <title>维护电表</title>
         <%@include file="/WEB-INF/jspf/easyuiLocal.jspf"%>
         <%@include file="/WEB-INF/jspf/ztree.jspf"%>
-        <script type="text/javascript" src="${path_home}/static/js/chaoshuibiao/list.js"></script>        
+        <script type="text/javascript" src="${path_home}/static/js/chaodianbiao/list.js"></script>        
         <script>
-            $(function (){
-                $('#dg').datagrid('hideColumn', 'chaoshuibiao_zj');
-                $('#dg').datagrid('hideColumn', 'chaoshuibiao_loufang_zj');
-                $('#dg').datagrid('hideColumn', 'chaoshuibiao_loufang2_zj');
-                $('#dg').datagrid('hideColumn', 'chaoshuibiao_zhidanren');
-                $('#dg').datagrid('hideColumn', 'chaoshuibiao_zhidanren_zj');
-                $('#dg').datagrid('hideColumn', 'chaoshuibiao_gelibiaoshi');
+            $(function () {
+                $('#dg').datagrid('hideColumn', 'chaodianbiao_zj');
+                $('#dg').datagrid('hideColumn', 'chaodianbiao_loufang_zj');
+                $('#dg').datagrid('hideColumn', 'chaodianbiao_loufang2_zj');
+                $('#dg').datagrid('hideColumn', 'chaodianbiao_zhidanren');
+                $('#dg').datagrid('hideColumn', 'chaodianbiao_zhidanren_zj');
+                $('#dg').datagrid('hideColumn', 'chaodianbiao_gelibiaoshi');
             });
+            function computeLoader() {//计算函数
+                var rows = $('#dg').datagrid('getRows');//获取当前的数据行
+                console.log(rows);
+                var chaodianbiao_dian = 0;//电
+                var chaodianbiao_dian_jine = 0;//金额
+                var chaodianbiao_dushu1 = 0;
+                var chaodianbiao_dushu2 = 0;
+                for (var i = 0; i < rows.length; i++) {
+                    chaodianbiao_dian += parseFloat(rows[i]['chaodianbiao_dian']);
+                    chaodianbiao_dian_jine += parseFloat(rows[i]['chaodianbiao_dian_jine']);
+                    chaodianbiao_dushu1 += parseFloat(rows[i]['chaodianbiao_dushu1']);
+                    chaodianbiao_dushu2 += parseFloat(rows[i]['chaodianbiao_dushu2']);
+                }
+                $('#dg').datagrid('appendRow', {
+                    chaodianbiao_loufang_mc: '<b>统计：</b>',
+                    chaodianbiao_dian:chaodianbiao_dian,
+                    chaodianbiao_dian_jine:chaodianbiao_dian_jine,
+                    chaodianbiao_dushu1:chaodianbiao_dushu1,
+                    chaodianbiao_dushu2:chaodianbiao_dushu2
+                });
+            }
         </script>
     </head>
     <body class="easyui-layout">
@@ -29,31 +49,32 @@
                singleSelect:true,
                showFooter:true,
                toolbar:'#tb',
-               url:'${path_home}/service/chaoshuibiao/select/grid.jw',
-               onRowContextMenu:f_gridMenu
+               url:'${path_home}/service/chaodianbiao/select/grid.jw',
+               onRowContextMenu:f_gridMenu,
+               onLoadSuccess:computeLoader
                ">
             <thead>
                 <tr>
                     <th data-options="field:'ck',checkbox:true"></th>
-                    <th data-options="field:'chaoshuibiao_zj'">主键</th>
-                    <th data-options="field:'chaoshuibiao_loufang_zj'">楼主键</th>
-                       <th data-options="field:'chaoshuibiao_loufang_mc',width:90"><div>楼名称</div></th>
-                    <th data-options="field:'chaoshuibiao_loufang2_zj'">房主键</th>
-                       <th data-options="field:'chaoshuibiao_loufang2_bianma',width:90"><div>房编号</div></th>
-                       <th data-options="field:'chaoshuibiao_dushu1',width:90"><div>上次读数</div></th>
-                    <th data-options="field:'chaoshuibiao_riqi1',width:130"><div>上次抄表日期</div></th>
-                       <th data-options="field:'chaoshuibiao_dushu2',width:90"><div>读数</div></th>
-                    <th data-options="field:'chaoshuibiao_riqi2',width:130"><div>抄表日期</div></th>
-                       <th data-options="field:'chaoshuibiao_shui',width:90"><div>水(吨)</div></th>
-                       <th data-options="field:'chaoshuibiao_shui_danjia',width:90"><div>水单价</div></th>
-                       <th data-options="field:'chaoshuibiao_shui_jine',width:90"><div>金额</div></th>
-                    <th data-options="field:'chaoshuibiao_zhidanshijian',width:130"><div>制单时间</div></th>
-                    <th data-options="field:'chaoshuibiao_zhidanren'">制单人</th>
-                    <th data-options="field:'chaoshuibiao_zhidanren_zj'">制单人主键</th>
-                       <th data-options="field:'chaoshuibiao_fentanrenshu',width:90"><div>分摊人数</div></th>
-                       <th data-options="field:'chaoshuibiao_yj_fentanrenshu',width:90"><div>已分摊人数</div></th>
-                    <th data-options="field:'chaoshuibiao_zt',width:60,formatter:f_common_style"><div>状态</div></th>
-                    <th data-options="field:'chaoshuibiao_gelibiaoshi'">隔离标识</th>
+                    <th data-options="field:'chaodianbiao_zj'">主键</th>
+                    <th data-options="field:'chaodianbiao_loufang_zj'">楼主键</th>
+                    <th data-options="field:'chaodianbiao_loufang_mc',width:90"><div>楼名称</div></th>
+                    <th data-options="field:'chaodianbiao_loufang2_zj'">房主键</th>
+                    <th data-options="field:'chaodianbiao_loufang2_bianma',width:90"><div>房编号</div></th>
+                    <th data-options="field:'chaodianbiao_riqi2',width:80"><div>抄表日期</div></th>
+                    <th data-options="field:'chaodianbiao_riqi1',width:80"><div>上次抄表日期</div></th>
+                    <th data-options="field:'chaodianbiao_dushu2',width:90"><div>读数</div></th>
+                    <th data-options="field:'chaodianbiao_dushu1',width:90"><div>上次读数</div></th>
+                    <th data-options="field:'chaodianbiao_dian',width:60"><div>电(度)</div></th>
+                    <th data-options="field:'chaodianbiao_dian_danjia',width:90"><div>电单价</div></th>
+                    <th data-options="field:'chaodianbiao_dian_jine',width:90"><div>金额</div></th>
+                    <th data-options="field:'chaodianbiao_fentanrenshu',width:60"><div>分摊人数</div></th>
+                    <th data-options="field:'chaodianbiao_yj_fentanrenshu',width:60"><div>已纳费人数</div></th>
+                    <th data-options="field:'chaodianbiao_zhidanshijian',width:130"><div>制单时间</div></th>
+                    <th data-options="field:'chaodianbiao_zhidanren'">制单人</th>
+                    <th data-options="field:'chaodianbiao_zhidanren_zj'">制单人主键</th>
+                    <th data-options="field:'chaodianbiao_zt',width:60,formatter:f_common_style"><div>状态</div></th>
+                    <th data-options="field:'chaodianbiao_gelibiaoshi'">隔离标识</th>
                 </tr>
             </thead>
         </table>
@@ -66,8 +87,7 @@
                 <a href="javascript:void(0)" iconCls="icon-tip" class="easyui-linkbutton" plain="true" onclick="f_condition()">过滤条件</a>
             </div>
             <div>
-                <select onchange="$('#dg').datagrid({singleSelect: (this.value == 0)});
-                        pageCN('dg', 100)">
+                <select onchange="$('#dg').datagrid({singleSelect: (this.value == 0)});">
                     <option value="0">单行选择</option>
                     <option value="1">多行选择</option>
                 </select>

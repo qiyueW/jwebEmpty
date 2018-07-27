@@ -11,6 +11,7 @@ public class ChaoShuibiaoFengtan {
     private  String chaoshuibiao_zj ;// 水表记录主键 
     private  Double chaoshuibiaofengtan_shui ;// 水 
     private  Double chaoshuibiaofengtan_shui_danjia ;// 水单价 
+    private  Integer chaoshuibiaofengtan_zhanyongtian ;// 占用天数 
     private  Double chaoshuibiaofengtan_feiyong ;// 分摊费 
     @system.base.annotation.Time("yyyy-MM-dd HH:mm:ss")
     private  Date chaoshuibiaofengtan_nfsj ;// 纳费时间
@@ -24,6 +25,7 @@ public class ChaoShuibiaoFengtan {
                 .append(",\"chaoshuibiao_zj\":\"").append(chaoshuibiao_zj).append("\"")
                 .append(",\"chaoshuibiaofengtan_shui\":\"").append(chaoshuibiaofengtan_shui).append("\"")
                 .append(",\"chaoshuibiaofengtan_shui_danjia\":\"").append(chaoshuibiaofengtan_shui_danjia).append("\"")
+                .append(",\"chaoshuibiaofengtan_zhanyongtian\":\"").append(chaoshuibiaofengtan_zhanyongtian).append("\"")
                 .append(",\"chaoshuibiaofengtan_feiyong\":\"").append(chaoshuibiaofengtan_feiyong).append("\"")
                 .append(",\"chaoshuibiaofengtan_nfsj\":\"").append(Tool.dateToString(this.chaoshuibiaofengtan_nfsj, "yyyy-MM-dd HH:mm:ss")).append("\"")
                 .append(",\"chaoshuibiaofengtan_nfr_zj\":\"").append(chaoshuibiaofengtan_nfr_zj).append("\"")
@@ -99,6 +101,23 @@ public class ChaoShuibiaoFengtan {
      */
     public Double getChaoshuibiaofengtan_shui_danjia() {
         return this.chaoshuibiaofengtan_shui_danjia;
+    }
+    /**
+     * 设置 占用天数
+     *
+     * @param chaoshuibiaofengtan_zhanyongtian Integer
+     */
+    public void setChaoshuibiaofengtan_zhanyongtian(Integer chaoshuibiaofengtan_zhanyongtian) {
+        this.chaoshuibiaofengtan_zhanyongtian=chaoshuibiaofengtan_zhanyongtian;
+    }
+
+    /**
+     * 取得 占用天数
+     *
+     * @return Integer
+     */
+    public Integer getChaoshuibiaofengtan_zhanyongtian() {
+        return this.chaoshuibiaofengtan_zhanyongtian;
     }
     /**
      * 设置 分摊费

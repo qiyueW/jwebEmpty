@@ -18,5 +18,14 @@ function f_lou_onHidePanel_combogrid() {
     });
 }
 function f_fang_onHidePanel_combogrid() {
-    FangObj.setValue();
+    FangObj.setValue(function (mycheckData) {
+        $.post(path_home + "/service/chaoshuibiao/select/selectOne/last.jw", {loufang2_zj: mycheckData.id}, function (data) {
+            if (data.chaoshuibiao_dushu2) {
+                $('#chaoshuibiao_dushu1').textbox('setValue', data.chaoshuibiao_dushu2);
+                $('#chaoshuibiao_riqi1').datebox('setValue',data.chaoshuibiao_riqi2);
+            }else{
+                $('#chaoshuibiao_dushu1').textbox('setValue', 0);
+            }
+        }, "json");
+    });
 }

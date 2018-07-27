@@ -3,6 +3,7 @@ CREATE TABLE IF NOT EXISTS `ChaoShuibiaoFengtan`(
     ,`chaoshuibiao_zj` CHAR(24) NOT NULL COMMENT '水表记录主键'
     ,`chaoshuibiaofengtan_shui` DOUBLE(10,1) NOT NULL COMMENT '水'
     ,`chaoshuibiaofengtan_shui_danjia` DOUBLE(7,3) NOT NULL COMMENT '水单价'
+    ,`chaoshuibiaofengtan_zhanyongtian` INT NOT NULL COMMENT '占用天数'
     ,`chaoshuibiaofengtan_feiyong` DOUBLE(10,1) NOT NULL COMMENT '分摊费'
     ,`chaoshuibiaofengtan_nfsj` DATETIME NULL COMMENT '纳费时间'
     ,`chaoshuibiaofengtan_nfr_zj` CHAR(24) NOT NULL COMMENT '纳费人主键'
