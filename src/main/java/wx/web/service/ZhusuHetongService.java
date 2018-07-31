@@ -3,6 +3,10 @@ package wx.web.service;
 import configuration.mvc.BaseService;
 import configuration.DBO;
 import configuration.MsgVO;
+import configuration.Tool;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 import system.base.date.DateService;
@@ -58,6 +62,62 @@ final public class ZhusuHetongService {
                 + "' AND zhusuhetong_gelibiaoshi='" + gelibiaoshi
                 + "' AND zhusuhetong_zt='" + BaseService.SHENHE + "'"
         );
+    }
+
+    public static List<ZhusuHetong> selectByIDs_Shenhe(final String zhusuhetong_zjs) {
+        return DBO.service.S.selectByCondition(ZhusuHetong.class,
+                "WHERE zhusuhetong_zj=" + Tool.replaceDToDDD(zhusuhetong_zjs) + " AND zhusuhetong_zt='" + BaseService.SHENHE + "'"
+        );
+    }
+//---------------------------------------工具区--------------------------------------
+
+    /**
+     * 计算纳费日期
+     *
+     * @param obj ZhusuHetong
+     * @param yearMonth 年月
+     * @return Date
+     */
+    public static Date js_nfrq(final ZhusuHetong obj, String yearMonth) {
+        LocalDate nfrq = Tool.isEmpty(yearMonth) ? LocalDate.now() : DateService.TO.toLocalDate(yearMonth+"-01");//出账日期
+        LocalDate ht = DateService.TO.toLocalDate(obj.getZhusuhetong_kaishiriqi());//签约日期
+        switch (obj.getZhusuhetong_jffs()) {
+            case 1: {//按入住日
+                return 
+                        DateService.TO.toDate(
+                                DateService.NT.nextMonth_jump(//参考入住日，计算x年x月的同天日。
+                                        obj.getZhusuhetong_kaishiriqi(), nfrq.getYear(), nfrq.getMonthValue()
+                                ));
+            }
+            case 2: {//每月月底
+                
+            }
+            case 3: {//每月x号
+
+            }
+        }
+        return new Date();
+    }
+
+    public static void main(String args[]) {
+        LocalDate ld = LocalDate.parse("2018-07-11", DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        LocalDate nextMonth_jump = nextMonth_jump(
+                Date.from(ld.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()), 2018, 9);
+//        DateService.TO.toLocalDate("1988-08");//出账日期
+//        DateService.TO.toDate(nextMonth_jump);
+        System.out.println(nextMonth_jump.getMonthValue());
+    }
+
+    final static public LocalDate nextMonth_jump(Date date, int year, int month) {
+
+        LocalDate ld1 = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+//        LocalDate.parse("1988-08-02", DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+//        DateService.TO.toLocalDate(date);
+        LocalDate now = LocalDate.of(year, month, 1);
+        int i = ld1.getDayOfMonth() > now.lengthOfMonth()
+                ? now.lengthOfMonth()
+                : ld1.getDayOfMonth();
+        return now.plusDays(--i);
     }
 //---------------------------------------统计区--------------------------------------
 

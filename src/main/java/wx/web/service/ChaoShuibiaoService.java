@@ -10,6 +10,7 @@ import wx.web.bean.ChaoShuibiao;
 import wx.web.bean.ChaoShuibiaoFengtan;
 import wx.web.bean.LoufangFYBZ;
 import wx.web.bean.ZhusuHetong;
+import wx.web.service.vo.ShuiDianVO;
 
 /**
  *
@@ -76,7 +77,41 @@ final public class ChaoShuibiaoService {
     public static List<ChaoShuibiaoFengtan> select2(String pid) {
         return DBO.service.S.selectByCondition(ChaoShuibiaoFengtan.class, "WHERE " + PK1 + " IN('" + pid + "')");
     }
+
+    /**
+     * 取得更新纳费时间的sql语句。(只语句紧更新时间)
+     *
+     * @param cdbf
+     * @return
+     */
+    public static String getUpdateSQL_nfsj(ChaoShuibiaoFengtan cdbf) {
+        return DBO.service.SQL.updateSome_alloy(cdbf, "chaoshuibiaofengtan_nfsj");
+    }
+
+    /**
+     * 找出所有未纳费人的（注意：无视隔离标识）
+     *
+     * @param ry_zj
+     * @return
+     */
+    public static List<ChaoShuibiaoFengtan> select_feiyong(String ry_zj) {
+        return Tool.isEmpty(ry_zj)
+                ? DBO.service.S.selectByCondition(ChaoShuibiaoFengtan.class, "WHERE chaoshuibiaofengtan_nfsj IS NULL")
+                : DBO.service.S.selectByCondition(ChaoShuibiaoFengtan.class, "WHERE chaoshuibiaofengtan_nfsj IS NULL AND chaoshuibiaofengtan_nfr_zj='" + ry_zj + "'");
+    }
 //---------------------------------------统计区--------------------------------------
+
+    public static ShuiDianVO tj_feiyong(List<ChaoShuibiaoFengtan> list, String ry_zj) {
+        double x = 0D;
+        StringBuilder sb = new StringBuilder();
+        for (ChaoShuibiaoFengtan obj : list) {
+            if (obj.getChaoshuibiaofengtan_nfr_zj().equals(ry_zj)) {
+                x = x + obj.getChaoshuibiaofengtan_feiyong();
+                sb.append(",").append(obj.getChaoshuibiaofengtan_zj());
+            }
+        }
+        return new ShuiDianVO(x, sb.length() == 0 ? "" : sb.substring(1));
+    }
 
     /**
      * 统计表头数据(条件为null或为空时，表示统计整张表)

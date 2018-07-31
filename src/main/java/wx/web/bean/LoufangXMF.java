@@ -1,7 +1,5 @@
 package wx.web.bean;
 
-import configuration.Tool;
-
 @system.base.annotation.Table
 public class LoufangXMF {
 

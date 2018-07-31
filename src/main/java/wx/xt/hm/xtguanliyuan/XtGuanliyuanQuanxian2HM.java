@@ -40,7 +40,7 @@ public class XtGuanliyuanQuanxian2HM {
         	 jw.printOne(XtGuanliyuanService.update_quanxian(newAdmin));
         	 return;
         }
-        XtGuanliyuan admin2=Gelibiaoshi.getAdminInfoBySession(jw);
+        //XtGuanliyuan admin2=Gelibiaoshi.getAdminInfoBySession(jw);
         jw.printOne(XtGuanliyuanService.update_quanxian(newAdmin));
         
     }

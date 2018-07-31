@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+        <action>
+            <actionName>CUSTOM-jetty</actionName>
+            <displayName>jetty</displayName>
+            <recursive>false</recursive>
+            <goals>
+                <goal>jetty:run</goal>
+            </goals>
+            <properties>
+                <skipTests>true</skipTests>
+                <Env.JAVA_HOME>C:\Program Files\Java\jdk1.8.0_172</Env.JAVA_HOME>
+            </properties>
+        </action>
+    </actions>
