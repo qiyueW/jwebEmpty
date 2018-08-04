@@ -99,6 +99,16 @@ final public class ChaoDianbiaoService {
                 ? DBO.service.S.selectByCondition(ChaoDianbiaoFengtan.class, "WHERE chaodianbiaofengtan_nfsj IS NULL")
                 : DBO.service.S.selectByCondition(ChaoDianbiaoFengtan.class, "WHERE chaodianbiaofengtan_nfsj IS NULL AND chaodianbiaofengtan_nfr_zj='" + ry_zj + "'");
     }
+
+    public static String getSQL_update_feiyong_nfsj(String date, String ids) {
+        if (Tool.isEmpty(ids)) {
+            return "";
+        }
+        if (Tool.isEmpty(date)) {
+            return "UPDATE ChaoDianbiaoFengtan SET chaodianbiaofengtan_nfsj=null WHERE chaodianbiaofengtan_zj IN(" + Tool.replaceDToDDD(ids) + ")";
+        }
+        return "UPDATE ChaoDianbiaoFengtan SET chaodianbiaofengtan_nfsj='" + date + "' WHERE chaodianbiaofengtan_zj IN(" + Tool.replaceDToDDD(ids) + ")";
+    }
 //---------------------------------------统计区--------------------------------------
 
     public static ShuiDianVO tj_feiyong(List<ChaoDianbiaoFengtan> list, String ry_zj) {
@@ -159,9 +169,9 @@ final public class ChaoDianbiaoService {
         } else {//表示更新，从旧记录中取出数据
             obj2 = select2(obj.getChaodianbiao_zj());
         }
-        for (ChaoDianbiaoFengtan cbobj : obj2) {
-            countDay = countDay + cbobj.getChaodianbiaofengtan_zhanyongtian();
-        }
+//        for (ChaoDianbiaoFengtan cbobj : obj2) {
+//            countDay = countDay + cbobj.getChaodianbiaofengtan_zhanyongtian();
+//        }
         double ft_zyb_dian = obj.getChaodianbiao_dian() / countDay;//分摊，每1份天，占用的水
         for (ChaoDianbiaoFengtan cbobj : obj2) {
             //分到的水

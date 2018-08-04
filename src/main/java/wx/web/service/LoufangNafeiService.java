@@ -3,8 +3,12 @@ package wx.web.service;
 import configuration.mvc.BaseService;
 import configuration.DBO;
 import configuration.MsgVO;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+import system.base.date.DateService;
 import wx.web.bean.ChaoDianbiaoFengtan;
 import wx.web.bean.ChaoShuibiaoFengtan;
 import wx.web.bean.LoufangNafei;
@@ -61,30 +65,63 @@ final public class LoufangNafeiService {
     /**
      * 添加数据
      *
-     * @param obj
+     * @param list
+     * @param nfrq
      * @return
      */
-    public static MsgVO addOne(LoufangNafei obj) {
-        obj.setLoufangnafei_zt(0);
-        obj.setLoufangnafei_chuzhangshijian(new Date());
-        int i = DBO.service.A.addOne(obj);
+    public static MsgVO addVast(List<ZhusuHetong> list, Date nfrq) {
         List<ChaoDianbiaoFengtan> dianF = ChaoDianbiaoService.select_feiyong(null);
         List<ChaoShuibiaoFengtan> shuiF = ChaoShuibiaoService.select_feiyong(null);
+        Date zhidanriqi = new Date();
+        String zhidanshijian = DateService.getDate(zhidanriqi, "yyyy-MM-dd HH:mm:ss");
 
-        return MsgVO.setAddRS(i);
+        List<LoufangNafei> nflist = new ArrayList<>(list.size());
+        StringBuilder idDian = new StringBuilder();
+        StringBuilder idShui = new StringBuilder();
+        for (ZhusuHetong htObj : list) {
+            nflist.add(
+                    iniOne(htObj, dianF, shuiF, nfrq, zhidanriqi, idDian, idShui)
+            );
+        }
+        Set<String> sql = new HashSet();
+        sql.add(DBO.service.SQL.addVast(nflist));
+        if (idShui.length() > 0) {//更新水表的
+            sql.add(ChaoShuibiaoService.getSQL_update_feiyong_nfsj(zhidanshijian, idShui.substring(1)));
+        }
+        if (idDian.length() > 0) {//更新电表的
+            sql.add(ChaoDianbiaoService.getSQL_update_feiyong_nfsj(zhidanshijian, idDian.substring(1)));
+        }
+        int i[] = DBO.service.ADUS.executeBatch(sql.toArray(new String[sql.size()]));
+//        int i = DBO.service.A.addVast(nflist);
+        return i[0] > 0 ? MsgVO.setOK("出账成功" + i[1] + "条记录") : MsgVO.setError("没有或出账数据");
     }
 
-    public static LoufangNafei iniOne(ZhusuHetong htObj, List<ChaoDianbiaoFengtan> dianF, List<ChaoShuibiaoFengtan> shuiF, Date now) {
+    /**
+     *
+     * @param htObj 合同对象
+     * @param dianF 电费集合
+     * @param shuiF 水费集合
+     * @param nfrq 纳费月份
+     * @param zhidanriqi 制单日期
+     * @param idDian
+     * @param idShui
+     * @return LoufangNafei
+     */
+    public static LoufangNafei iniOne(ZhusuHetong htObj,
+            List<ChaoDianbiaoFengtan> dianF, List<ChaoShuibiaoFengtan> shuiF,
+            Date nfrq, Date zhidanriqi,
+            StringBuilder idDian, StringBuilder idShui) {
         LoufangNafei obj = new LoufangNafei();
         obj.setLoufangnafei_zt(0);
-        obj.setLoufangnafei_chuzhangshijian(null == now ? new Date() : now);
+        obj.setLoufangnafei_gelibiaoshi(htObj.getZhusuhetong_gelibiaoshi());
+        obj.setLoufangnafei_chuzhangshijian(null == zhidanriqi ? new Date() : zhidanriqi);
         //应纳费人
         obj.setLoufangnafei_ren(htObj.getZhusuhetong_qianyueren());
         obj.setLoufangnafei_ren_zj(htObj.getZhusuhetong_qianyueren_zj());
         //应该纳费日期
-        obj.setLoufangnafei_yingnariqi(null);
+        obj.setLoufangnafei_yingnariqi(ZhusuHetongService.js_nfrq(htObj, nfrq));
         //楼，楼编号
-        obj.setLoufangnafei_lou_mc(htObj.getZhusuhetong_loufang_zj());
+        obj.setLoufangnafei_lou_mc(htObj.getZhusuhetong_loufang_mc());
         obj.setLoufangnafei_lou_zj(htObj.getZhusuhetong_loufang_zj());
         //房，房编号
         obj.setLoufangnafei_fang_bianma(htObj.getZhusuhetong_loufang2_bianhao());
@@ -99,12 +136,22 @@ final public class LoufangNafeiService {
         sdvo = ChaoShuibiaoService.tj_feiyong(shuiF, htObj.getZhusuhetong_qianyueren_zj());
         obj.setLoufangnafei_feiyong_shui(sdvo.sum);
         obj.setLoufangnafei_feiyong_shui_zj(sdvo.ids);
+        if (sdvo.ids.length() > 0) {
+            idShui.append(",").append(sdvo.ids);
+        }
         //电
         sdvo = ChaoDianbiaoService.tj_feiyong(dianF, htObj.getZhusuhetong_qianyueren_zj());
         obj.setLoufangnafei_feiyong_dian(sdvo.sum);
         obj.setLoufangnafei_feiyong_dian_zj(sdvo.ids);
-
-        int i = DBO.service.A.addOne(obj);
+        if (sdvo.ids.length() > 0) {
+            idDian.append(",").append(sdvo.ids);
+        }
+        //总费用
+        obj.setLoufangnafei_zongfeiyong(
+                obj.getLoufangnafei_fangzu() + obj.getLoufangnafei_feiyong_xm() + obj.getLoufangnafei_feiyong_shui() + obj.getLoufangnafei_feiyong_dian()
+        );
+        //锁定已交的费用为0
+        obj.setLoufangnafei_zongfeiyong2(0D);
         return obj;
     }
 

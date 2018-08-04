@@ -19,13 +19,13 @@ public class LoufangNafeiHM {
         this.jw = jw;
     }
 //===================添加操作=============================    
-    @system.web.power.ann.SQ("loufangnafeiA")
-    @M("/save")
-    @Validate(wx.web.validate.LoufangNafeiValidate.class)
-    public void add() {
-        LoufangNafei obj = jw.getObject(LoufangNafei.class);
-        jw.printOne(LoufangNafeiService.addOne(obj));
-    }
+//    @system.web.power.ann.SQ("loufangnafeiA")
+//    @M("/save")
+//    @Validate(wx.web.validate.LoufangNafeiValidate.class)
+//    public void add() {
+//        LoufangNafei obj = jw.getObject(LoufangNafei.class);
+//        jw.printOne(LoufangNafeiService.addOne(obj));
+//    }
 //===================删除操作=============================    
     @system.web.power.ann.SQ("loufangnafeiD")
     @M("/remove")

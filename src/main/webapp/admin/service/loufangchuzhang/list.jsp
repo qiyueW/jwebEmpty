@@ -1,4 +1,3 @@
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!--后台UI组件Start-->
 <!DOCTYPE html>
@@ -124,9 +123,9 @@
                     <option value="0">单行选择</option>
                     <option value="1">多行选择</option>
                 </select>
-                <a href="javascript:void(0)" iconCls="icon-edit" class="easyui-linkbutton" plain="true" onclick="updateRow1()">一键出选定楼上月账</a>
-                <a href="javascript:void(0)" iconCls="icon-edit" class="easyui-linkbutton" plain="true" onclick="updateRow2()">一键出选定楼本月账</a>
-                <a href="javascript:void(0)" iconCls="icon-edit" class="easyui-linkbutton" plain="true" onclick="updateRow()">自定义出账</a>
+                <a href="javascript:void(0)" iconCls="icon-edit" class="easyui-linkbutton" plain="true" onclick="update1()">一键出选定楼上月账</a>
+                <a href="javascript:void(0)" iconCls="icon-edit" class="easyui-linkbutton" plain="true" onclick="update2()">一键出选定楼本月账</a>
+                <a href="javascript:void(0)" iconCls="icon-edit" class="easyui-linkbutton" plain="true" onclick="update()">自定义出账</a>
             </div>
         </div>
         <div id="showUpdatePage" class="easyui-window" style="overflow: hidden" fit="true"

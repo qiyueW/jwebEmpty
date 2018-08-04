@@ -5,27 +5,12 @@ function f_gridMenu(e, rowIndex, rowData) {         //右击事件
     });
     e.preventDefault();         //阻止浏览器自带的右键菜单弹出
 }
-function dellRow() {
-    var rows = $('#dg').datagrid('getSelections');
-    if (!rows[0]) {
-        $.messager.alert('提示', '请选择行');
-        return;
-    } 
-    else if (rows[0].chaoshuibiao_zt != '0') {
-        $.messager.alert('异常', '单据锁定，无法删除');
-        return;
-    }
-    easyuiAjax("/service/chaoshuibiao/remove.jw", {id: rows[0].chaoshuibiao_zj}, "请确认删除操作", function () {
-        easyuiGridReload('dg')
-    });
-}
 function updateRow() {
     var rows = $('#dg').datagrid('getSelections');
     if (!rows[0]) {
         $.messager.alert('提示', '请选择行');
         return;
-    } 
-    else if (rows[0].chaoshuibiao_zt != '0') {
+    } else if (rows[0].chaoshuibiao_zt != '0') {
         $.messager.alert('异常', '单据锁定，无法修改');
         return;
     }
@@ -42,24 +27,36 @@ function seeRow() {
 }
 
 //-------------------------单据状态管理-------------------------                
-function update01() {//审核
-    var rows = $('#dg').datagrid('getSelections');
-    if (!rows[0]) {
-        $.messager.alert('提示', '请选择行');
+function update1() {//上月楼，一键出账。
+    var lou_zj = $('#chaoshuibiao_loufang_zj').val();
+    if (!lou_zj) {
+        $.messager.alert('提示', '请先选择楼房');
         return;
     }
-    easyuiAjax("/service/chaoshuibiao/update/examine.jw", {ids: easyuiGetRowsID(rows, 'chaoshuibiao_zj')}, "请确认审核操作", function () {
-        easyuiGridReload('dg')
+    var date = new Date();
+    var mydate;
+    if (date.getMonth() == 0) {
+        mydate = date.getFullYear() - 1 + "-12";
+    } else {
+        mydate = date.getFullYear() + (date.getMonth() < 10 ? "-0" : "-") + date.getMonth();
+    }
+    easyuiAjax("/service/loufangchuzhang/save.jw", {
+        lou: lou_zj, yearMoth: mydate
+    }, "请确认" + mydate + "月份的出账", function () {
+
     });
 }
-function update10() {//反审核
-    var rows = $('#dg').datagrid('getSelections');
-    if (!rows[0]) {
-        $.messager.alert('提示', '请选择行');
+function update2() {//上月楼，一键出账。
+    var lou_zj = $('#chaoshuibiao_loufang_zj').val();
+    if (!lou_zj) {
+        $.messager.alert('提示', '请先选择楼房');
         return;
     }
-    easyuiAjax("/service/chaoshuibiao/update/unexamine.jw", {ids: easyuiGetRowsID(rows, 'chaoshuibiao_zj')}, "请确认反审核操作", function () {
-        easyuiGridReload('dg')
+    var date = new Date();
+    var mydate = date.getFullYear() + (date.getMonth() < 10 ? "-0" : "-") + (date.getMonth()+1);
+    easyuiAjax("/service/loufangchuzhang/save.jw", {
+        lou: lou_zj, yearMoth: mydate
+    }, "请确认" + mydate + "月份的出账", function () {
     });
 }
 function update04() {//作废
@@ -104,6 +101,6 @@ function f_closeCondition() {
 function f_queryByCondition(jsonData) {
     $('#showConditionPage').panel('close');
     var queryParams = $('#dg').datagrid('options').queryParams;
-    queryParams.key =jsonData;
+    queryParams.key = jsonData;
     $('#dg').datagrid('reload');
 }

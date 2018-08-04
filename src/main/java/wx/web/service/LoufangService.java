@@ -8,6 +8,8 @@ import java.util.List;
 
 import wx.web.bean.Loufang;
 import wx.web.bean.Loufang2;
+import wx.web.bean.ZhusuHetong;
+import wx.web.service.vo.FangHTVO;
 
 /**
  *
@@ -19,7 +21,7 @@ final public class LoufangService {
     private static final String PK1 = "loufang_zj";
     private static final String STYLE1 = "loufang_zt";
     private static final String GE_LI_BIAO_SHI = "loufang_gelibiaoshi";
-    private static final String FANGJIAN_LX_DANJIAN = "单间";
+    public static final String FANGJIAN_LX_DANJIAN = "单间";
 //---------------------------------------查询---------------------------------------
 
     /**
@@ -193,6 +195,32 @@ final public class LoufangService {
         sql[0] = DBO.service.SQL.updateSome_alloy(obj, "loufang_danjian_chuangwei2,loufang_taojian_chuangwei2");
         sql[1] = DBO.service.SQL.updateSome_alloy(obj2, "loufang2_ruzhurenshu,loufang2_ruzhuren_zj");
         return sql;
+    }
+
+    /**
+     * 合同变更时（人员退房、作废时、删除时、新增合同、重启反作废时）
+     *
+     * @param zhobj 针对一个合同处理（当不为null时，只执行此记录）
+     * @param zhList 针对多个合同处理（当zhobj为null时，执行此记录）
+     * @param isAdd 是否
+     * @return List sql语句
+     */
+    public static List<String> getSql_updateLoufang(ZhusuHetong zhobj, List<ZhusuHetong> zhList, boolean isAdd) {
+        FangHTVO vo = new FangHTVO();
+        if (null != zhobj) {
+            vo.dellOrVoidHT(vo.getLoufang(zhobj), vo.getLoufang2(zhobj), zhobj.getZhusuhetong_qianyueren_zj());
+        } else {
+            if (isAdd) {
+                for (ZhusuHetong zh : zhList) {
+                    vo.addHT(vo.getLoufang(zh), vo.getLoufang2(zh), zh.getZhusuhetong_qianyueren_zj());
+                }
+            } else {
+                for (ZhusuHetong zh : zhList) {
+                    vo.dellOrVoidHT(vo.getLoufang(zh), vo.getLoufang2(zh), zh.getZhusuhetong_qianyueren_zj());
+                }
+            }
+        }
+        return FangHTVO.getSQL_ByHT(vo, null);
     }
 
     public static void sumLoufang_add(final Loufang obj, final List<Loufang2> list, final String gelibiaoshi) {

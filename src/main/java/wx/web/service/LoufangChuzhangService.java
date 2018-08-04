@@ -16,7 +16,6 @@ final public class LoufangChuzhangService {
 
 //---------------------------------------查询---------------------------------------
 //---------------------------------------统计区--------------------------------------
-
     /**
      * 统计表头数据(条件为null或为空时，表示统计整张表)
      *
@@ -31,23 +30,11 @@ final public class LoufangChuzhangService {
     /**
      * 添加数据
      *
-     * @param hetong_zjs
-     * @param ryObj
+     * @param htObj
+     * @param nfrq
      * @return
      */
-    public static MsgVO addOne(String hetong_zjs, RY ryObj) {
-        List<ZhusuHetong> htObj = ZhusuHetongService.selectByIDs_Shenhe(hetong_zjs);
-        if (null == htObj || htObj.isEmpty()) {
-            return MsgVO.setError("没找到可用的合同。请检查合同是否已经【审核】");
-        }
-        if (ZhusuHetongService.isErrorGelibiaoshiVast(htObj, ryObj.getRy_gelibiaoshi())) {//跨域
-            return null;
-        }
-        LoufangNafei obj=new LoufangNafei();
-        Date now=new Date();
-        obj.setLoufangnafei_chuzhangshijian(now);
-        obj.setLoufangnafei_fang_bianma(hetong_zjs);
-        LoufangNafeiService.addOne(obj);
-        return MsgVO.setAddRS(1);
+    public static MsgVO addOne(List<ZhusuHetong> htObj, Date nfrq) {
+        return LoufangNafeiService.addVast(htObj,nfrq);
     }
 }

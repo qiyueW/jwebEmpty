@@ -1,14 +1,21 @@
 package wx.web.hm;
 
+import configuration.MsgVO;
 import configuration.Page;
 import system.base.annotation.H;
 import system.base.annotation.M;
 import system.base.annotation.Validate;
 import system.web.JWeb;
 import configuration.Tool;
+import java.util.Date;
+import java.util.List;
 import plugins.easyui.EasyuiService;
+import system.base.date.DateService;
 import wx.web.bean.LoufangNafei;
+import wx.web.bean.ZhusuHetong;
+import wx.web.service.LoufangChuzhangService;
 import wx.web.service.LoufangNafeiService;
+import wx.web.service.ZhusuHetongService;
 import wx.xt.Gelibiaoshi;
 
 @H("/service/loufangchuzhang")
@@ -23,10 +30,30 @@ public class LoufangChuzhangHM {
 
     @system.web.power.ann.SQ("loufangchuzhangA")
     @M("/save")
-    @Validate(wx.web.validate.LoufangNafeiValidate.class)
     public void add() {
-        LoufangNafei obj = jw.getObject(LoufangNafei.class);
-        jw.printOne(LoufangNafeiService.addOne(obj));
+        String yearMonth = jw.getString("yearMoth", "");
+        String lou = jw.getString("lou");//出整栋楼的账
+        String fang = jw.getString("fang");//出指定房的账
+        String hetong_zjs = jw.getString("zhusuhetong_zjs", "");//出具体到合同的人的账。
+        List<ZhusuHetong> htObj;
+        if (yearMonth.isEmpty()) {
+            return;
+        }
+        if (lou.length() == 24) {
+            htObj = ZhusuHetongService.selectByLouZJ_Shenhe(lou);
+        } else if (fang.length() == 24) {
+            htObj = ZhusuHetongService.selectByFangZJ_Shenhe(fang);
+        } else {
+            htObj = ZhusuHetongService.selectByIDs_Shenhe(hetong_zjs);
+        }
+        if (null == htObj || htObj.isEmpty()) {
+            MsgVO.setError("没找到可用的合同。请检查合同是否已经【审核】");
+        }
+        if (ZhusuHetongService.isErrorGelibiaoshiVast(htObj, Gelibiaoshi.getGelibiaoshi(jw))) {//跨域
+            return;
+        }
+        Date date=DateService.TO.toDate(yearMonth + "-01");
+        jw.printOne(LoufangChuzhangService.addOne(htObj,date));
     }
 //===================删除操作=============================    
 
